@@ -86,7 +86,7 @@
     padding:12px 10px;border-radius:10px;
     cursor:pointer;margin-bottom:2px;
     border:1px solid transparent;
-    transition:background 0.15s ease;
+    transition:background 0.15s ease, border-color 0.15s ease;
   }
   .client-row:hover{background:var(--paper);}
   .client-row.active{background:var(--brand-dim);border-color:var(--brand);}
@@ -102,10 +102,13 @@
   .client-row .flag{
     font-size:10px;font-weight:600;padding:2px 6px;border-radius:5px;
     background:var(--signal-dim);color:var(--signal);
-    letter-spacing:0.02em;
+    letter-spacing:0.02em;flex-shrink:0;
   }
 
-  .detail{padding:32px 40px;max-width:920px;}
+  .detail{
+    padding:32px 40px;max-width:920px;
+    transition:opacity 0.1s ease;
+  }
 
   .client-header{
     display:flex;align-items:center;justify-content:space-between;
@@ -153,12 +156,19 @@
     display:flex;flex-direction:column;justify-content:center;
     border-left:3px solid var(--signal);
   }
+  .signal-card.ok{
+    background:var(--progress-dim);
+    border-left-color:var(--progress);
+  }
   .signal-card .tag{
     font-size:11px;text-transform:uppercase;letter-spacing:0.08em;
     color:var(--signal);font-weight:600;margin:0 0 6px;
   }
+  .signal-card.ok .tag{color:var(--progress);}
   .signal-card .title{font-size:16px;font-weight:600;margin:0 0 4px;color:#5C2622;}
+  .signal-card.ok .title{color:#1E4D30;}
   .signal-card .sub{font-size:12.5px;color:#7A3A34;margin:0;}
+  .signal-card.ok .sub{color:#3A6B4E;}
 
   .section-label{
     font-size:12px;text-transform:uppercase;letter-spacing:0.08em;
@@ -182,7 +192,7 @@
     border-radius:16px;padding:22px 26px;
   }
   .trend-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px;}
-  .trend-head .arrow{color:var(--progress);font-size:13px;font-weight:600;}
+  .trend-head .arrow{font-size:13px;font-weight:600;}
 
   ::-webkit-scrollbar{width:8px;}
   ::-webkit-scrollbar-thumb{background:var(--line-strong);border-radius:8px;}
@@ -212,58 +222,204 @@
 </div>
 
 <div class="layout">
-
   <div class="roster">
     <div class="roster-head">
       <h2>Meine Kunden</h2>
-      <span class="count">4</span>
+      <span class="count" id="roster-count"></span>
     </div>
-
-    <div class="client-row">
-      <span class="dot signal"></span>
-      <div class="info">
-        <p class="cname">Anna Kessler</p>
-        <p class="cmeta">KKS 34 &middot; sinkend</p>
-      </div>
-      <span class="flag">Schmerz</span>
-    </div>
-
-    <div class="client-row active">
-      <span class="dot neutral"></span>
-      <div class="info">
-        <p class="cname">Markus Häusler</p>
-        <p class="cmeta">KKS 15 &middot; stabil</p>
-      </div>
-    </div>
-
-    <div class="client-row">
-      <span class="dot progress"></span>
-      <div class="info">
-        <p class="cname">Peter Stauber</p>
-        <p class="cmeta">KKS 88 &middot; steigend</p>
-      </div>
-    </div>
-
-    <div class="client-row">
-      <span class="dot progress"></span>
-      <div class="info">
-        <p class="cname">Julia Wenzel</p>
-        <p class="cmeta">KKS 102 &middot; steigend</p>
-      </div>
-    </div>
+    <div id="roster-list"></div>
   </div>
+  <div class="detail" id="detail"></div>
+</div>
 
-  <div class="detail">
+<script>
+const CLIENTS = [
+  {
+    id: 'anna',
+    name: 'Anna Kessler',
+    initials: 'AK',
+    kks: 34,
+    trendLabel: 'sinkend',
+    trendDir: 'down',
+    dotClass: 'signal',
+    flag: 'Schmerz',
+    since: '15.01.2026',
+    week: '24 von 24',
+    signal: {
+      title: 'Anhaltende LWS-Beschwerden',
+      sub: 'Gemeldet im Check-in vom 02.07.2026 \u00b7 noch nicht bearbeitet'
+    },
+    checkins: [
+      { date: '02.07.', text: 'LWS-Schmerzen beim B\u00fccken, kaum Schlaf diese Woche.', score: 2 },
+      { date: '25.06.', text: 'Leichte Besserung sp\u00fcrbar, Dehn-\u00dcbungen helfen etwas.', score: 3 },
+      { date: '18.06.', text: 'Starke R\u00fcckenschmerzen, Training pausiert.', score: 1 },
+    ],
+    trendPts: '0,62 130,64 260,67 390,70 520,72 650,74 780,73',
+    trendText: '\u2198 sinkend \u2014 R\u00fcckgang \u00fcber letzte 3 Screenings',
+  },
+  {
+    id: 'markus',
+    name: 'Markus H\u00e4usler',
+    initials: 'MH',
+    kks: 15,
+    trendLabel: 'stabil',
+    trendDir: 'stable',
+    dotClass: 'neutral',
+    flag: null,
+    since: '02.07.2025',
+    week: '17 von 24',
+    signal: {
+      title: 'Schmerz beim \u00dcberkopfdr\u00fccken',
+      sub: 'Gemeldet im Check-in vom 30.06.2026 \u00b7 noch nicht bearbeitet'
+    },
+    checkins: [
+      { date: '30.06.', text: 'Schulter beim \u00dcberkopfdr\u00fccken schmerzhaft, Belastung reduziert.', score: 2 },
+      { date: '23.06.', text: 'L\u00e4uft stabil, drei Trainingseinheiten wie geplant geschafft.', score: 4 },
+      { date: '16.06.', text: 'Mehr Beweglichkeit im Nacken bemerkt, \u00dcbungen sitzen gut.', score: 4 },
+    ],
+    trendPts: '0,78 130,68 260,55 390,42 520,30 650,20 780,12',
+    trendText: '\u2197 steigend \u00fcber 6 Screenings',
+  },
+  {
+    id: 'peter',
+    name: 'Peter Stauber',
+    initials: 'PS',
+    kks: 88,
+    trendLabel: 'steigend',
+    trendDir: 'up',
+    dotClass: 'progress',
+    flag: null,
+    since: '10.03.2026',
+    week: '9 von 24',
+    signal: null,
+    checkins: [
+      { date: '01.07.', text: 'Kraftwerte deutlich gestiegen, f\u00fchlt sich fit und motiviert.', score: 5 },
+      { date: '24.06.', text: 'Neues \u00dcbungsprogramm gut angekommen, Schlaf verbessert.', score: 5 },
+      { date: '17.06.', text: 'Leichte Muskelerm\u00fcdung, aber grunds\u00e4tzlich auf Kurs.', score: 4 },
+    ],
+    trendPts: '0,85 130,72 260,58 390,44 520,32 650,22 780,14',
+    trendText: '\u2197 steigend \u00fcber 6 Screenings',
+  },
+  {
+    id: 'julia',
+    name: 'Julia Wenzel',
+    initials: 'JW',
+    kks: 102,
+    trendLabel: 'steigend',
+    trendDir: 'up',
+    dotClass: 'progress',
+    flag: null,
+    since: '15.11.2025',
+    week: '21 von 24',
+    signal: null,
+    checkins: [
+      { date: '30.06.', text: 'Haltung deutlich verbessert, Kolleginnen haben es bemerkt.', score: 5 },
+      { date: '23.06.', text: 'Yoga-\u00dcbungen integriert, deutlich mehr Energie im Alltag.', score: 5 },
+      { date: '16.06.', text: 'Gelegentliche HWS-Spannung, sonst alles gut.', score: 4 },
+    ],
+    trendPts: '0,82 130,68 260,54 390,40 520,28 650,18 780,10',
+    trendText: '\u2197 steigend \u00fcber 6 Screenings',
+  },
+  {
+    id: 'tobias',
+    name: 'Tobias Merz',
+    initials: 'TM',
+    kks: 57,
+    trendLabel: 'stabil',
+    trendDir: 'stable',
+    dotClass: 'neutral',
+    flag: null,
+    since: '01.04.2026',
+    week: '14 von 24',
+    signal: null,
+    checkins: [
+      { date: '04.07.', text: 'Programm gut etabliert, erste sp\u00fcrbare Fortschritte.', score: 4 },
+      { date: '27.06.', text: 'Dehn-Routinen sitzen jetzt, K\u00f6rpergef\u00fchl verbessert.', score: 4 },
+      { date: '20.06.', text: 'Leichte BWS-Verspannungen nach langen Arbeitstagen.', score: 3 },
+    ],
+    trendPts: '0,65 130,63 260,61 390,59 520,58 650,57 780,55',
+    trendText: '\u2192 stabil \u00fcber 6 Screenings',
+  },
+  {
+    id: 'sandra',
+    name: 'Sandra Brandt',
+    initials: 'SB',
+    kks: 12,
+    trendLabel: 'sinkend',
+    trendDir: 'down',
+    dotClass: 'signal',
+    flag: 'Hilfebedarf',
+    since: '05.05.2026',
+    week: '9 von 24',
+    signal: {
+      title: 'Motivationseinbruch \u2014 Hilfebedarf gemeldet',
+      sub: 'Gemeldet im Check-in vom 03.07.2026 \u00b7 dringend bearbeiten'
+    },
+    checkins: [
+      { date: '03.07.', text: 'F\u00fchlt sich \u00fcberfordert, braucht mehr Unterst\u00fctzung.', score: 1 },
+      { date: '26.06.', text: 'Knieschmerzen nach langer Sitzarbeit, Training unregelm\u00e4\u00dfig.', score: 2 },
+      { date: '19.06.', text: 'Einstieg okay, aber Zeitmanagement ist schwierig.', score: 3 },
+    ],
+    trendPts: '0,56 130,60 260,65 390,72 520,78 650,82 780,84',
+    trendText: '\u2198 sinkend \u2014 Abw\u00e4rtstrend letzte 4 Screenings',
+  },
+];
 
+function gaugeParams(kks) {
+  const p = Math.max(0.001, Math.min(0.999, kks / 165));
+  const angle = Math.PI - p * Math.PI;
+  const r = 55, cx = 70, cy = 80;
+  const ex = (cx + r * Math.cos(angle)).toFixed(1);
+  const ey = (cy - r * Math.sin(angle)).toFixed(1);
+  const largeArc = p > 0.5 ? 1 : 0;
+  const nx = (cx + 42 * Math.cos(angle)).toFixed(1);
+  const ny = (cy - 42 * Math.sin(angle)).toFixed(1);
+  const sub = kks <= 40 ? 'Aufholbedarf' : kks <= 80 ? 'Im Aufbau' : kks <= 120 ? 'Gute Basis' : 'Spitzenbereich';
+  return { ex, ey, largeArc, nx, ny, sub };
+}
+
+function trendColor(dir) {
+  if (dir === 'up') return 'var(--progress)';
+  if (dir === 'down') return 'var(--signal)';
+  return 'var(--text-muted)';
+}
+
+function renderDetail(c) {
+  const g = gaugeParams(c.kks);
+
+  const signalHTML = c.signal
+    ? `<div class="signal-card">
+        <p class="tag">Aktives Signal</p>
+        <p class="title">${c.signal.title}</p>
+        <p class="sub">${c.signal.sub}</p>
+       </div>`
+    : `<div class="signal-card ok">
+        <p class="tag">Signal-Status</p>
+        <p class="title">Kein aktives Signal</p>
+        <p class="sub">Letzter Check-in unauf\u00e4llig \u00b7 weiter beobachten</p>
+       </div>`;
+
+  const checkinsHTML = c.checkins.map(ci => {
+    const cls = ci.score <= 2 ? 'low' : 'ok';
+    return `<div class="tl-row">
+      <span class="tl-date">${ci.date}</span>
+      <span class="tl-text">${ci.text}</span>
+      <span class="tl-score ${cls}">Befinden ${ci.score}/5</span>
+    </div>`;
+  }).join('');
+
+  const col = trendColor(c.trendDir);
+
+  return `
     <div class="client-header">
       <div class="who">
-        <div class="avatar-lg">MH</div>
+        <div class="avatar-lg">${c.initials}</div>
         <div>
-          <h1 class="display">Markus Häusler</h1>
-          <p class="meta">Coaching seit 02.07.2026 &middot; Woche 17 von 24 &middot; Coach: Silvester</p>
+          <h1 class="display">${c.name}</h1>
+          <p class="meta">Coaching seit ${c.since} &middot; Woche ${c.week} &middot; Coach: Silvester</p>
         </div>
       </div>
-      <button class="btn">Notiz hinzufügen</button>
+      <button class="btn">Notiz hinzuf\u00fcgen</button>
     </div>
 
     <div class="instrument-row">
@@ -271,52 +427,75 @@
         <p class="gauge-label display">KKS&#8209;Score</p>
         <svg width="140" height="90" viewBox="0 0 140 90">
           <path d="M 15 80 A 55 55 0 0 1 125 80" fill="none" stroke="#2E4356" stroke-width="10" stroke-linecap="round"/>
-          <path d="M 15 80 A 55 55 0 0 1 46 32" fill="none" stroke="#B7A99C" stroke-width="10" stroke-linecap="round"/>
-          <line x1="70" y1="80" x2="42" y2="42" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+          <path d="M 15 80 A 55 55 0 ${g.largeArc} 1 ${g.ex} ${g.ey}" fill="none" stroke="#B7A99C" stroke-width="10" stroke-linecap="round"/>
+          <line x1="70" y1="80" x2="${g.nx}" y2="${g.ny}" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
           <circle cx="70" cy="80" r="4" fill="#fff"/>
         </svg>
-        <p class="gauge-value mono">15<span>/165</span></p>
-        <p class="gauge-sub">Aufholbedarf</p>
+        <p class="gauge-value mono">${c.kks}<span>/165</span></p>
+        <p class="gauge-sub">${g.sub}</p>
       </div>
-
-      <div class="signal-card">
-        <p class="tag">Aktives Signal</p>
-        <p class="title">Schmerz beim Überkopfdrücken</p>
-        <p class="sub">Gemeldet im Check-in vom 30.06.2026 &middot; noch nicht bearbeitet</p>
-      </div>
+      ${signalHTML}
     </div>
 
     <p class="section-label">Check-in-Verlauf</p>
-    <div class="timeline">
-      <div class="tl-row">
-        <span class="tl-date">30.06.</span>
-        <span class="tl-text">Schulter beim Überkopfdrücken schmerzhaft, Belastung reduziert.</span>
-        <span class="tl-score low">Befinden 2/5</span>
-      </div>
-      <div class="tl-row">
-        <span class="tl-date">23.06.</span>
-        <span class="tl-text">Läuft stabil, drei Trainingseinheiten wie geplant geschafft.</span>
-        <span class="tl-score ok">Befinden 4/5</span>
-      </div>
-      <div class="tl-row">
-        <span class="tl-date">16.06.</span>
-        <span class="tl-text">Mehr Beweglichkeit im Nacken bemerkt, Übungen sitzen gut.</span>
-        <span class="tl-score ok">Befinden 4/5</span>
-      </div>
-    </div>
+    <div class="timeline">${checkinsHTML}</div>
 
     <div class="trend-wrap">
       <div class="trend-head">
         <p class="section-label" style="margin:0;">KKS&#8209;Verlauf</p>
-        <span class="arrow">&#8599; steigend über 6 Screenings</span>
+        <span class="arrow" style="color:${col}">${c.trendText}</span>
       </div>
       <svg width="100%" height="90" viewBox="0 0 820 90" preserveAspectRatio="none">
-        <polyline points="0,78 130,68 260,55 390,42 520,30 650,20 780,12" fill="none" stroke="#4C7A5E" stroke-width="3" stroke-linecap="round"/>
+        <polyline points="${c.trendPts}" fill="none" stroke="${col}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
     </div>
+  `;
+}
 
-  </div>
-</div>
+function renderRoster(activeId) {
+  return CLIENTS.map(c => {
+    const flagHTML = c.flag ? `<span class="flag">${c.flag}</span>` : '';
+    return `<div class="client-row${c.id === activeId ? ' active' : ''}" data-id="${c.id}">
+      <span class="dot ${c.dotClass}"></span>
+      <div class="info">
+        <p class="cname">${c.name}</p>
+        <p class="cmeta">KKS ${c.kks} &middot; ${c.trendLabel}</p>
+      </div>
+      ${flagHTML}
+    </div>`;
+  }).join('');
+}
 
+let activeId = 'markus';
+
+function selectClient(id) {
+  activeId = id;
+  document.querySelectorAll('.client-row').forEach(row => {
+    row.classList.toggle('active', row.dataset.id === id);
+  });
+  const detail = document.getElementById('detail');
+  detail.style.opacity = '0';
+  setTimeout(() => {
+    const client = CLIENTS.find(c => c.id === id);
+    detail.innerHTML = renderDetail(client);
+    detail.style.opacity = '1';
+  }, 110);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('roster-count').textContent = CLIENTS.length;
+  document.getElementById('roster-list').innerHTML = renderRoster(activeId);
+
+  const initial = CLIENTS.find(c => c.id === activeId);
+  document.getElementById('detail').innerHTML = renderDetail(initial);
+
+  document.getElementById('roster-list').addEventListener('click', e => {
+    const row = e.target.closest('[data-id]');
+    if (row && row.dataset.id !== activeId) {
+      selectClient(row.dataset.id);
+    }
+  });
+});
+</script>
 </body>
 </html>
