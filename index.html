@@ -139,6 +139,21 @@
     background: var(--surface); color: var(--text); cursor: pointer;
   }
   .btn:hover { background: var(--bg); }
+  .header-action {
+    display: flex; flex-direction: column; align-items: flex-end; gap: 8px;
+  }
+  .note-box {
+    display: none; width: 260px;
+  }
+  .note-box.open { display: block; }
+  .note-box textarea {
+    width: 100%; min-height: 74px; resize: vertical;
+    font: inherit; font-size: 13px; line-height: 1.4;
+    color: var(--text); background: var(--surface);
+    border: 1px solid var(--sep); border-radius: 10px;
+    padding: 9px 10px; outline: none;
+  }
+  .note-box textarea:focus { border-color: rgba(36,84,166,0.35); }
 
   /* ── Score + Signal row ──────────────────────────── */
   .instrument-row {
@@ -246,6 +261,11 @@
   .screening-score { font-weight: 500; font-variant-numeric: tabular-nums; }
   .screening-note { color: var(--text-2); }
 
+  .footer {
+    padding: 18px 32px 24px;
+    font-size: 11px; color: var(--text-3); text-align: center;
+  }
+
   /* ── Scrollbar ───────────────────────────────────── */
   ::-webkit-scrollbar { width: 6px; }
   ::-webkit-scrollbar-thumb { background: var(--sep); border-radius: 99px; }
@@ -259,9 +279,12 @@
     .detail  { padding: 24px 16px; }
     .client-header { flex-wrap: wrap; gap: 12px; margin-bottom: 28px; }
     .client-header .btn { align-self: flex-start; }
+    .header-action { align-items: flex-start; width: 100%; }
+    .note-box { width: 100%; }
     .tl-row  { grid-template-columns: 52px 1fr; gap: 10px; }
     .screening-row { grid-template-columns: 58px 64px 1fr; gap: 8px; }
     .trend-wrap { padding: 18px 16px; }
+    .footer { padding: 16px 20px 22px; }
   }
 </style>
 </head>
@@ -292,6 +315,7 @@
   </div>
   <div class="detail" id="detail"></div>
 </div>
+<footer class="footer">Coach-Cockpit Prototyp &middot; Demo-Daten &middot; 09.07.2026</footer>
 
 <script>
 const CLIENTS = [
@@ -570,7 +594,12 @@ function renderDetail(c) {
           </p>
         </div>
       </div>
-      <button class="btn">Notiz hinzuf\u00fcgen</button>
+      <div class="header-action">
+        <button class="btn note-toggle" type="button">Notiz hinzuf\u00fcgen</button>
+        <div class="note-box" aria-hidden="true">
+          <textarea placeholder="Kurze Coach-Notiz..."></textarea>
+        </div>
+      </div>
     </div>
 
     <div class="instrument-row">
@@ -645,6 +674,16 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('roster-list').addEventListener('click', e => {
     const row = e.target.closest('[data-id]');
     if (row && row.dataset.id !== activeId) selectClient(row.dataset.id);
+  });
+
+  document.getElementById('detail').addEventListener('click', e => {
+    const button = e.target.closest('.note-toggle');
+    if (!button) return;
+    const box = button.parentElement.querySelector('.note-box');
+    const isOpen = box.classList.toggle('open');
+    box.setAttribute('aria-hidden', String(!isOpen));
+    button.textContent = isOpen ? 'Notiz ausblenden' : 'Notiz hinzuf\u00fcgen';
+    if (isOpen) box.querySelector('textarea').focus();
   });
 });
 </script>
