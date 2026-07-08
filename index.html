@@ -231,6 +231,20 @@
     margin-bottom: 16px;
   }
   .trend-head .arrow { font-size: 13px; font-weight: 500; }
+  .screening-list {
+    margin-top: 18px; padding-top: 14px;
+    border-top: 1px solid var(--sep);
+  }
+  .screening-list .section-label { margin-bottom: 8px; }
+  .screening-row {
+    display: grid; grid-template-columns: 72px 72px 1fr; gap: 12px;
+    padding: 7px 0; align-items: baseline;
+    font-size: 12px; border-bottom: 1px solid rgba(0,0,0,0.04);
+  }
+  .screening-row:last-child { border-bottom: none; }
+  .screening-date { color: var(--text-2); font-variant-numeric: tabular-nums; }
+  .screening-score { font-weight: 500; font-variant-numeric: tabular-nums; }
+  .screening-note { color: var(--text-2); }
 
   /* ── Scrollbar ───────────────────────────────────── */
   ::-webkit-scrollbar { width: 6px; }
@@ -246,6 +260,7 @@
     .client-header { flex-wrap: wrap; gap: 12px; margin-bottom: 28px; }
     .client-header .btn { align-self: flex-start; }
     .tl-row  { grid-template-columns: 52px 1fr; gap: 10px; }
+    .screening-row { grid-template-columns: 58px 64px 1fr; gap: 8px; }
     .trend-wrap { padding: 18px 16px; }
   }
 </style>
@@ -304,6 +319,14 @@ const CLIENTS = [
     ],
     trendPts: '0,62 130,64 260,67 390,70 520,72 650,74 780,73',
     trendText: '\u2198 sinkend \u2014 R\u00fcckgang \u00fcber letzte 3 Screenings',
+    screenings: [
+      { date: '15.01.26', score: 82, note: 'HWS 26 \u00b7 BWS 25 \u00b7 LWS 31' },
+      { date: '12.03.26', score: 74, note: 'HWS 24 \u00b7 BWS 23 \u00b7 LWS 27' },
+      { date: '07.05.26', score: 61, note: 'HWS 21 \u00b7 BWS 20 \u00b7 LWS 20' },
+      { date: '04.06.26', score: 49, note: 'HWS 18 \u00b7 BWS 16 \u00b7 LWS 15' },
+      { date: '18.06.26', score: 38, note: 'HWS 15 \u00b7 BWS 13 \u00b7 LWS 10' },
+      { date: '02.07.26', score: 34, note: 'HWS 14 \u00b7 BWS 12 \u00b7 LWS 8' },
+    ],
   },
   {
     id: 'markus',
@@ -329,6 +352,14 @@ const CLIENTS = [
     ],
     trendPts: '0,78 130,68 260,55 390,42 520,30 650,20 780,12',
     trendText: '\u2197 steigend \u00fcber 6 Screenings',
+    screenings: [
+      { date: '02.07.25', score: 4, note: 'HWS 1 \u00b7 BWS 1 \u00b7 LWS 2' },
+      { date: '27.08.25', score: 7, note: 'HWS 2 \u00b7 BWS 2 \u00b7 LWS 3' },
+      { date: '22.10.25', score: 10, note: 'HWS 3 \u00b7 BWS 3 \u00b7 LWS 4' },
+      { date: '17.12.25', score: 12, note: 'HWS 4 \u00b7 BWS 3 \u00b7 LWS 5' },
+      { date: '11.02.26', score: 14, note: 'HWS 5 \u00b7 BWS 4 \u00b7 LWS 5' },
+      { date: '30.06.26', score: 15, note: 'HWS 5 \u00b7 BWS 5 \u00b7 LWS 5' },
+    ],
   },
   {
     id: 'peter',
@@ -351,6 +382,14 @@ const CLIENTS = [
     ],
     trendPts: '0,85 130,72 260,58 390,44 520,32 650,22 780,14',
     trendText: '\u2197 steigend \u00fcber 6 Screenings',
+    screenings: [
+      { date: '10.03.26', score: 42, note: 'HWS 13 \u00b7 BWS 14 \u00b7 LWS 15' },
+      { date: '31.03.26', score: 50, note: 'HWS 16 \u00b7 BWS 16 \u00b7 LWS 18' },
+      { date: '21.04.26', score: 60, note: 'HWS 19 \u00b7 BWS 20 \u00b7 LWS 21' },
+      { date: '12.05.26', score: 70, note: 'HWS 22 \u00b7 BWS 23 \u00b7 LWS 25' },
+      { date: '09.06.26', score: 80, note: 'HWS 26 \u00b7 BWS 26 \u00b7 LWS 28' },
+      { date: '01.07.26', score: 88, note: 'HWS 29 \u00b7 BWS 29 \u00b7 LWS 30' },
+    ],
   },
   {
     id: 'julia',
@@ -373,6 +412,14 @@ const CLIENTS = [
     ],
     trendPts: '0,82 130,68 260,54 390,40 520,28 650,18 780,10',
     trendText: '\u2197 steigend \u00fcber 6 Screenings',
+    screenings: [
+      { date: '15.11.25', score: 44, note: 'HWS 13 \u00b7 BWS 14 \u00b7 LWS 17' },
+      { date: '10.01.26', score: 58, note: 'HWS 18 \u00b7 BWS 19 \u00b7 LWS 21' },
+      { date: '07.03.26', score: 70, note: 'HWS 22 \u00b7 BWS 23 \u00b7 LWS 25' },
+      { date: '02.05.26', score: 83, note: 'HWS 27 \u00b7 BWS 27 \u00b7 LWS 29' },
+      { date: '30.05.26', score: 94, note: 'HWS 31 \u00b7 BWS 31 \u00b7 LWS 32' },
+      { date: '30.06.26', score: 102, note: 'HWS 34 \u00b7 BWS 33 \u00b7 LWS 35' },
+    ],
   },
   {
     id: 'tobias',
@@ -395,6 +442,14 @@ const CLIENTS = [
     ],
     trendPts: '0,65 130,63 260,61 390,59 520,58 650,57 780,55',
     trendText: '\u2192 stabil \u00fcber 6 Screenings',
+    screenings: [
+      { date: '01.04.26', score: 54, note: 'HWS 17 \u00b7 BWS 18 \u00b7 LWS 19' },
+      { date: '22.04.26', score: 56, note: 'HWS 18 \u00b7 BWS 18 \u00b7 LWS 20' },
+      { date: '13.05.26', score: 55, note: 'HWS 18 \u00b7 BWS 18 \u00b7 LWS 19' },
+      { date: '03.06.26', score: 58, note: 'HWS 19 \u00b7 BWS 19 \u00b7 LWS 20' },
+      { date: '24.06.26', score: 56, note: 'HWS 18 \u00b7 BWS 19 \u00b7 LWS 19' },
+      { date: '04.07.26', score: 57, note: 'HWS 19 \u00b7 BWS 19 \u00b7 LWS 19' },
+    ],
   },
   {
     id: 'sandra',
@@ -420,6 +475,14 @@ const CLIENTS = [
     ],
     trendPts: '0,56 130,60 260,65 390,72 520,78 650,82 780,84',
     trendText: '\u2198 sinkend \u2014 Abw\u00e4rtstrend letzte 4 Screenings',
+    screenings: [
+      { date: '05.05.26', score: 54, note: 'HWS 17 \u00b7 BWS 18 \u00b7 LWS 19' },
+      { date: '19.05.26', score: 45, note: 'HWS 15 \u00b7 BWS 15 \u00b7 LWS 15' },
+      { date: '02.06.26', score: 34, note: 'HWS 12 \u00b7 BWS 11 \u00b7 LWS 11' },
+      { date: '16.06.26', score: 24, note: 'HWS 9 \u00b7 BWS 8 \u00b7 LWS 7' },
+      { date: '30.06.26', score: 17, note: 'HWS 6 \u00b7 BWS 6 \u00b7 LWS 5' },
+      { date: '03.07.26', score: 12, note: 'HWS 4 \u00b7 BWS 4 \u00b7 LWS 4' },
+    ],
   },
 ];
 
@@ -483,6 +546,14 @@ function renderDetail(c) {
     </div>`;
   }).join('');
 
+  const screeningsHTML = c.screenings.map(s => `
+    <div class="screening-row">
+      <span class="screening-date">${s.date}</span>
+      <span class="screening-score">${s.score}/165</span>
+      <span class="screening-note">${s.note}</span>
+    </div>
+  `).join('');
+
   const col = trendColor(c.trendDir);
 
   return `
@@ -526,6 +597,10 @@ function renderDetail(c) {
         <polyline points="${c.trendPts}" fill="none" stroke="${col}"
                   stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
+      <div class="screening-list">
+        <p class="section-label">Bisherige Screenings</p>
+        ${screeningsHTML}
+      </div>
     </div>
   `;
 }
