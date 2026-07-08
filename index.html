@@ -201,6 +201,13 @@
     .layout{grid-template-columns:1fr;}
     .roster{border-right:none;border-bottom:1px solid var(--line);}
     .instrument-row{grid-template-columns:1fr;}
+    .topbar{padding:14px 20px;}
+    .detail{padding:20px 16px;}
+    .client-header{flex-wrap:wrap;gap:12px;}
+    .client-header .btn{align-self:flex-start;}
+    .tl-row{grid-template-columns:58px 1fr 72px;gap:10px;}
+    .trend-wrap{padding:16px 14px;}
+    .gauge-card{padding:16px;}
   }
 </style>
 </head>
@@ -479,6 +486,9 @@ function selectClient(id) {
     const client = CLIENTS.find(c => c.id === id);
     detail.innerHTML = renderDetail(client);
     detail.style.opacity = '1';
+    if (window.innerWidth <= 800) {
+      detail.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   }, 110);
 }
 
