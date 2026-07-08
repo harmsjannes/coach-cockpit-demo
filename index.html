@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Coach-Cockpit — Prototyp</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1C2B39;
+    --ink-light:#2E4356;
+    --paper:#F3F4F1;
+    --paper-card:#FFFFFF;
+    --line:#DEDFDC;
+    --line-strong:#C7C9C4;
+    --text:#1C2B39;
+    --text-muted:#6B7280;
+    --text-faint:#9CA3AF;
+    --brand:#2454A6;
+    --brand-dim:#E7EEF8;
+    --signal:#B5453E;
+    --signal-dim:#F6E5E3;
+    --progress:#4C7A5E;
+    --progress-dim:#E7F0EA;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--text);
+    font-family:'Inter',sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .display{font-family:'Space Grotesk',sans-serif;}
+  .mono{font-family:'IBM Plex Mono',monospace;}
+
+  .topbar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:20px 32px;
+    border-bottom:1px solid var(--line);
+    background:var(--paper-card);
+  }
+  .brand-mark{display:flex;align-items:center;gap:12px;}
+  .brand-mark .glyph{
+    width:32px;height:32px;border-radius:8px;
+    background:var(--ink);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .brand-mark .glyph svg{width:16px;height:16px;}
+  .brand-mark .name{font-size:15px;font-weight:600;letter-spacing:-0.01em;}
+  .brand-mark .sub{font-size:12px;color:var(--text-muted);}
+  .coach-id{display:flex;align-items:center;gap:10px;}
+  .coach-avatar{
+    width:34px;height:34px;border-radius:50%;
+    background:var(--brand-dim);color:var(--brand);
+    display:flex;align-items:center;justify-content:center;
+    font-size:13px;font-weight:600;font-family:'Space Grotesk',sans-serif;
+  }
+
+  .layout{
+    display:grid;
+    grid-template-columns:300px 1fr;
+    min-height:calc(100vh - 73px);
+  }
+
+  .roster{
+    border-right:1px solid var(--line);
+    padding:24px 16px;
+    background:var(--paper-card);
+  }
+  .roster-head{
+    display:flex;justify-content:space-between;align-items:baseline;
+    padding:0 8px 16px;
+  }
+  .roster-head h2{
+    font-size:13px;text-transform:uppercase;letter-spacing:0.08em;
+    color:var(--text-muted);font-weight:600;margin:0;
+  }
+  .roster-head .count{font-size:12px;color:var(--text-faint);}
+
+  .client-row{
+    display:flex;align-items:center;gap:12px;
+    padding:12px 10px;border-radius:10px;
+    cursor:pointer;margin-bottom:2px;
+    border:1px solid transparent;
+    transition:background 0.15s ease;
+  }
+  .client-row:hover{background:var(--paper);}
+  .client-row.active{background:var(--brand-dim);border-color:var(--brand);}
+  .client-row .dot{
+    width:8px;height:8px;border-radius:50%;flex-shrink:0;
+  }
+  .dot.signal{background:var(--signal);}
+  .dot.progress{background:var(--progress);}
+  .dot.neutral{background:var(--text-faint);}
+  .client-row .info{flex:1;min-width:0;}
+  .client-row .cname{font-size:13.5px;font-weight:500;margin:0 0 2px;}
+  .client-row .cmeta{font-size:11.5px;color:var(--text-muted);margin:0;}
+  .client-row .flag{
+    font-size:10px;font-weight:600;padding:2px 6px;border-radius:5px;
+    background:var(--signal-dim);color:var(--signal);
+    letter-spacing:0.02em;
+  }
+
+  .detail{padding:32px 40px;max-width:920px;}
+
+  .client-header{
+    display:flex;align-items:center;justify-content:space-between;
+    margin-bottom:28px;
+  }
+  .client-header .who{display:flex;align-items:center;gap:14px;}
+  .avatar-lg{
+    width:48px;height:48px;border-radius:50%;
+    background:var(--ink);color:#fff;
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:16px;
+  }
+  .client-header h1{font-size:20px;margin:0 0 3px;letter-spacing:-0.01em;}
+  .client-header .meta{font-size:13px;color:var(--text-muted);margin:0;}
+
+  .btn{
+    font-family:'Inter',sans-serif;font-size:13px;font-weight:500;
+    padding:9px 16px;border-radius:8px;border:1px solid var(--line-strong);
+    background:var(--paper-card);color:var(--text);cursor:pointer;
+  }
+  .btn:hover{border-color:var(--ink);}
+
+  .instrument-row{
+    display:grid;grid-template-columns:220px 1fr;gap:24px;
+    margin-bottom:32px;
+  }
+
+  .gauge-card{
+    background:var(--ink);border-radius:16px;padding:20px;
+    display:flex;flex-direction:column;align-items:center;
+  }
+  .gauge-label{
+    font-size:11px;text-transform:uppercase;letter-spacing:0.1em;
+    color:#8FA3B8;margin:0 0 8px;align-self:flex-start;
+  }
+  .gauge-value{
+    font-family:'IBM Plex Mono',monospace;font-size:32px;font-weight:600;
+    color:#fff;margin:6px 0 0;
+  }
+  .gauge-value span{font-size:15px;color:#8FA3B8;font-weight:400;}
+  .gauge-sub{font-size:11px;color:#B7A99C;margin:2px 0 0;}
+
+  .signal-card{
+    background:var(--signal-dim);border-radius:16px;padding:20px;
+    display:flex;flex-direction:column;justify-content:center;
+    border-left:3px solid var(--signal);
+  }
+  .signal-card .tag{
+    font-size:11px;text-transform:uppercase;letter-spacing:0.08em;
+    color:var(--signal);font-weight:600;margin:0 0 6px;
+  }
+  .signal-card .title{font-size:16px;font-weight:600;margin:0 0 4px;color:#5C2622;}
+  .signal-card .sub{font-size:12.5px;color:#7A3A34;margin:0;}
+
+  .section-label{
+    font-size:12px;text-transform:uppercase;letter-spacing:0.08em;
+    color:var(--text-muted);font-weight:600;margin:0 0 14px;
+  }
+
+  .timeline{margin-bottom:32px;}
+  .tl-row{
+    display:grid;grid-template-columns:70px 1fr 90px;gap:16px;
+    padding:14px 0;border-bottom:1px solid var(--line);align-items:baseline;
+  }
+  .tl-row:last-child{border-bottom:none;}
+  .tl-date{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--text-muted);}
+  .tl-text{font-size:13.5px;line-height:1.5;}
+  .tl-score{font-family:'IBM Plex Mono',monospace;font-size:12px;text-align:right;}
+  .tl-score.low{color:var(--signal);}
+  .tl-score.ok{color:var(--text-muted);}
+
+  .trend-wrap{
+    background:var(--paper-card);border:1px solid var(--line);
+    border-radius:16px;padding:22px 26px;
+  }
+  .trend-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px;}
+  .trend-head .arrow{color:var(--progress);font-size:13px;font-weight:600;}
+
+  ::-webkit-scrollbar{width:8px;}
+  ::-webkit-scrollbar-thumb{background:var(--line-strong);border-radius:8px;}
+
+  @media (max-width:800px){
+    .layout{grid-template-columns:1fr;}
+    .roster{border-right:none;border-bottom:1px solid var(--line);}
+    .instrument-row{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand-mark">
+    <div class="glyph">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M4 20L12 4L20 20" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <div>
+      <p class="name">Coach&#8209;Cockpit</p>
+      <p class="sub">Körper-Neustart Programm</p>
+    </div>
+  </div>
+  <div class="coach-id">
+    <div class="coach-avatar">SN</div>
+  </div>
+</div>
+
+<div class="layout">
+
+  <div class="roster">
+    <div class="roster-head">
+      <h2>Meine Kunden</h2>
+      <span class="count">4</span>
+    </div>
+
+    <div class="client-row">
+      <span class="dot signal"></span>
+      <div class="info">
+        <p class="cname">Anna Kessler</p>
+        <p class="cmeta">KKS 34 &middot; sinkend</p>
+      </div>
+      <span class="flag">Schmerz</span>
+    </div>
+
+    <div class="client-row active">
+      <span class="dot neutral"></span>
+      <div class="info">
+        <p class="cname">Markus Häusler</p>
+        <p class="cmeta">KKS 15 &middot; stabil</p>
+      </div>
+    </div>
+
+    <div class="client-row">
+      <span class="dot progress"></span>
+      <div class="info">
+        <p class="cname">Peter Stauber</p>
+        <p class="cmeta">KKS 88 &middot; steigend</p>
+      </div>
+    </div>
+
+    <div class="client-row">
+      <span class="dot progress"></span>
+      <div class="info">
+        <p class="cname">Julia Wenzel</p>
+        <p class="cmeta">KKS 102 &middot; steigend</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="detail">
+
+    <div class="client-header">
+      <div class="who">
+        <div class="avatar-lg">MH</div>
+        <div>
+          <h1 class="display">Markus Häusler</h1>
+          <p class="meta">Coaching seit 02.07.2026 &middot; Woche 17 von 24 &middot; Coach: Silvester</p>
+        </div>
+      </div>
+      <button class="btn">Notiz hinzufügen</button>
+    </div>
+
+    <div class="instrument-row">
+      <div class="gauge-card">
+        <p class="gauge-label display">KKS&#8209;Score</p>
+        <svg width="140" height="90" viewBox="0 0 140 90">
+          <path d="M 15 80 A 55 55 0 0 1 125 80" fill="none" stroke="#2E4356" stroke-width="10" stroke-linecap="round"/>
+          <path d="M 15 80 A 55 55 0 0 1 46 32" fill="none" stroke="#B7A99C" stroke-width="10" stroke-linecap="round"/>
+          <line x1="70" y1="80" x2="42" y2="42" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+          <circle cx="70" cy="80" r="4" fill="#fff"/>
+        </svg>
+        <p class="gauge-value mono">15<span>/165</span></p>
+        <p class="gauge-sub">Aufholbedarf</p>
+      </div>
+
+      <div class="signal-card">
+        <p class="tag">Aktives Signal</p>
+        <p class="title">Schmerz beim Überkopfdrücken</p>
+        <p class="sub">Gemeldet im Check-in vom 30.06.2026 &middot; noch nicht bearbeitet</p>
+      </div>
+    </div>
+
+    <p class="section-label">Check-in-Verlauf</p>
+    <div class="timeline">
+      <div class="tl-row">
+        <span class="tl-date">30.06.</span>
+        <span class="tl-text">Schulter beim Überkopfdrücken schmerzhaft, Belastung reduziert.</span>
+        <span class="tl-score low">Befinden 2/5</span>
+      </div>
+      <div class="tl-row">
+        <span class="tl-date">23.06.</span>
+        <span class="tl-text">Läuft stabil, drei Trainingseinheiten wie geplant geschafft.</span>
+        <span class="tl-score ok">Befinden 4/5</span>
+      </div>
+      <div class="tl-row">
+        <span class="tl-date">16.06.</span>
+        <span class="tl-text">Mehr Beweglichkeit im Nacken bemerkt, Übungen sitzen gut.</span>
+        <span class="tl-score ok">Befinden 4/5</span>
+      </div>
+    </div>
+
+    <div class="trend-wrap">
+      <div class="trend-head">
+        <p class="section-label" style="margin:0;">KKS&#8209;Verlauf</p>
+        <span class="arrow">&#8599; steigend über 6 Screenings</span>
+      </div>
+      <svg width="100%" height="90" viewBox="0 0 820 90" preserveAspectRatio="none">
+        <polyline points="0,78 130,68 260,55 390,42 520,30 650,20 780,12" fill="none" stroke="#4C7A5E" stroke-width="3" stroke-linecap="round"/>
+      </svg>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>
