@@ -373,16 +373,19 @@ const CLIENTS = [
 ];
 
 function gaugeParams(kks) {
-  const p = Math.max(0.001, Math.min(0.999, kks / 165));
-  const angle = Math.PI - p * Math.PI;
-  const r = 55, cx = 70, cy = 80;
-  const ex = (cx + r * Math.cos(angle)).toFixed(1);
-  const ey = (cy - r * Math.sin(angle)).toFixed(1);
-  const largeArc = p > 0.5 ? 1 : 0;
-  const nx = (cx + 42 * Math.cos(angle)).toFixed(1);
-  const ny = (cy - 42 * Math.sin(angle)).toFixed(1);
+  const p = Math.max(0, Math.min(1, kks / 165));
+  // Semicircle arc length: π × r = π × 55 ≈ 172.79
+  const arcLen = Math.PI * 55;
+  // Needle: default line points LEFT (x2=28). Rotate CCW by p×180° to go LEFT→UP→RIGHT.
+  // SVG rotate() is clockwise-positive, so CCW = negative degrees.
+  const rotateDeg = (-p * 180).toFixed(2);
   const sub = kks <= 40 ? 'Aufholbedarf' : kks <= 80 ? 'Im Aufbau' : kks <= 120 ? 'Gute Basis' : 'Spitzenbereich';
-  return { ex, ey, largeArc, nx, ny, sub };
+  return {
+    arcFilled: (p * arcLen).toFixed(2),
+    arcTotal: arcLen.toFixed(2),
+    rotateDeg,
+    sub,
+  };
 }
 
 function trendColor(dir) {
@@ -433,9 +436,15 @@ function renderDetail(c) {
       <div class="gauge-card">
         <p class="gauge-label display">KKS&#8209;Score</p>
         <svg width="140" height="90" viewBox="0 0 140 90">
+          <!-- background track -->
           <path d="M 15 80 A 55 55 0 0 1 125 80" fill="none" stroke="#2E4356" stroke-width="10" stroke-linecap="round"/>
-          <path d="M 15 80 A 55 55 0 ${g.largeArc} 1 ${g.ex} ${g.ey}" fill="none" stroke="#B7A99C" stroke-width="10" stroke-linecap="round"/>
-          <line x1="70" y1="80" x2="${g.nx}" y2="${g.ny}" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+          <!-- filled portion: stroke-dasharray fills from left (low score) to right (high score) -->
+          <path d="M 15 80 A 55 55 0 0 1 125 80" fill="none" stroke="#B7A99C" stroke-width="10" stroke-linecap="round"
+                stroke-dasharray="${g.arcFilled} ${g.arcTotal}"/>
+          <!-- needle: points left by default, rotated CCW proportional to score -->
+          <g transform="rotate(${g.rotateDeg}, 70, 80)">
+            <line x1="70" y1="80" x2="28" y2="80" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+          </g>
           <circle cx="70" cy="80" r="4" fill="#fff"/>
         </svg>
         <p class="gauge-value mono">${c.kks}<span>/165</span></p>
