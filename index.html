@@ -376,9 +376,18 @@ function gaugeParams(kks) {
   const p = Math.max(0, Math.min(1, kks / 165));
   // Semicircle arc length: π × r = π × 55 ≈ 172.79
   const arcLen = Math.PI * 55;
-  // Needle: default line points LEFT (x2=28). Rotate CCW by p×180° to go LEFT→UP→RIGHT.
-  // SVG rotate() is clockwise-positive, so CCW = negative degrees.
-  const rotateDeg = (-p * 180).toFixed(2);
+  // Needle: default line points LEFT (x2=28, y2=80 from center 70,80).
+  // SVG rotate(+θ) is clockwise on screen → from LEFT (9 o'clock) CW through UP (12) to RIGHT (3).
+  // Positive degrees = LEFT → UP → RIGHT as score increases.
+  //
+  // Angle = p × 180°, tip position: x'= 70 − 42·cos(θ),  y'= 80 − 42·sin(θ)
+  //   KKS  12 / 165 (p=0.073) → θ =  13.1° → tip ≈ (29.1,  70.5)  near left/bottom
+  //   KKS  15 / 165 (p=0.091) → θ =  16.4° → tip ≈ (29.7,  68.2)  left, slightly up
+  //   KKS  34 / 165 (p=0.206) → θ =  37.1° → tip ≈ (36.5,  54.7)  left-center, up
+  //   KKS  57 / 165 (p=0.345) → θ =  62.2° → tip ≈ (50.5,  42.8)  upper-left
+  //   KKS  88 / 165 (p=0.533) → θ =  96.0° → tip ≈ (74.4,  38.2)  just past top
+  //   KKS 102 / 165 (p=0.618) → θ = 111.3° → tip ≈ (85.2,  40.9)  upper-right
+  const rotateDeg = (p * 180).toFixed(2);
   const sub = kks <= 40 ? 'Aufholbedarf' : kks <= 80 ? 'Im Aufbau' : kks <= 120 ? 'Gute Basis' : 'Spitzenbereich';
   return {
     arcFilled: (p * arcLen).toFixed(2),
