@@ -4,210 +4,238 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Coach-Cockpit — Prototyp</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --ink:#1C2B39;
-    --ink-light:#2E4356;
-    --paper:#F3F4F1;
-    --paper-card:#FFFFFF;
-    --line:#DEDFDC;
-    --line-strong:#C7C9C4;
-    --text:#1C2B39;
-    --text-muted:#6B7280;
-    --text-faint:#9CA3AF;
-    --brand:#2454A6;
-    --brand-dim:#E7EEF8;
-    --signal:#B5453E;
-    --signal-dim:#F6E5E3;
-    --progress:#4C7A5E;
-    --progress-dim:#E7F0EA;
-  }
-  *{box-sizing:border-box;}
-  body{
-    margin:0;
-    background:var(--paper);
-    color:var(--text);
-    font-family:'Inter',sans-serif;
-    -webkit-font-smoothing:antialiased;
-  }
-  .display{font-family:'Space Grotesk',sans-serif;}
-  .mono{font-family:'IBM Plex Mono',monospace;}
-
-  .topbar{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:20px 32px;
-    border-bottom:1px solid var(--line);
-    background:var(--paper-card);
-  }
-  .brand-mark{display:flex;align-items:center;gap:12px;}
-  .brand-mark .glyph{
-    width:32px;height:32px;border-radius:8px;
-    background:var(--ink);
-    display:flex;align-items:center;justify-content:center;
-  }
-  .brand-mark .glyph svg{width:16px;height:16px;}
-  .brand-mark .name{font-size:15px;font-weight:600;letter-spacing:-0.01em;}
-  .brand-mark .sub{font-size:12px;color:var(--text-muted);}
-  .coach-id{display:flex;align-items:center;gap:10px;}
-  .coach-avatar{
-    width:34px;height:34px;border-radius:50%;
-    background:var(--brand-dim);color:var(--brand);
-    display:flex;align-items:center;justify-content:center;
-    font-size:13px;font-weight:600;font-family:'Space Grotesk',sans-serif;
+  :root {
+    --bg:          #F2F2F7;
+    --surface:     #FFFFFF;
+    --sep:         rgba(0,0,0,0.08);
+    --text:        #1C1C1E;
+    --text-2:      #636366;
+    --text-3:      #AEAEB2;
+    --accent:      #2454A6;
+    --accent-dim:  #EAF0FB;
+    --signal:      #C0392B;
+    --progress:    #3A7D52;
   }
 
-  .layout{
-    display:grid;
-    grid-template-columns:300px 1fr;
-    min-height:calc(100vh - 73px);
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, "SF Pro Text", "SF Pro Display", Inter, sans-serif;
+    -webkit-font-smoothing: antialiased;
   }
 
-  .roster{
-    border-right:1px solid var(--line);
-    padding:24px 16px;
-    background:var(--paper-card);
+  /* ── Topbar ─────────────────────────────────────── */
+  .topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 32px;
+    background: var(--surface);
+    box-shadow: 0 1px 0 var(--sep);
+    position: sticky; top: 0; z-index: 10;
   }
-  .roster-head{
-    display:flex;justify-content:space-between;align-items:baseline;
-    padding:0 8px 16px;
+  .brand-mark { display: flex; align-items: center; gap: 12px; }
+  .brand-mark .glyph {
+    width: 32px; height: 32px; border-radius: 10px;
+    background: var(--text);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
   }
-  .roster-head h2{
-    font-size:13px;text-transform:uppercase;letter-spacing:0.08em;
-    color:var(--text-muted);font-weight:600;margin:0;
-  }
-  .roster-head .count{font-size:12px;color:var(--text-faint);}
-
-  .client-row{
-    display:flex;align-items:center;gap:12px;
-    padding:12px 10px;border-radius:10px;
-    cursor:pointer;margin-bottom:2px;
-    border:1px solid transparent;
-    transition:background 0.15s ease, border-color 0.15s ease;
-  }
-  .client-row:hover{background:var(--paper);}
-  .client-row.active{background:var(--brand-dim);border-color:var(--brand);}
-  .client-row .dot{
-    width:8px;height:8px;border-radius:50%;flex-shrink:0;
-  }
-  .dot.signal{background:var(--signal);}
-  .dot.progress{background:var(--progress);}
-  .dot.neutral{background:var(--text-faint);}
-  .client-row .info{flex:1;min-width:0;}
-  .client-row .cname{font-size:13.5px;font-weight:500;margin:0 0 2px;}
-  .client-row .cmeta{font-size:11.5px;color:var(--text-muted);margin:0;}
-  .client-row .flag{
-    font-size:10px;font-weight:600;padding:2px 6px;border-radius:5px;
-    background:var(--signal-dim);color:var(--signal);
-    letter-spacing:0.02em;flex-shrink:0;
+  .brand-mark .glyph svg { width: 16px; height: 16px; }
+  .brand-mark .name { font-size: 15px; font-weight: 600; letter-spacing: -0.02em; margin: 0; }
+  .brand-mark .sub  { font-size: 12px; color: var(--text-2); margin: 0; }
+  .coach-avatar {
+    width: 34px; height: 34px; border-radius: 50%;
+    background: var(--accent-dim); color: var(--accent);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 600;
   }
 
-  .detail{
-    padding:32px 40px;max-width:920px;
-    transition:opacity 0.1s ease;
+  /* ── Layout ──────────────────────────────────────── */
+  .layout {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    min-height: calc(100vh - 69px);
   }
 
-  .client-header{
-    display:flex;align-items:center;justify-content:space-between;
-    margin-bottom:28px;
+  /* ── Roster ──────────────────────────────────────── */
+  .roster {
+    border-right: 1px solid var(--sep);
+    padding: 28px 14px;
+    background: var(--surface);
   }
-  .client-header .who{display:flex;align-items:center;gap:14px;}
-  .avatar-lg{
-    width:48px;height:48px;border-radius:50%;
-    background:var(--ink);color:#fff;
-    display:flex;align-items:center;justify-content:center;
-    font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:16px;
+  .roster-head {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding: 0 8px 20px;
   }
-  .client-header h1{font-size:20px;margin:0 0 3px;letter-spacing:-0.01em;}
-  .client-header .meta{font-size:13px;color:var(--text-muted);margin:0;}
+  .roster-head h2 {
+    font-size: 11px; text-transform: uppercase; letter-spacing: 0.07em;
+    color: var(--text-2); font-weight: 600; margin: 0;
+  }
+  .roster-head .count { font-size: 12px; color: var(--text-3); }
 
-  .btn{
-    font-family:'Inter',sans-serif;font-size:13px;font-weight:500;
-    padding:9px 16px;border-radius:8px;border:1px solid var(--line-strong);
-    background:var(--paper-card);color:var(--text);cursor:pointer;
+  .client-row {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 10px; border-radius: 12px;
+    cursor: pointer; margin-bottom: 2px;
+    transition: background 0.12s ease;
   }
-  .btn:hover{border-color:var(--ink);}
+  .client-row:hover  { background: var(--bg); }
+  .client-row.active { background: var(--accent-dim); }
 
-  .instrument-row{
-    display:grid;grid-template-columns:220px 1fr;gap:24px;
-    margin-bottom:32px;
+  .dot {
+    width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
   }
+  .dot.signal   { background: var(--signal); }
+  .dot.progress { background: var(--progress); }
+  .dot.neutral  { background: var(--text-3); }
 
-  .gauge-card{
-    background:var(--ink);border-radius:16px;padding:20px;
-    display:flex;flex-direction:column;align-items:center;
-  }
-  .gauge-label{
-    font-size:11px;text-transform:uppercase;letter-spacing:0.1em;
-    color:#8FA3B8;margin:0 0 8px;align-self:flex-start;
-  }
-  .gauge-value{
-    font-family:'IBM Plex Mono',monospace;font-size:32px;font-weight:600;
-    color:#fff;margin:6px 0 0;
-  }
-  .gauge-value span{font-size:15px;color:#8FA3B8;font-weight:400;}
-  .gauge-sub{font-size:11px;color:#B7A99C;margin:2px 0 0;}
-
-  .signal-card{
-    background:var(--signal-dim);border-radius:16px;padding:20px;
-    display:flex;flex-direction:column;justify-content:center;
-    border-left:3px solid var(--signal);
-  }
-  .signal-card.ok{
-    background:var(--progress-dim);
-    border-left-color:var(--progress);
-  }
-  .signal-card .tag{
-    font-size:11px;text-transform:uppercase;letter-spacing:0.08em;
-    color:var(--signal);font-weight:600;margin:0 0 6px;
-  }
-  .signal-card.ok .tag{color:var(--progress);}
-  .signal-card .title{font-size:16px;font-weight:600;margin:0 0 4px;color:#5C2622;}
-  .signal-card.ok .title{color:#1E4D30;}
-  .signal-card .sub{font-size:12.5px;color:#7A3A34;margin:0;}
-  .signal-card.ok .sub{color:#3A6B4E;}
-
-  .section-label{
-    font-size:12px;text-transform:uppercase;letter-spacing:0.08em;
-    color:var(--text-muted);font-weight:600;margin:0 0 14px;
+  .client-row .info   { flex: 1; min-width: 0; }
+  .client-row .cname  { font-size: 14px; font-weight: 500; margin: 0 0 2px; }
+  .client-row .cmeta  { font-size: 12px; color: var(--text-2); margin: 0; }
+  .client-row .flag {
+    font-size: 10px; font-weight: 600;
+    padding: 2px 7px; border-radius: 99px;
+    background: rgba(192,57,43,0.08);
+    color: var(--signal); flex-shrink: 0;
   }
 
-  .timeline{margin-bottom:32px;}
-  .tl-row{
-    display:grid;grid-template-columns:70px 1fr 90px;gap:16px;
-    padding:14px 0;border-bottom:1px solid var(--line);align-items:baseline;
+  /* ── Detail ──────────────────────────────────────── */
+  .detail {
+    padding: 44px 52px; max-width: 960px;
+    transition: opacity 0.1s ease;
   }
-  .tl-row:last-child{border-bottom:none;}
-  .tl-date{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--text-muted);}
-  .tl-text{font-size:13.5px;line-height:1.5;}
-  .tl-score{font-family:'IBM Plex Mono',monospace;font-size:12px;text-align:right;}
-  .tl-score.low{color:var(--signal);}
-  .tl-score.ok{color:var(--text-muted);}
 
-  .trend-wrap{
-    background:var(--paper-card);border:1px solid var(--line);
-    border-radius:16px;padding:22px 26px;
+  .client-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 40px;
   }
-  .trend-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px;}
-  .trend-head .arrow{font-size:13px;font-weight:600;}
+  .client-header .who { display: flex; align-items: center; gap: 16px; }
+  .avatar-lg {
+    width: 52px; height: 52px; border-radius: 50%;
+    background: var(--text); color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 600; font-size: 17px; flex-shrink: 0;
+  }
+  .client-header h1 {
+    font-size: 22px; font-weight: 600; margin: 0 0 4px;
+    letter-spacing: -0.02em;
+  }
+  .client-header .meta { font-size: 13px; color: var(--text-2); margin: 0; }
 
-  ::-webkit-scrollbar{width:8px;}
-  ::-webkit-scrollbar-thumb{background:var(--line-strong);border-radius:8px;}
+  .btn {
+    font-family: inherit; font-size: 13px; font-weight: 500;
+    padding: 9px 16px; border-radius: 10px;
+    border: 1px solid var(--sep);
+    background: var(--surface); color: var(--text); cursor: pointer;
+  }
+  .btn:hover { background: var(--bg); }
 
-  @media (max-width:800px){
-    .layout{grid-template-columns:1fr;}
-    .roster{border-right:none;border-bottom:1px solid var(--line);}
-    .instrument-row{grid-template-columns:1fr;}
-    .topbar{padding:14px 20px;}
-    .detail{padding:20px 16px;}
-    .client-header{flex-wrap:wrap;gap:12px;}
-    .client-header .btn{align-self:flex-start;}
-    .tl-row{grid-template-columns:58px 1fr 72px;gap:10px;}
-    .trend-wrap{padding:16px 14px;}
-    .gauge-card{padding:16px;}
+  /* ── Score + Signal row ──────────────────────────── */
+  .instrument-row {
+    display: grid; grid-template-columns: 196px 1fr; gap: 16px;
+    margin-bottom: 44px;
+  }
+
+  /* Score card — no dark container, just number + bar */
+  .score-card {
+    background: var(--surface);
+    border-radius: 20px;
+    padding: 24px 22px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  }
+  .score-label {
+    font-size: 11px; text-transform: uppercase; letter-spacing: 0.07em;
+    color: var(--text-2); font-weight: 600; margin: 0 0 10px;
+  }
+  .score-value {
+    font-size: 54px; font-weight: 600; color: var(--text);
+    letter-spacing: -0.03em; line-height: 1; margin: 0 0 16px;
+  }
+  .score-value span { font-size: 20px; color: var(--text-2); font-weight: 400; }
+  .score-bar-track {
+    height: 4px; background: var(--bg);
+    border-radius: 99px; overflow: hidden; margin-bottom: 10px;
+  }
+  .score-bar-fill {
+    height: 4px; background: var(--accent);
+    border-radius: 99px;
+  }
+  .score-sub { font-size: 12px; color: var(--text-2); margin: 0; }
+
+  /* Signal card — white, no colored background */
+  .signal-card {
+    background: var(--surface);
+    border-radius: 20px;
+    padding: 24px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .signal-head {
+    display: flex; align-items: center; gap: 7px; margin-bottom: 9px;
+  }
+  .signal-tag {
+    font-size: 11px; text-transform: uppercase; letter-spacing: 0.07em;
+    color: var(--text-2); font-weight: 600;
+  }
+  .signal-title {
+    font-size: 16px; font-weight: 600; margin: 0 0 6px;
+  }
+  .signal-sub {
+    font-size: 13px; color: var(--text-2); margin: 0; line-height: 1.5;
+  }
+
+  /* ── Section label ───────────────────────────────── */
+  .section-label {
+    font-size: 11px; text-transform: uppercase; letter-spacing: 0.07em;
+    color: var(--text-2); font-weight: 600; margin: 0 0 16px;
+  }
+
+  /* ── Timeline ────────────────────────────────────── */
+  .timeline { margin-bottom: 40px; }
+  .tl-row {
+    display: grid; grid-template-columns: 60px 1fr 80px; gap: 16px;
+    padding: 14px 0; border-bottom: 1px solid var(--sep); align-items: baseline;
+  }
+  .tl-row:last-child { border-bottom: none; }
+  .tl-date  { font-size: 12px; color: var(--text-2); font-variant-numeric: tabular-nums; }
+  .tl-text  { font-size: 14px; line-height: 1.5; }
+  .tl-score { font-size: 12px; text-align: right; font-variant-numeric: tabular-nums; }
+  .tl-score.low { color: var(--signal); }
+  .tl-score.ok  { color: var(--text-2); }
+
+  /* ── Trend chart ─────────────────────────────────── */
+  .trend-wrap {
+    background: var(--surface);
+    border-radius: 20px;
+    padding: 24px 26px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  }
+  .trend-head {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin-bottom: 16px;
+  }
+  .trend-head .arrow { font-size: 13px; font-weight: 500; }
+
+  /* ── Scrollbar ───────────────────────────────────── */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-thumb { background: var(--sep); border-radius: 99px; }
+
+  /* ── Mobile ──────────────────────────────────────── */
+  @media (max-width: 800px) {
+    .layout { grid-template-columns: 1fr; }
+    .roster { border-right: none; border-bottom: 1px solid var(--sep); }
+    .instrument-row { grid-template-columns: 1fr; }
+    .topbar  { padding: 14px 20px; }
+    .detail  { padding: 24px 16px; }
+    .client-header { flex-wrap: wrap; gap: 12px; margin-bottom: 28px; }
+    .client-header .btn { align-self: flex-start; }
+    .tl-row  { grid-template-columns: 52px 1fr 70px; gap: 10px; }
+    .trend-wrap { padding: 18px 16px; }
   }
 </style>
 </head>
@@ -216,16 +244,16 @@
 <div class="topbar">
   <div class="brand-mark">
     <div class="glyph">
-      <svg viewBox="0 0 24 24" fill="none"><path d="M4 20L12 4L20 20" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <svg viewBox="0 0 24 24" fill="none">
+        <path d="M4 20L12 4L20 20" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
     </div>
     <div>
       <p class="name">Coach&#8209;Cockpit</p>
-      <p class="sub">Körper-Neustart Programm</p>
+      <p class="sub">K&#246;rper-Neustart Programm</p>
     </div>
   </div>
-  <div class="coach-id">
-    <div class="coach-avatar">SN</div>
-  </div>
+  <div class="coach-avatar">SN</div>
 </div>
 
 <div class="layout">
@@ -372,50 +400,38 @@ const CLIENTS = [
   },
 ];
 
-function gaugeParams(kks) {
-  const p = Math.max(0, Math.min(1, kks / 165));
-  // Semicircle arc length: π × r = π × 55 ≈ 172.79
-  const arcLen = Math.PI * 55;
-  // Needle: default line points LEFT (x2=28, y2=80 from center 70,80).
-  // SVG rotate(+θ) is clockwise on screen → from LEFT (9 o'clock) CW through UP (12) to RIGHT (3).
-  // Positive degrees = LEFT → UP → RIGHT as score increases.
-  //
-  // Angle = p × 180°, tip position: x'= 70 − 42·cos(θ),  y'= 80 − 42·sin(θ)
-  //   KKS  12 / 165 (p=0.073) → θ =  13.1° → tip ≈ (29.1,  70.5)  near left/bottom
-  //   KKS  15 / 165 (p=0.091) → θ =  16.4° → tip ≈ (29.7,  68.2)  left, slightly up
-  //   KKS  34 / 165 (p=0.206) → θ =  37.1° → tip ≈ (36.5,  54.7)  left-center, up
-  //   KKS  57 / 165 (p=0.345) → θ =  62.2° → tip ≈ (50.5,  42.8)  upper-left
-  //   KKS  88 / 165 (p=0.533) → θ =  96.0° → tip ≈ (74.4,  38.2)  just past top
-  //   KKS 102 / 165 (p=0.618) → θ = 111.3° → tip ≈ (85.2,  40.9)  upper-right
-  const rotateDeg = (p * 180).toFixed(2);
-  const sub = kks <= 40 ? 'Aufholbedarf' : kks <= 80 ? 'Im Aufbau' : kks <= 120 ? 'Gute Basis' : 'Spitzenbereich';
-  return {
-    arcFilled: (p * arcLen).toFixed(2),
-    arcTotal: arcLen.toFixed(2),
-    rotateDeg,
-    sub,
-  };
+function scoreLabel(kks) {
+  if (kks <= 40)  return 'Aufholbedarf';
+  if (kks <= 80)  return 'Im Aufbau';
+  if (kks <= 120) return 'Gute Basis';
+  return 'Spitzenbereich';
 }
 
 function trendColor(dir) {
-  if (dir === 'up') return 'var(--progress)';
+  if (dir === 'up')   return 'var(--progress)';
   if (dir === 'down') return 'var(--signal)';
-  return 'var(--text-muted)';
+  return 'var(--text-2)';
 }
 
 function renderDetail(c) {
-  const g = gaugeParams(c.kks);
+  const pct = (c.kks / 165 * 100).toFixed(1);
 
   const signalHTML = c.signal
     ? `<div class="signal-card">
-        <p class="tag">Aktives Signal</p>
-        <p class="title">${c.signal.title}</p>
-        <p class="sub">${c.signal.sub}</p>
+        <div class="signal-head">
+          <span class="dot signal"></span>
+          <span class="signal-tag">Aktives Signal</span>
+        </div>
+        <p class="signal-title">${c.signal.title}</p>
+        <p class="signal-sub">${c.signal.sub}</p>
        </div>`
-    : `<div class="signal-card ok">
-        <p class="tag">Signal-Status</p>
-        <p class="title">Kein aktives Signal</p>
-        <p class="sub">Letzter Check-in unauf\u00e4llig \u00b7 weiter beobachten</p>
+    : `<div class="signal-card">
+        <div class="signal-head">
+          <span class="dot progress"></span>
+          <span class="signal-tag">Signal-Status</span>
+        </div>
+        <p class="signal-title">Kein aktives Signal</p>
+        <p class="signal-sub">Letzter Check-in unauf\u00e4llig \u00b7 weiter beobachten</p>
        </div>`;
 
   const checkinsHTML = c.checkins.map(ci => {
@@ -434,7 +450,7 @@ function renderDetail(c) {
       <div class="who">
         <div class="avatar-lg">${c.initials}</div>
         <div>
-          <h1 class="display">${c.name}</h1>
+          <h1>${c.name}</h1>
           <p class="meta">Coaching seit ${c.since} &middot; Woche ${c.week} &middot; Coach: Silvester</p>
         </div>
       </div>
@@ -442,22 +458,13 @@ function renderDetail(c) {
     </div>
 
     <div class="instrument-row">
-      <div class="gauge-card">
-        <p class="gauge-label display">KKS&#8209;Score</p>
-        <svg width="140" height="90" viewBox="0 0 140 90">
-          <!-- background track -->
-          <path d="M 15 80 A 55 55 0 0 1 125 80" fill="none" stroke="#2E4356" stroke-width="10" stroke-linecap="round"/>
-          <!-- filled portion: stroke-dasharray fills from left (low score) to right (high score) -->
-          <path d="M 15 80 A 55 55 0 0 1 125 80" fill="none" stroke="#B7A99C" stroke-width="10" stroke-linecap="round"
-                stroke-dasharray="${g.arcFilled} ${g.arcTotal}"/>
-          <!-- needle: points left by default, rotated CCW proportional to score -->
-          <g transform="rotate(${g.rotateDeg}, 70, 80)">
-            <line x1="70" y1="80" x2="28" y2="80" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
-          </g>
-          <circle cx="70" cy="80" r="4" fill="#fff"/>
-        </svg>
-        <p class="gauge-value mono">${c.kks}<span>/165</span></p>
-        <p class="gauge-sub">${g.sub}</p>
+      <div class="score-card">
+        <p class="score-label">KKS-Score</p>
+        <p class="score-value">${c.kks}<span> /165</span></p>
+        <div class="score-bar-track">
+          <div class="score-bar-fill" style="width:${pct}%"></div>
+        </div>
+        <p class="score-sub">${scoreLabel(c.kks)}</p>
       </div>
       ${signalHTML}
     </div>
@@ -467,11 +474,12 @@ function renderDetail(c) {
 
     <div class="trend-wrap">
       <div class="trend-head">
-        <p class="section-label" style="margin:0;">KKS&#8209;Verlauf</p>
+        <p class="section-label" style="margin:0;">KKS-Verlauf</p>
         <span class="arrow" style="color:${col}">${c.trendText}</span>
       </div>
-      <svg width="100%" height="90" viewBox="0 0 820 90" preserveAspectRatio="none">
-        <polyline points="${c.trendPts}" fill="none" stroke="${col}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      <svg width="100%" height="80" viewBox="0 0 820 90" preserveAspectRatio="none">
+        <polyline points="${c.trendPts}" fill="none" stroke="${col}"
+                  stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
     </div>
   `;
@@ -501,8 +509,7 @@ function selectClient(id) {
   const detail = document.getElementById('detail');
   detail.style.opacity = '0';
   setTimeout(() => {
-    const client = CLIENTS.find(c => c.id === id);
-    detail.innerHTML = renderDetail(client);
+    detail.innerHTML = renderDetail(CLIENTS.find(c => c.id === id));
     detail.style.opacity = '1';
     if (window.innerWidth <= 800) {
       detail.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -513,15 +520,11 @@ function selectClient(id) {
 document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('roster-count').textContent = CLIENTS.length;
   document.getElementById('roster-list').innerHTML = renderRoster(activeId);
-
-  const initial = CLIENTS.find(c => c.id === activeId);
-  document.getElementById('detail').innerHTML = renderDetail(initial);
+  document.getElementById('detail').innerHTML = renderDetail(CLIENTS.find(c => c.id === activeId));
 
   document.getElementById('roster-list').addEventListener('click', e => {
     const row = e.target.closest('[data-id]');
-    if (row && row.dataset.id !== activeId) {
-      selectClient(row.dataset.id);
-    }
+    if (row && row.dataset.id !== activeId) selectClient(row.dataset.id);
   });
 });
 </script>
