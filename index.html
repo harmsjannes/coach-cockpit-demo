@@ -126,6 +126,11 @@
     letter-spacing: -0.02em;
   }
   .client-header .meta { font-size: 13px; color: var(--text-2); margin: 0; }
+  .client-header .case-meta {
+    display: flex; flex-wrap: wrap; gap: 6px 14px;
+    font-size: 12px; color: var(--text-2); margin: 6px 0 0;
+  }
+  .client-header .case-meta span { white-space: nowrap; }
 
   .btn {
     font-family: inherit; font-size: 13px; font-weight: 500;
@@ -198,15 +203,21 @@
   /* ── Timeline ────────────────────────────────────── */
   .timeline { margin-bottom: 40px; }
   .tl-row {
-    display: grid; grid-template-columns: 60px 1fr 80px; gap: 16px;
-    padding: 14px 0; border-bottom: 1px solid var(--sep); align-items: baseline;
+    display: grid; grid-template-columns: 60px 1fr; gap: 16px;
+    padding: 14px 0; border-bottom: 1px solid var(--sep); align-items: flex-start;
   }
   .tl-row:last-child { border-bottom: none; }
   .tl-date  { font-size: 12px; color: var(--text-2); font-variant-numeric: tabular-nums; }
-  .tl-text  { font-size: 14px; line-height: 1.5; }
-  .tl-score { font-size: 12px; text-align: right; font-variant-numeric: tabular-nums; }
-  .tl-score.low { color: var(--signal); }
-  .tl-score.ok  { color: var(--text-2); }
+  .tl-text  { font-size: 14px; line-height: 1.5; margin-bottom: 8px; }
+  .tl-fields { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tl-chip {
+    font-size: 11px; line-height: 1.2;
+    padding: 4px 7px; border-radius: 99px;
+    background: var(--surface); color: var(--text-2);
+    box-shadow: inset 0 0 0 1px var(--sep);
+  }
+  .tl-chip.signal { color: var(--signal); background: rgba(192,57,43,0.08); box-shadow: none; }
+  .tl-chip.progress { color: var(--progress); background: rgba(58,125,82,0.08); box-shadow: none; }
 
   /* ── Trend chart ─────────────────────────────────── */
   .trend-wrap {
@@ -234,7 +245,7 @@
     .detail  { padding: 24px 16px; }
     .client-header { flex-wrap: wrap; gap: 12px; margin-bottom: 28px; }
     .client-header .btn { align-self: flex-start; }
-    .tl-row  { grid-template-columns: 52px 1fr 70px; gap: 10px; }
+    .tl-row  { grid-template-columns: 52px 1fr; gap: 10px; }
     .trend-wrap { padding: 18px 16px; }
   }
 </style>
@@ -280,14 +291,16 @@ const CLIENTS = [
     flag: 'Schmerz',
     since: '15.01.2026',
     week: '24 von 24',
+    focus: 'LWS-Mobilit\u00e4t',
+    goal: 'schmerzfrei b\u00fccken',
     signal: {
       title: 'Anhaltende LWS-Beschwerden',
       sub: 'Gemeldet im Check-in vom 02.07.2026 \u00b7 noch nicht bearbeitet'
     },
     checkins: [
-      { date: '02.07.', text: 'LWS-Schmerzen beim B\u00fccken, kaum Schlaf diese Woche.', score: 2 },
-      { date: '25.06.', text: 'Leichte Besserung sp\u00fcrbar, Dehn-\u00dcbungen helfen etwas.', score: 3 },
-      { date: '18.06.', text: 'Starke R\u00fcckenschmerzen, Training pausiert.', score: 1 },
+      { date: '02.07.', text: 'LWS-Schmerzen beim B\u00fccken, kaum Schlaf diese Woche.', score: 2, satisfaction: 2, exercises: '2/4 erledigt', pain: 'LWS beim B\u00fccken', progress: 'Dehnung hilft kurz', goal: 'Schlaf stabilisieren', help: 'Coach-R\u00fcckmeldung' },
+      { date: '25.06.', text: 'Leichte Besserung sp\u00fcrbar, Dehn-\u00dcbungen helfen etwas.', score: 3, satisfaction: 3, exercises: '3/4 erledigt', pain: 'leicht', progress: 'mehr Beweglichkeit', goal: 'Routine halten', help: null },
+      { date: '18.06.', text: 'Starke R\u00fcckenschmerzen, Training pausiert.', score: 1, satisfaction: 2, exercises: 'pausiert', pain: 'stark', progress: null, goal: 'Belastung reduzieren', help: 'Anpassung n\u00f6tig' },
     ],
     trendPts: '0,62 130,64 260,67 390,70 520,72 650,74 780,73',
     trendText: '\u2198 sinkend \u2014 R\u00fcckgang \u00fcber letzte 3 Screenings',
@@ -297,20 +310,22 @@ const CLIENTS = [
     name: 'Markus H\u00e4usler',
     initials: 'MH',
     kks: 15,
-    trendLabel: 'stabil',
-    trendDir: 'stable',
-    dotClass: 'neutral',
-    flag: null,
+    trendLabel: 'steigend',
+    trendDir: 'up',
+    dotClass: 'signal',
+    flag: 'Schmerz',
     since: '02.07.2025',
     week: '17 von 24',
+    focus: 'Schulter & Nacken',
+    goal: '\u00dcberkopfdr\u00fccken schmerzfrei',
     signal: {
       title: 'Schmerz beim \u00dcberkopfdr\u00fccken',
       sub: 'Gemeldet im Check-in vom 30.06.2026 \u00b7 noch nicht bearbeitet'
     },
     checkins: [
-      { date: '30.06.', text: 'Schulter beim \u00dcberkopfdr\u00fccken schmerzhaft, Belastung reduziert.', score: 2 },
-      { date: '23.06.', text: 'L\u00e4uft stabil, drei Trainingseinheiten wie geplant geschafft.', score: 4 },
-      { date: '16.06.', text: 'Mehr Beweglichkeit im Nacken bemerkt, \u00dcbungen sitzen gut.', score: 4 },
+      { date: '30.06.', text: 'Schulter beim \u00dcberkopfdr\u00fccken schmerzhaft, Belastung reduziert.', score: 2, satisfaction: 3, exercises: '3/5 erledigt', pain: 'Schulter \u00fcber Kopf', progress: 'Belastung erkannt', goal: 'Press-Variante testen', help: 'Technik-Check' },
+      { date: '23.06.', text: 'L\u00e4uft stabil, drei Trainingseinheiten wie geplant geschafft.', score: 4, satisfaction: 4, exercises: '3/3 erledigt', pain: null, progress: 'Training konstant', goal: 'Gewicht langsam steigern', help: null },
+      { date: '16.06.', text: 'Mehr Beweglichkeit im Nacken bemerkt, \u00dcbungen sitzen gut.', score: 4, satisfaction: 4, exercises: '4/4 erledigt', pain: 'leicht im Nacken', progress: 'Nacken beweglicher', goal: 'Mobilit\u00e4t halten', help: null },
     ],
     trendPts: '0,78 130,68 260,55 390,42 520,30 650,20 780,12',
     trendText: '\u2197 steigend \u00fcber 6 Screenings',
@@ -326,11 +341,13 @@ const CLIENTS = [
     flag: null,
     since: '10.03.2026',
     week: '9 von 24',
+    focus: 'Kraftaufbau',
+    goal: 'Training 3x/Woche',
     signal: null,
     checkins: [
-      { date: '01.07.', text: 'Kraftwerte deutlich gestiegen, f\u00fchlt sich fit und motiviert.', score: 5 },
-      { date: '24.06.', text: 'Neues \u00dcbungsprogramm gut angekommen, Schlaf verbessert.', score: 5 },
-      { date: '17.06.', text: 'Leichte Muskelerm\u00fcdung, aber grunds\u00e4tzlich auf Kurs.', score: 4 },
+      { date: '01.07.', text: 'Kraftwerte deutlich gestiegen, f\u00fchlt sich fit und motiviert.', score: 5, satisfaction: 5, exercises: '4/4 erledigt', pain: null, progress: 'Kraftwerte hoch', goal: 'Tempo halten', help: null },
+      { date: '24.06.', text: 'Neues \u00dcbungsprogramm gut angekommen, Schlaf verbessert.', score: 5, satisfaction: 5, exercises: '4/4 erledigt', pain: null, progress: 'besserer Schlaf', goal: 'Routinen festigen', help: null },
+      { date: '17.06.', text: 'Leichte Muskelerm\u00fcdung, aber grunds\u00e4tzlich auf Kurs.', score: 4, satisfaction: 4, exercises: '3/4 erledigt', pain: null, progress: 'Belastung gut', goal: 'Regeneration planen', help: null },
     ],
     trendPts: '0,85 130,72 260,58 390,44 520,32 650,22 780,14',
     trendText: '\u2197 steigend \u00fcber 6 Screenings',
@@ -346,11 +363,13 @@ const CLIENTS = [
     flag: null,
     since: '15.11.2025',
     week: '21 von 24',
+    focus: 'Haltung & Energie',
+    goal: 'Alltagsroutine halten',
     signal: null,
     checkins: [
-      { date: '30.06.', text: 'Haltung deutlich verbessert, Kolleginnen haben es bemerkt.', score: 5 },
-      { date: '23.06.', text: 'Yoga-\u00dcbungen integriert, deutlich mehr Energie im Alltag.', score: 5 },
-      { date: '16.06.', text: 'Gelegentliche HWS-Spannung, sonst alles gut.', score: 4 },
+      { date: '30.06.', text: 'Haltung deutlich verbessert, Kolleginnen haben es bemerkt.', score: 5, satisfaction: 5, exercises: '5/5 erledigt', pain: null, progress: 'Haltung sichtbar besser', goal: 'B\u00fcro-Setup halten', help: null },
+      { date: '23.06.', text: 'Yoga-\u00dcbungen integriert, deutlich mehr Energie im Alltag.', score: 5, satisfaction: 5, exercises: '4/4 erledigt', pain: null, progress: 'mehr Energie', goal: 'Morgenroutine', help: null },
+      { date: '16.06.', text: 'Gelegentliche HWS-Spannung, sonst alles gut.', score: 4, satisfaction: 4, exercises: '4/5 erledigt', pain: 'leichte HWS-Spannung', progress: 'stabil', goal: 'Pausen einbauen', help: null },
     ],
     trendPts: '0,82 130,68 260,54 390,40 520,28 650,18 780,10',
     trendText: '\u2197 steigend \u00fcber 6 Screenings',
@@ -366,11 +385,13 @@ const CLIENTS = [
     flag: null,
     since: '01.04.2026',
     week: '14 von 24',
+    focus: 'BWS & Beweglichkeit',
+    goal: 'Dehnroutine etablieren',
     signal: null,
     checkins: [
-      { date: '04.07.', text: 'Programm gut etabliert, erste sp\u00fcrbare Fortschritte.', score: 4 },
-      { date: '27.06.', text: 'Dehn-Routinen sitzen jetzt, K\u00f6rpergef\u00fchl verbessert.', score: 4 },
-      { date: '20.06.', text: 'Leichte BWS-Verspannungen nach langen Arbeitstagen.', score: 3 },
+      { date: '04.07.', text: 'Programm gut etabliert, erste sp\u00fcrbare Fortschritte.', score: 4, satisfaction: 4, exercises: '4/5 erledigt', pain: null, progress: 'Routine etabliert', goal: 'Konstanz halten', help: null },
+      { date: '27.06.', text: 'Dehn-Routinen sitzen jetzt, K\u00f6rpergef\u00fchl verbessert.', score: 4, satisfaction: 4, exercises: '5/5 erledigt', pain: null, progress: 'K\u00f6rpergef\u00fchl besser', goal: 'Mobilit\u00e4t ausbauen', help: null },
+      { date: '20.06.', text: 'Leichte BWS-Verspannungen nach langen Arbeitstagen.', score: 3, satisfaction: 3, exercises: '3/5 erledigt', pain: 'leichte BWS-Spannung', progress: null, goal: 'Arbeitsplatz-Pausen', help: null },
     ],
     trendPts: '0,65 130,63 260,61 390,59 520,58 650,57 780,55',
     trendText: '\u2192 stabil \u00fcber 6 Screenings',
@@ -386,14 +407,16 @@ const CLIENTS = [
     flag: 'Hilfebedarf',
     since: '05.05.2026',
     week: '9 von 24',
+    focus: 'Motivation & Knie',
+    goal: 'dranbleiben ohne \u00dcberforderung',
     signal: {
       title: 'Motivationseinbruch \u2014 Hilfebedarf gemeldet',
       sub: 'Gemeldet im Check-in vom 03.07.2026 \u00b7 dringend bearbeiten'
     },
     checkins: [
-      { date: '03.07.', text: 'F\u00fchlt sich \u00fcberfordert, braucht mehr Unterst\u00fctzung.', score: 1 },
-      { date: '26.06.', text: 'Knieschmerzen nach langer Sitzarbeit, Training unregelm\u00e4\u00dfig.', score: 2 },
-      { date: '19.06.', text: 'Einstieg okay, aber Zeitmanagement ist schwierig.', score: 3 },
+      { date: '03.07.', text: 'F\u00fchlt sich \u00fcberfordert, braucht mehr Unterst\u00fctzung.', score: 1, satisfaction: 2, exercises: '1/4 erledigt', pain: null, progress: null, goal: 'Plan vereinfachen', help: 'mehr Unterst\u00fctzung' },
+      { date: '26.06.', text: 'Knieschmerzen nach langer Sitzarbeit, Training unregelm\u00e4\u00dfig.', score: 2, satisfaction: 2, exercises: '2/4 erledigt', pain: 'Knie nach Sitzen', progress: null, goal: 'kurze Einheiten', help: 'Motivation' },
+      { date: '19.06.', text: 'Einstieg okay, aber Zeitmanagement ist schwierig.', score: 3, satisfaction: 3, exercises: '2/4 erledigt', pain: null, progress: 'Einstieg geschafft', goal: 'feste Termine', help: null },
     ],
     trendPts: '0,56 130,60 260,65 390,72 520,78 650,82 780,84',
     trendText: '\u2198 sinkend \u2014 Abw\u00e4rtstrend letzte 4 Screenings',
@@ -413,8 +436,14 @@ function trendColor(dir) {
   return 'var(--text-2)';
 }
 
+function fieldChip(label, value, cls = '') {
+  if (!value) return '';
+  return `<span class="tl-chip ${cls}">${label}: ${value}</span>`;
+}
+
 function renderDetail(c) {
   const pct = (c.kks / 165 * 100).toFixed(1);
+  const lastCheckin = c.checkins[0]?.date || '\u2014';
 
   const signalHTML = c.signal
     ? `<div class="signal-card">
@@ -435,11 +464,22 @@ function renderDetail(c) {
        </div>`;
 
   const checkinsHTML = c.checkins.map(ci => {
-    const cls = ci.score <= 2 ? 'low' : 'ok';
+    const scoreClass = ci.score <= 2 ? 'signal' : '';
+    const chips = [
+      fieldChip('Befinden', `${ci.score}/5`, scoreClass),
+      fieldChip('Zufriedenheit', `${ci.satisfaction}/5`),
+      fieldChip('\u00dcbungen', ci.exercises),
+      fieldChip('Schmerzsignal', ci.pain, 'signal'),
+      fieldChip('Fortschritt', ci.progress, 'progress'),
+      fieldChip('Ziel', ci.goal),
+      fieldChip('Hilfebedarf', ci.help, 'signal'),
+    ].join('');
     return `<div class="tl-row">
       <span class="tl-date">${ci.date}</span>
-      <span class="tl-text">${ci.text}</span>
-      <span class="tl-score ${cls}">Befinden ${ci.score}/5</span>
+      <div>
+        <div class="tl-text">${ci.text}</div>
+        <div class="tl-fields">${chips}</div>
+      </div>
     </div>`;
   }).join('');
 
@@ -452,6 +492,11 @@ function renderDetail(c) {
         <div>
           <h1>${c.name}</h1>
           <p class="meta">Coaching seit ${c.since} &middot; Woche ${c.week} &middot; Coach: Silvester</p>
+          <p class="case-meta">
+            <span>Fokus: ${c.focus}</span>
+            <span>Ziel: ${c.goal}</span>
+            <span>Letzter Check-in: ${lastCheckin}</span>
+          </p>
         </div>
       </div>
       <button class="btn">Notiz hinzuf\u00fcgen</button>
