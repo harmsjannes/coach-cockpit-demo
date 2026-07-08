@@ -259,7 +259,12 @@
   .screening-row:last-child { border-bottom: none; }
   .screening-date { color: var(--text-2); font-variant-numeric: tabular-nums; }
   .screening-score { font-weight: 500; font-variant-numeric: tabular-nums; }
-  .screening-note { color: var(--text-2); }
+  .screening-note { display: flex; flex-wrap: wrap; gap: 8px; color: var(--text-2); }
+  .screening-cat { display: inline-flex; align-items: center; gap: 4px; white-space: nowrap; }
+  .ampel-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+  .ampel-dot.red { background: var(--signal); }
+  .ampel-dot.yellow { background: #B88700; }
+  .ampel-dot.green { background: var(--progress); }
 
   .footer {
     padding: 18px 32px 24px;
@@ -528,8 +533,21 @@ function fieldChip(label, value, cls = '') {
   return `<span class="tl-chip ${cls}">${label}: ${value}</span>`;
 }
 
+function ampelClass(value) {
+  if (value <= 12) return 'red';
+  if (value <= 23) return 'yellow';
+  return 'green';
+}
+
+function renderScreeningNote(note) {
+  return note.replace(/(HWS|BWS|LWS) (\d+)/g, (_, label, value) => {
+    const num = Number(value);
+    return `<span class="screening-cat"><span class="ampel-dot ${ampelClass(num)}"></span>${label} ${num}</span>`;
+  });
+}
+
 function renderDetail(c) {
-  const pct = (c.kks / 165 * 100).toFixed(1);
+  const pct = (c.kks / 160 * 100).toFixed(1);
   const lastCheckin = c.checkins[0]?.date || '\u2014';
 
   const signalHTML = c.signal
@@ -573,8 +591,8 @@ function renderDetail(c) {
   const screeningsHTML = c.screenings.map(s => `
     <div class="screening-row">
       <span class="screening-date">${s.date}</span>
-      <span class="screening-score">${s.score}/165</span>
-      <span class="screening-note">${s.note}</span>
+      <span class="screening-score">${s.score}/160</span>
+      <span class="screening-note">${renderScreeningNote(s.note)}</span>
     </div>
   `).join('');
 
@@ -605,7 +623,7 @@ function renderDetail(c) {
     <div class="instrument-row">
       <div class="score-card">
         <p class="score-label">KKS-Score</p>
-        <p class="score-value">${c.kks}<span> /165</span></p>
+        <p class="score-value">${c.kks}<span> /160</span></p>
         <div class="score-bar-track">
           <div class="score-bar-fill" style="width:${pct}%"></div>
         </div>
