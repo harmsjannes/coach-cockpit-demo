@@ -290,6 +290,19 @@
   }
   .ex-note-text.open { display: block; }
 
+  /* ── Übungskategorie-Collapse ────────────────────── */
+  .excomp-cat-header {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 9px 0 6px; cursor: pointer; border-top: 1px solid var(--sep);
+    user-select: none;
+  }
+  .excomp-cat:first-child .excomp-cat-header { border-top: none; padding-top: 4px; }
+  .excomp-cat-name { font-size: 11px; text-transform: uppercase; letter-spacing: 0.07em; color: var(--text-2); font-weight: 700; }
+  .excomp-cat-chevron { font-size: 11px; color: var(--text-3); }
+  .excomp-cat-body { display: none; }
+  .excomp-cat-body.open { display: block; }
+  .val-na { color: var(--text-3); }
+
   /* ── Archiv alter Übungen ─────────────────────────── */
   .archive-block { margin-top: 14px; }
   .archive-toggle {
@@ -419,10 +432,69 @@ const CLIENTS = [
     ],
     exerciseHistory: {
       sessions: ['15.01.26','12.03.26','07.05.26','04.06.26','18.06.26','02.07.26'],
-      exercises: [
-        { name: 'Tandemstand',           category: 'Gleichgewicht', max: 4, values: [3,3,2,2,2,2], notes: [null,null,null,null,null,null] },
-        { name: 'LWS Flexion',           category: 'LWS',          max: 5, values: [4,3,2,2,1,1], notes: [null,null,null,'schmerzhaft beim B\u00fccken',null,null] },
-        { name: 'Schulter Abduktion re.',category: 'Schulter',     max: 4, values: [3,3,3,3,3,3], notes: [null,null,null,null,null,null] },
+      categories: [
+        { name: 'I. Stehende \u00dcbungen', exercises: [
+          { name: 'HWS - Flexion',                            max: 3, values: [3,3,2,2,2,2] },
+          { name: 'HWS - Extension',                          max: 3, values: [3,3,3,2,2,2] },
+          { name: 'HWS - Rotation Rechts',                    max: 3, values: [3,3,3,3,2,2] },
+          { name: 'HWS - Rotation Links',                     max: 3, values: [3,3,3,3,2,2] },
+          { name: 'Schulter - IRO einarmig Rechts',           max: 3, values: [3,3,3,3,3,3] },
+          { name: 'Schulter - IRO einarmig Links',            max: 3, values: [3,3,3,3,3,3] },
+          { name: 'Schulter - ARO einarmig Rechts',           max: 3, values: [3,3,3,2,2,2] },
+          { name: 'Schulter - ARO einarmig Links',            max: 3, values: [3,3,3,2,2,2] },
+          { name: 'LWS - Fingerboden Abstand',                max: 3, values: [2,2,1,1,1,0], notes: [null,null,null,'schmerzhaft beim B\u00fccken',null,null] },
+          { name: 'LWS - Crossover Rechts',                   max: 3, values: [2,2,1,1,1,1] },
+          { name: 'LWS - Crossover Links',                    max: 3, values: [2,2,1,1,1,1] },
+          { name: 'LWS - Latflex Rechts',                     max: 3, values: [3,2,2,2,1,1] },
+          { name: 'LWS - Latflex Links',                      max: 3, values: [3,2,2,2,1,1] },
+          { name: 'Gleichgewicht - Tandemstand Boden Rechts', max: 4, values: [3,3,3,3,3,2] },
+          { name: 'Gleichgewicht - Tandemstand Boden Links',  max: 4, values: [3,3,3,3,3,2] },
+          { name: 'Gleichgewicht - Einbeinstand offen Rechts',max: 4, values: [3,3,2,2,2,2] },
+          { name: 'Gleichgewicht - Einbeinstand offen Links', max: 4, values: [3,3,2,2,2,2] },
+          { name: 'Sprunggelenke - Zehen spreizen Rechts',    max: 3, values: [3,3,3,3,3,3] },
+          { name: 'Sprunggelenke - Zehen spreizen Links',     max: 3, values: [3,3,3,3,3,3] },
+        ]},
+        { name: 'II. Liegende \u00dcbungen', exercises: [
+          { name: 'Ges\u00e4\u00df - Beinheben BL H\u00e4nde Stirn Rechts', max: 3, values: [3,3,2,2,2,2] },
+          { name: 'Ges\u00e4\u00df - Beinheben BL H\u00e4nde Stirn Links',  max: 3, values: [3,3,2,2,2,2] },
+          { name: 'Rotation - Bein aus BL Rechts',            max: 3, values: [2,2,2,2,1,1] },
+          { name: 'Rotation - Bein aus BL Links',             max: 3, values: [2,2,2,2,1,1] },
+          { name: 'Rotation - Arm/Kopf aus BL Rechts',        max: 3, values: [3,3,2,2,2,2] },
+          { name: 'Rotation - Arm/Kopf aus BL Links',         max: 3, values: [3,3,2,2,2,2] },
+          { name: 'LWS - ASLR Rechts',                        max: 4, values: [3,2,2,2,1,1] },
+          { name: 'LWS - ASLR Links',                         max: 4, values: [3,2,2,2,1,1] },
+          { name: 'H\u00fcfte - ARO Rechts',                  max: 3, values: [3,3,3,3,3,3] },
+          { name: 'H\u00fcfte - ARO Links',                   max: 3, values: [3,3,3,3,3,3] },
+          { name: 'H\u00fcfte - IRO Rechts',                  max: 3, values: [3,3,3,2,2,2] },
+          { name: 'H\u00fcfte - IRO Links',                   max: 3, values: [3,3,3,2,2,2] },
+          { name: 'Core - Happy Baby Rechts',                 max: 3, values: [3,3,3,3,3,3] },
+          { name: 'Core - Happy Baby Links',                  max: 3, values: [3,3,3,3,3,3] },
+          { name: 'Core - Turnerrolle abgebremst',            max: 3, values: ['-',2,2,2,2,1] },
+          { name: 'Sprunggelenke - Streckung OSG Rechts',     max: 3, values: [3,3,3,3,3,3] },
+          { name: 'Sprunggelenke - Streckung OSG Links',      max: 3, values: [3,3,3,3,3,3] },
+        ]},
+        { name: 'III. Sitzende \u00dcbungen', exercises: [
+          { name: 'H\u00fcfte - Fu\u00dfsohlen an Wand Rechts',      max: 3, values: [2,2,2,2,2,2] },
+          { name: 'H\u00fcfte - Fu\u00dfsohlen an Wand Links',       max: 3, values: [2,2,2,2,2,2] },
+          { name: 'Schulter - VW-Sitz Schneidersitz',         max: 3, values: [3,3,3,3,3,3] },
+          { name: 'BWS - Oberk\u00f6rperrotation Sitz Rechts', max: 3, values: [3,3,3,3,2,2] },
+          { name: 'BWS - Oberk\u00f6rperrotation Sitz Links',  max: 3, values: [3,3,3,3,2,2] },
+          { name: 'Core - Einbeinig Aufstehen Rechts',        max: 3, values: [2,2,2,2,2,1] },
+          { name: 'Core - Einbeinig Aufstehen Links',         max: 3, values: [2,2,2,2,2,1] },
+        ]},
+        { name: 'IV. Kraft', exercises: [
+          { name: 'Kraft - Bulgarian Split Squats Rechts',    max: 3, values: [3,3,3,3,2,2] },
+          { name: 'Kraft - Bulgarian Split Squats Links',     max: 3, values: [3,3,3,3,2,2] },
+          { name: 'Kraft - Pistol Squat Rechts',              max: 3, values: ['-',1,1,1,1,1] },
+          { name: 'Kraft - Pistol Squat Links',               max: 3, values: ['-',1,1,1,1,1] },
+          { name: 'Kraft - Wadenheben einbeinig Rechts',      max: 3, values: [3,3,3,3,3,3] },
+          { name: 'Kraft - Wadenheben einbeinig Links',       max: 3, values: [3,3,3,3,3,3] },
+          { name: 'Kraft - Bridging einbeinig Rechts',        max: 3, values: [3,3,3,2,2,2] },
+          { name: 'Kraft - Bridging einbeinig Links',         max: 3, values: [3,3,3,2,2,2] },
+          { name: 'Kraft - Hollow Hold',                      max: 4, values: [3,3,3,3,2,2] },
+          { name: 'Kraft - Liegest\u00fctz',                  max: 4, values: [3,3,3,3,2,2] },
+          { name: 'Kraft - Reverse Plank',                    max: 4, values: [4,4,4,3,3,3] },
+        ]},
       ]
     },
     archivedExercises: [
@@ -473,10 +545,69 @@ const CLIENTS = [
     ],
     exerciseHistory: {
       sessions: ['02.07.25','27.08.25','22.10.25','17.12.25','11.02.26','30.06.26'],
-      exercises: [
-        { name: 'Schulter Abduktion re.', category: 'Schulter',     max: 4, values: [0,0,1,1,2,2], notes: [null,'5\u00b0 Abduktion max.',null,null,null,null] },
-        { name: 'HWS Rotation li.',       category: 'HWS',          max: 4, values: [1,1,1,2,2,3], notes: [null,null,null,null,null,null] },
-        { name: 'Tandemstand',            category: 'Gleichgewicht', max: 4, values: [1,1,1,1,2,2], notes: [null,null,null,null,null,null] },
+      categories: [
+        { name: 'I. Stehende \u00dcbungen', exercises: [
+          { name: 'HWS - Flexion',                            max: 3, values: [1,1,2,2,2,3] },
+          { name: 'HWS - Extension',                          max: 3, values: [1,1,1,2,2,3] },
+          { name: 'HWS - Rotation Rechts',                    max: 3, values: [1,1,2,2,3,3] },
+          { name: 'HWS - Rotation Links',                     max: 3, values: [1,2,2,2,3,3] },
+          { name: 'Schulter - IRO einarmig Rechts',           max: 3, values: [0,0,1,1,1,2], notes: [null,'5\u00b0 max., post-OP',null,null,null,null] },
+          { name: 'Schulter - IRO einarmig Links',            max: 3, values: [1,1,2,2,2,3] },
+          { name: 'Schulter - ARO einarmig Rechts',           max: 3, values: [0,0,0,1,1,2] },
+          { name: 'Schulter - ARO einarmig Links',            max: 3, values: [1,1,2,2,2,3] },
+          { name: 'LWS - Fingerboden Abstand',                max: 3, values: [1,1,1,2,2,2] },
+          { name: 'LWS - Crossover Rechts',                   max: 3, values: [1,1,1,1,2,2] },
+          { name: 'LWS - Crossover Links',                    max: 3, values: [1,1,1,1,2,2] },
+          { name: 'LWS - Latflex Rechts',                     max: 3, values: [1,1,2,2,2,3] },
+          { name: 'LWS - Latflex Links',                      max: 3, values: [1,1,2,2,2,3] },
+          { name: 'Gleichgewicht - Tandemstand Boden Rechts', max: 4, values: [1,1,1,2,2,2] },
+          { name: 'Gleichgewicht - Tandemstand Boden Links',  max: 4, values: [1,1,1,2,2,2] },
+          { name: 'Gleichgewicht - Einbeinstand offen Rechts',max: 4, values: ['-','-',1,1,1,2] },
+          { name: 'Gleichgewicht - Einbeinstand offen Links', max: 4, values: ['-','-',1,1,1,2] },
+          { name: 'Sprunggelenke - Zehen spreizen Rechts',    max: 3, values: [2,2,2,2,3,3] },
+          { name: 'Sprunggelenke - Zehen spreizen Links',     max: 3, values: [2,2,2,2,3,3] },
+        ]},
+        { name: 'II. Liegende \u00dcbungen', exercises: [
+          { name: 'Ges\u00e4\u00df - Beinheben BL H\u00e4nde Stirn Rechts', max: 3, values: [1,1,1,2,2,2] },
+          { name: 'Ges\u00e4\u00df - Beinheben BL H\u00e4nde Stirn Links',  max: 3, values: [1,1,1,2,2,2] },
+          { name: 'Rotation - Bein aus BL Rechts',            max: 3, values: [1,1,2,2,2,3] },
+          { name: 'Rotation - Bein aus BL Links',             max: 3, values: [1,1,2,2,2,3] },
+          { name: 'Rotation - Arm/Kopf aus BL Rechts',        max: 3, values: [0,1,1,1,2,2] },
+          { name: 'Rotation - Arm/Kopf aus BL Links',         max: 3, values: [1,1,1,2,2,3] },
+          { name: 'LWS - ASLR Rechts',                        max: 4, values: [1,1,1,2,2,3] },
+          { name: 'LWS - ASLR Links',                         max: 4, values: [1,1,2,2,2,3] },
+          { name: 'H\u00fcfte - ARO Rechts',                  max: 3, values: [1,1,2,2,2,3] },
+          { name: 'H\u00fcfte - ARO Links',                   max: 3, values: [1,2,2,2,3,3] },
+          { name: 'H\u00fcfte - IRO Rechts',                  max: 3, values: [1,1,1,2,2,2] },
+          { name: 'H\u00fcfte - IRO Links',                   max: 3, values: [1,1,2,2,2,3] },
+          { name: 'Core - Happy Baby Rechts',                 max: 3, values: [1,1,2,2,2,3] },
+          { name: 'Core - Happy Baby Links',                  max: 3, values: [1,1,2,2,2,3] },
+          { name: 'Core - Turnerrolle abgebremst',            max: 3, values: ['-','-',1,1,2,2] },
+          { name: 'Sprunggelenke - Streckung OSG Rechts',     max: 3, values: [2,2,2,3,3,3] },
+          { name: 'Sprunggelenke - Streckung OSG Links',      max: 3, values: [2,2,2,3,3,3] },
+        ]},
+        { name: 'III. Sitzende \u00dcbungen', exercises: [
+          { name: 'H\u00fcfte - Fu\u00dfsohlen an Wand Rechts',      max: 3, values: [1,1,1,2,2,3] },
+          { name: 'H\u00fcfte - Fu\u00dfsohlen an Wand Links',       max: 3, values: [1,1,2,2,2,3] },
+          { name: 'Schulter - VW-Sitz Schneidersitz',         max: 3, values: [0,0,1,1,2,2] },
+          { name: 'BWS - Oberk\u00f6rperrotation Sitz Rechts', max: 3, values: [1,1,1,2,2,3] },
+          { name: 'BWS - Oberk\u00f6rperrotation Sitz Links',  max: 3, values: [1,1,2,2,2,3] },
+          { name: 'Core - Einbeinig Aufstehen Rechts',        max: 3, values: ['-','-',1,1,1,2] },
+          { name: 'Core - Einbeinig Aufstehen Links',         max: 3, values: ['-','-',1,1,1,2] },
+        ]},
+        { name: 'IV. Kraft', exercises: [
+          { name: 'Kraft - Bulgarian Split Squats Rechts',    max: 3, values: ['-','-',1,1,2,2] },
+          { name: 'Kraft - Bulgarian Split Squats Links',     max: 3, values: ['-','-',1,1,2,2] },
+          { name: 'Kraft - Pistol Squat Rechts',              max: 3, values: ['-','-','-','-',1,1] },
+          { name: 'Kraft - Pistol Squat Links',               max: 3, values: ['-','-','-','-',1,1] },
+          { name: 'Kraft - Wadenheben einbeinig Rechts',      max: 3, values: [1,1,2,2,2,3] },
+          { name: 'Kraft - Wadenheben einbeinig Links',       max: 3, values: [1,1,2,2,2,3] },
+          { name: 'Kraft - Bridging einbeinig Rechts',        max: 3, values: [1,1,1,2,2,2] },
+          { name: 'Kraft - Bridging einbeinig Links',         max: 3, values: [1,1,1,2,2,2] },
+          { name: 'Kraft - Hollow Hold',                      max: 4, values: ['-',1,1,2,2,3] },
+          { name: 'Kraft - Liegest\u00fctz',                  max: 4, values: [1,1,1,2,2,3] },
+          { name: 'Kraft - Reverse Plank',                    max: 4, values: [1,1,2,2,3,3] },
+        ]},
       ]
     },
     archivedExercises: [
@@ -524,10 +655,69 @@ const CLIENTS = [
     ],
     exerciseHistory: {
       sessions: ['10.03.26','31.03.26','21.04.26','12.05.26','09.06.26','01.07.26'],
-      exercises: [
-        { name: 'Kniebeuge',       category: 'Kraft',         max: 5, sets: '3\u00d710', values: [2,2,3,3,4,5], notes: [null,null,null,'2,5 kg Gewichtszuwachs',null,null] },
-        { name: 'Tandemstand',     category: 'Gleichgewicht', max: 4,              values: [2,2,3,3,4,4], notes: [null,null,null,null,null,null] },
-        { name: 'HWS Rotation li.',category: 'HWS',           max: 4,              values: [3,3,3,3,4,4], notes: [null,null,null,null,null,null] },
+      categories: [
+        { name: 'I. Stehende \u00dcbungen', exercises: [
+          { name: 'HWS - Flexion',                            max: 3, values: [2,2,2,3,3,3] },
+          { name: 'HWS - Extension',                          max: 3, values: [1,2,2,2,3,3] },
+          { name: 'HWS - Rotation Rechts',                    max: 3, values: [2,2,3,3,3,3] },
+          { name: 'HWS - Rotation Links',                     max: 3, values: [2,2,3,3,3,3] },
+          { name: 'Schulter - IRO einarmig Rechts',           max: 3, values: [2,2,2,3,3,3] },
+          { name: 'Schulter - IRO einarmig Links',            max: 3, values: [2,2,2,3,3,3] },
+          { name: 'Schulter - ARO einarmig Rechts',           max: 3, values: [1,2,2,3,3,3] },
+          { name: 'Schulter - ARO einarmig Links',            max: 3, values: [1,2,2,3,3,3] },
+          { name: 'LWS - Fingerboden Abstand',                max: 3, values: [1,2,2,2,3,3] },
+          { name: 'LWS - Crossover Rechts',                   max: 3, values: [1,1,2,2,3,3] },
+          { name: 'LWS - Crossover Links',                    max: 3, values: [1,1,2,2,3,3] },
+          { name: 'LWS - Latflex Rechts',                     max: 3, values: [2,2,2,3,3,3] },
+          { name: 'LWS - Latflex Links',                      max: 3, values: [2,2,2,3,3,3] },
+          { name: 'Gleichgewicht - Tandemstand Boden Rechts', max: 4, values: [2,2,3,3,4,4] },
+          { name: 'Gleichgewicht - Tandemstand Boden Links',  max: 4, values: [2,2,3,3,4,4] },
+          { name: 'Gleichgewicht - Einbeinstand offen Rechts',max: 4, values: [1,2,2,3,3,4] },
+          { name: 'Gleichgewicht - Einbeinstand offen Links', max: 4, values: [1,2,2,3,3,4] },
+          { name: 'Sprunggelenke - Zehen spreizen Rechts',    max: 3, values: [2,2,3,3,3,3] },
+          { name: 'Sprunggelenke - Zehen spreizen Links',     max: 3, values: [2,2,3,3,3,3] },
+        ]},
+        { name: 'II. Liegende \u00dcbungen', exercises: [
+          { name: 'Ges\u00e4\u00df - Beinheben BL H\u00e4nde Stirn Rechts', max: 3, values: [1,2,2,3,3,3] },
+          { name: 'Ges\u00e4\u00df - Beinheben BL H\u00e4nde Stirn Links',  max: 3, values: [1,2,2,3,3,3] },
+          { name: 'Rotation - Bein aus BL Rechts',            max: 3, values: [2,2,2,3,3,3] },
+          { name: 'Rotation - Bein aus BL Links',             max: 3, values: [2,2,2,3,3,3] },
+          { name: 'Rotation - Arm/Kopf aus BL Rechts',        max: 3, values: [2,2,3,3,3,3] },
+          { name: 'Rotation - Arm/Kopf aus BL Links',         max: 3, values: [2,2,3,3,3,3] },
+          { name: 'LWS - ASLR Rechts',                        max: 4, values: [2,2,2,3,3,4] },
+          { name: 'LWS - ASLR Links',                         max: 4, values: [2,2,2,3,3,4] },
+          { name: 'H\u00fcfte - ARO Rechts',                  max: 3, values: [2,2,3,3,3,3] },
+          { name: 'H\u00fcfte - ARO Links',                   max: 3, values: [2,2,3,3,3,3] },
+          { name: 'H\u00fcfte - IRO Rechts',                  max: 3, values: [1,2,2,3,3,3] },
+          { name: 'H\u00fcfte - IRO Links',                   max: 3, values: [1,2,2,3,3,3] },
+          { name: 'Core - Happy Baby Rechts',                 max: 3, values: [2,2,3,3,3,3] },
+          { name: 'Core - Happy Baby Links',                  max: 3, values: [2,2,3,3,3,3] },
+          { name: 'Core - Turnerrolle abgebremst',            max: 3, values: [1,1,2,2,3,3] },
+          { name: 'Sprunggelenke - Streckung OSG Rechts',     max: 3, values: [2,2,2,3,3,3] },
+          { name: 'Sprunggelenke - Streckung OSG Links',      max: 3, values: [2,2,2,3,3,3] },
+        ]},
+        { name: 'III. Sitzende \u00dcbungen', exercises: [
+          { name: 'H\u00fcfte - Fu\u00dfsohlen an Wand Rechts',      max: 3, values: [1,2,2,2,3,3] },
+          { name: 'H\u00fcfte - Fu\u00dfsohlen an Wand Links',       max: 3, values: [1,2,2,2,3,3] },
+          { name: 'Schulter - VW-Sitz Schneidersitz',         max: 3, values: [2,2,2,3,3,3] },
+          { name: 'BWS - Oberk\u00f6rperrotation Sitz Rechts', max: 3, values: [2,2,3,3,3,3] },
+          { name: 'BWS - Oberk\u00f6rperrotation Sitz Links',  max: 3, values: [2,2,3,3,3,3] },
+          { name: 'Core - Einbeinig Aufstehen Rechts',        max: 3, values: [1,1,2,2,3,3], notes: [null,null,null,'2,5 kg Zusatzgewicht',null,null] },
+          { name: 'Core - Einbeinig Aufstehen Links',         max: 3, values: [1,1,2,2,3,3] },
+        ]},
+        { name: 'IV. Kraft', exercises: [
+          { name: 'Kraft - Bulgarian Split Squats Rechts',    max: 3, values: [1,2,2,3,3,3] },
+          { name: 'Kraft - Bulgarian Split Squats Links',     max: 3, values: [1,2,2,3,3,3] },
+          { name: 'Kraft - Pistol Squat Rechts',              max: 3, values: ['-',1,1,2,2,3] },
+          { name: 'Kraft - Pistol Squat Links',               max: 3, values: ['-',1,1,2,2,3] },
+          { name: 'Kraft - Wadenheben einbeinig Rechts',      max: 3, values: [2,2,3,3,3,3] },
+          { name: 'Kraft - Wadenheben einbeinig Links',       max: 3, values: [2,2,3,3,3,3] },
+          { name: 'Kraft - Bridging einbeinig Rechts',        max: 3, values: [2,2,2,3,3,3] },
+          { name: 'Kraft - Bridging einbeinig Links',         max: 3, values: [2,2,2,3,3,3] },
+          { name: 'Kraft - Hollow Hold',                      max: 4, values: [1,2,2,3,3,4] },
+          { name: 'Kraft - Liegest\u00fctz',                  max: 4, values: [2,2,3,3,4,4] },
+          { name: 'Kraft - Reverse Plank',                    max: 4, values: [2,2,3,3,4,4] },
+        ]},
       ]
     },
     archivedExercises: [
@@ -574,10 +764,69 @@ const CLIENTS = [
     ],
     exerciseHistory: {
       sessions: ['15.11.25','10.01.26','07.03.26','02.05.26','30.05.26','30.06.26'],
-      exercises: [
-        { name: 'BWS Extension',      category: 'BWS',           max: 5, values: [2,2,3,4,4,5], notes: ['45\u00b0 Bewegungsradius',null,null,null,null,null] },
-        { name: 'Tandemstand',        category: 'Gleichgewicht', max: 4, values: [2,2,3,3,4,4], notes: [null,null,null,null,null,null] },
-        { name: 'HWS Rotation li.',   category: 'HWS',           max: 4, values: [2,2,3,3,4,4], notes: [null,null,null,null,null,null] },
+      categories: [
+        { name: 'I. Stehende \u00dcbungen', exercises: [
+          { name: 'HWS - Flexion',                            max: 3, values: [1,2,2,3,3,3] },
+          { name: 'HWS - Extension',                         max: 3, values: [1,1,2,3,3,3] },
+          { name: 'HWS - Rotation Rechts',                    max: 3, values: [1,2,2,3,3,3], notes: ['45\u00b0 eingeschr\u00e4nkt',null,null,null,null,null] },
+          { name: 'HWS - Rotation Links',                     max: 3, values: [1,2,2,3,3,3] },
+          { name: 'Schulter - IRO einarmig Rechts',           max: 3, values: [2,2,3,3,3,3] },
+          { name: 'Schulter - IRO einarmig Links',            max: 3, values: [2,2,3,3,3,3] },
+          { name: 'Schulter - ARO einarmig Rechts',           max: 3, values: [2,2,2,3,3,3] },
+          { name: 'Schulter - ARO einarmig Links',            max: 3, values: [2,2,2,3,3,3] },
+          { name: 'LWS - Fingerboden Abstand',                max: 3, values: [2,2,3,3,3,3] },
+          { name: 'LWS - Crossover Rechts',                   max: 3, values: [2,2,2,3,3,3] },
+          { name: 'LWS - Crossover Links',                    max: 3, values: [2,2,2,3,3,3] },
+          { name: 'LWS - Latflex Rechts',                     max: 3, values: [2,2,3,3,3,3] },
+          { name: 'LWS - Latflex Links',                      max: 3, values: [2,2,3,3,3,3] },
+          { name: 'Gleichgewicht - Tandemstand Boden Rechts', max: 4, values: [2,3,3,4,4,4] },
+          { name: 'Gleichgewicht - Tandemstand Boden Links',  max: 4, values: [2,3,3,4,4,4] },
+          { name: 'Gleichgewicht - Einbeinstand offen Rechts',max: 4, values: [2,2,3,3,4,4] },
+          { name: 'Gleichgewicht - Einbeinstand offen Links', max: 4, values: [2,2,3,3,4,4] },
+          { name: 'Sprunggelenke - Zehen spreizen Rechts',    max: 3, values: [2,3,3,3,3,3] },
+          { name: 'Sprunggelenke - Zehen spreizen Links',     max: 3, values: [2,3,3,3,3,3] },
+        ]},
+        { name: 'II. Liegende \u00dcbungen', exercises: [
+          { name: 'Ges\u00e4\u00df - Beinheben BL H\u00e4nde Stirn Rechts', max: 3, values: [2,2,2,3,3,3] },
+          { name: 'Ges\u00e4\u00df - Beinheben BL H\u00e4nde Stirn Links',  max: 3, values: [2,2,2,3,3,3] },
+          { name: 'Rotation - Bein aus BL Rechts',            max: 3, values: [2,2,3,3,3,3] },
+          { name: 'Rotation - Bein aus BL Links',             max: 3, values: [2,2,3,3,3,3] },
+          { name: 'Rotation - Arm/Kopf aus BL Rechts',        max: 3, values: [2,2,3,3,3,3] },
+          { name: 'Rotation - Arm/Kopf aus BL Links',         max: 3, values: [2,2,3,3,3,3] },
+          { name: 'LWS - ASLR Rechts',                        max: 4, values: [2,3,3,3,4,4] },
+          { name: 'LWS - ASLR Links',                         max: 4, values: [2,3,3,3,4,4] },
+          { name: 'H\u00fcfte - ARO Rechts',                  max: 3, values: [2,2,3,3,3,3] },
+          { name: 'H\u00fcfte - ARO Links',                   max: 3, values: [2,2,3,3,3,3] },
+          { name: 'H\u00fcfte - IRO Rechts',                  max: 3, values: [2,2,2,3,3,3] },
+          { name: 'H\u00fcfte - IRO Links',                   max: 3, values: [2,2,2,3,3,3] },
+          { name: 'Core - Happy Baby Rechts',                 max: 3, values: [2,2,3,3,3,3] },
+          { name: 'Core - Happy Baby Links',                  max: 3, values: [2,2,3,3,3,3] },
+          { name: 'Core - Turnerrolle abgebremst',            max: 3, values: [1,2,2,2,3,3] },
+          { name: 'Sprunggelenke - Streckung OSG Rechts',     max: 3, values: [2,3,3,3,3,3] },
+          { name: 'Sprunggelenke - Streckung OSG Links',      max: 3, values: [2,3,3,3,3,3] },
+        ]},
+        { name: 'III. Sitzende \u00dcbungen', exercises: [
+          { name: 'H\u00fcfte - Fu\u00dfsohlen an Wand Rechts',      max: 3, values: [2,2,2,3,3,3] },
+          { name: 'H\u00fcfte - Fu\u00dfsohlen an Wand Links',       max: 3, values: [2,2,2,3,3,3] },
+          { name: 'Schulter - VW-Sitz Schneidersitz',         max: 3, values: [2,2,3,3,3,3] },
+          { name: 'BWS - Oberk\u00f6rperrotation Sitz Rechts', max: 3, values: [2,2,3,3,3,3] },
+          { name: 'BWS - Oberk\u00f6rperrotation Sitz Links',  max: 3, values: [2,2,3,3,3,3] },
+          { name: 'Core - Einbeinig Aufstehen Rechts',        max: 3, values: [2,2,2,3,3,3] },
+          { name: 'Core - Einbeinig Aufstehen Links',         max: 3, values: [2,2,2,3,3,3] },
+        ]},
+        { name: 'IV. Kraft', exercises: [
+          { name: 'Kraft - Bulgarian Split Squats Rechts',    max: 3, values: [2,2,3,3,3,3] },
+          { name: 'Kraft - Bulgarian Split Squats Links',     max: 3, values: [2,2,3,3,3,3] },
+          { name: 'Kraft - Pistol Squat Rechts',              max: 3, values: [1,1,2,2,3,3] },
+          { name: 'Kraft - Pistol Squat Links',               max: 3, values: [1,1,2,2,3,3] },
+          { name: 'Kraft - Wadenheben einbeinig Rechts',      max: 3, values: [2,3,3,3,3,3] },
+          { name: 'Kraft - Wadenheben einbeinig Links',       max: 3, values: [2,3,3,3,3,3] },
+          { name: 'Kraft - Bridging einbeinig Rechts',        max: 3, values: [2,2,3,3,3,3] },
+          { name: 'Kraft - Bridging einbeinig Links',         max: 3, values: [2,2,3,3,3,3] },
+          { name: 'Kraft - Hollow Hold',                      max: 4, values: [2,2,3,3,4,4] },
+          { name: 'Kraft - Liegest\u00fctz',                  max: 4, values: [2,2,3,3,4,4] },
+          { name: 'Kraft - Reverse Plank',                    max: 4, values: [2,3,3,4,4,4] },
+        ]},
       ]
     },
     archivedExercises: [
@@ -624,10 +873,69 @@ const CLIENTS = [
     ],
     exerciseHistory: {
       sessions: ['01.04.26','22.04.26','13.05.26','03.06.26','24.06.26','04.07.26'],
-      exercises: [
-        { name: 'BWS Extension',    category: 'BWS',           max: 5, values: [3,3,3,3,3,3], notes: [null,null,null,null,null,null] },
-        { name: 'Tandemstand',      category: 'Gleichgewicht', max: 4, values: [3,3,3,3,3,3], notes: [null,null,null,null,null,null] },
-        { name: 'HWS Rotation re.', category: 'HWS',           max: 4, values: [3,3,3,3,4,4], notes: [null,null,null,null,null,null] },
+      categories: [
+        { name: 'I. Stehende \u00dcbungen', exercises: [
+          { name: 'HWS - Flexion',                            max: 3, values: [2,2,2,3,2,3] },
+          { name: 'HWS - Extension',                          max: 3, values: [2,2,3,3,3,3] },
+          { name: 'HWS - Rotation Rechts',                    max: 3, values: [2,3,3,3,3,3] },
+          { name: 'HWS - Rotation Links',                     max: 3, values: [2,2,3,3,3,3] },
+          { name: 'Schulter - IRO einarmig Rechts',           max: 3, values: [3,3,3,3,3,3] },
+          { name: 'Schulter - IRO einarmig Links',            max: 3, values: [3,3,3,3,3,3] },
+          { name: 'Schulter - ARO einarmig Rechts',           max: 3, values: [2,2,3,3,3,3] },
+          { name: 'Schulter - ARO einarmig Links',            max: 3, values: [2,2,3,3,3,3] },
+          { name: 'LWS - Fingerboden Abstand',                max: 3, values: [2,2,2,2,2,3] },
+          { name: 'LWS - Crossover Rechts',                   max: 3, values: [2,2,2,3,2,3] },
+          { name: 'LWS - Crossover Links',                    max: 3, values: [2,2,2,3,2,3] },
+          { name: 'LWS - Latflex Rechts',                     max: 3, values: [3,3,3,3,3,3] },
+          { name: 'LWS - Latflex Links',                      max: 3, values: [3,3,3,3,3,3] },
+          { name: 'Gleichgewicht - Tandemstand Boden Rechts', max: 4, values: [3,3,3,3,3,3] },
+          { name: 'Gleichgewicht - Tandemstand Boden Links',  max: 4, values: [3,3,3,3,3,3] },
+          { name: 'Gleichgewicht - Einbeinstand offen Rechts',max: 4, values: [2,2,3,3,3,3] },
+          { name: 'Gleichgewicht - Einbeinstand offen Links', max: 4, values: [2,2,3,3,3,3] },
+          { name: 'Sprunggelenke - Zehen spreizen Rechts',    max: 3, values: [3,3,3,3,3,3] },
+          { name: 'Sprunggelenke - Zehen spreizen Links',     max: 3, values: [3,3,3,3,3,3] },
+        ]},
+        { name: 'II. Liegende \u00dcbungen', exercises: [
+          { name: 'Ges\u00e4\u00df - Beinheben BL H\u00e4nde Stirn Rechts', max: 3, values: [2,2,3,3,3,3] },
+          { name: 'Ges\u00e4\u00df - Beinheben BL H\u00e4nde Stirn Links',  max: 3, values: [2,2,3,3,3,3] },
+          { name: 'Rotation - Bein aus BL Rechts',            max: 3, values: [2,3,3,3,3,3] },
+          { name: 'Rotation - Bein aus BL Links',             max: 3, values: [2,3,3,3,3,3] },
+          { name: 'Rotation - Arm/Kopf aus BL Rechts',        max: 3, values: [2,2,2,3,2,3] },
+          { name: 'Rotation - Arm/Kopf aus BL Links',         max: 3, values: [2,2,2,3,2,3] },
+          { name: 'LWS - ASLR Rechts',                        max: 4, values: [3,3,3,3,3,3] },
+          { name: 'LWS - ASLR Links',                         max: 4, values: [3,3,3,3,3,3] },
+          { name: 'H\u00fcfte - ARO Rechts',                  max: 3, values: [3,3,3,3,3,3] },
+          { name: 'H\u00fcfte - ARO Links',                   max: 3, values: [3,3,3,3,3,3] },
+          { name: 'H\u00fcfte - IRO Rechts',                  max: 3, values: [2,2,2,3,3,3] },
+          { name: 'H\u00fcfte - IRO Links',                   max: 3, values: [2,2,2,3,3,3] },
+          { name: 'Core - Happy Baby Rechts',                 max: 3, values: [3,3,3,3,3,3] },
+          { name: 'Core - Happy Baby Links',                  max: 3, values: [3,3,3,3,3,3] },
+          { name: 'Core - Turnerrolle abgebremst',            max: 3, values: [2,2,2,2,2,3] },
+          { name: 'Sprunggelenke - Streckung OSG Rechts',     max: 3, values: [3,3,3,3,3,3] },
+          { name: 'Sprunggelenke - Streckung OSG Links',      max: 3, values: [3,3,3,3,3,3] },
+        ]},
+        { name: 'III. Sitzende \u00dcbungen', exercises: [
+          { name: 'H\u00fcfte - Fu\u00dfsohlen an Wand Rechts',      max: 3, values: [2,2,3,3,3,3] },
+          { name: 'H\u00fcfte - Fu\u00dfsohlen an Wand Links',       max: 3, values: [2,2,3,3,3,3] },
+          { name: 'Schulter - VW-Sitz Schneidersitz',         max: 3, values: [3,3,3,3,3,3] },
+          { name: 'BWS - Oberk\u00f6rperrotation Sitz Rechts', max: 3, values: [2,2,2,3,3,3] },
+          { name: 'BWS - Oberk\u00f6rperrotation Sitz Links',  max: 3, values: [2,2,2,3,3,3] },
+          { name: 'Core - Einbeinig Aufstehen Rechts',        max: 3, values: [2,2,3,3,3,3] },
+          { name: 'Core - Einbeinig Aufstehen Links',         max: 3, values: [2,2,3,3,3,3] },
+        ]},
+        { name: 'IV. Kraft', exercises: [
+          { name: 'Kraft - Bulgarian Split Squats Rechts',    max: 3, values: [2,3,3,3,3,3] },
+          { name: 'Kraft - Bulgarian Split Squats Links',     max: 3, values: [2,3,3,3,3,3] },
+          { name: 'Kraft - Pistol Squat Rechts',              max: 3, values: [2,2,2,3,3,3] },
+          { name: 'Kraft - Pistol Squat Links',               max: 3, values: [2,2,2,3,3,3] },
+          { name: 'Kraft - Wadenheben einbeinig Rechts',      max: 3, values: [3,3,3,3,3,3] },
+          { name: 'Kraft - Wadenheben einbeinig Links',       max: 3, values: [3,3,3,3,3,3] },
+          { name: 'Kraft - Bridging einbeinig Rechts',        max: 3, values: [3,3,3,3,3,3] },
+          { name: 'Kraft - Bridging einbeinig Links',         max: 3, values: [3,3,3,3,3,3] },
+          { name: 'Kraft - Hollow Hold',                      max: 4, values: [2,3,3,3,3,3] },
+          { name: 'Kraft - Liegest\u00fctz',                  max: 4, values: [3,3,3,3,3,3] },
+          { name: 'Kraft - Reverse Plank',                    max: 4, values: [3,3,3,3,3,4] },
+        ]},
       ]
     },
     archivedExercises: [
@@ -677,10 +985,69 @@ const CLIENTS = [
     ],
     exerciseHistory: {
       sessions: ['05.05.26','19.05.26','02.06.26','16.06.26','30.06.26','03.07.26'],
-      exercises: [
-        { name: 'Tandemstand', category: 'Gleichgewicht', max: 4,              values: [3,3,2,2,2,1], notes: [null,null,null,null,null,null] },
-        { name: 'Kniebeuge',   category: 'Kraft',         max: 5, sets: '3\u00d78', values: [3,3,2,2,2,1], notes: [null,null,null,'nur halbe ROM, Knieschmerzen',null,null] },
-        { name: 'LWS Flexion', category: 'LWS',           max: 5,              values: [4,4,3,3,2,2], notes: [null,null,null,null,null,null] },
+      categories: [
+        { name: 'I. Stehende \u00dcbungen', exercises: [
+          { name: 'HWS - Flexion',                            max: 3, values: [3,3,3,2,2,2] },
+          { name: 'HWS - Extension',                          max: 3, values: [3,3,2,2,2,2] },
+          { name: 'HWS - Rotation Rechts',                    max: 3, values: [3,3,3,2,2,2] },
+          { name: 'HWS - Rotation Links',                     max: 3, values: [3,3,3,2,2,2] },
+          { name: 'Schulter - IRO einarmig Rechts',           max: 3, values: [3,3,3,3,3,2] },
+          { name: 'Schulter - IRO einarmig Links',            max: 3, values: [3,3,3,3,3,2] },
+          { name: 'Schulter - ARO einarmig Rechts',           max: 3, values: [3,3,3,3,2,2] },
+          { name: 'Schulter - ARO einarmig Links',            max: 3, values: [3,3,3,3,2,2] },
+          { name: 'LWS - Fingerboden Abstand',                max: 3, values: [3,3,2,2,2,1] },
+          { name: 'LWS - Crossover Rechts',                   max: 3, values: [3,2,2,2,1,1] },
+          { name: 'LWS - Crossover Links',                    max: 3, values: [3,2,2,2,1,1] },
+          { name: 'LWS - Latflex Rechts',                     max: 3, values: [3,3,3,2,2,2] },
+          { name: 'LWS - Latflex Links',                      max: 3, values: [3,3,3,2,2,2] },
+          { name: 'Gleichgewicht - Tandemstand Boden Rechts', max: 4, values: [3,3,2,2,2,1] },
+          { name: 'Gleichgewicht - Tandemstand Boden Links',  max: 4, values: [3,3,2,2,2,1] },
+          { name: 'Gleichgewicht - Einbeinstand offen Rechts',max: 4, values: [2,2,2,1,1,1] },
+          { name: 'Gleichgewicht - Einbeinstand offen Links', max: 4, values: [2,2,2,1,1,1] },
+          { name: 'Sprunggelenke - Zehen spreizen Rechts',    max: 3, values: [3,3,3,3,3,3] },
+          { name: 'Sprunggelenke - Zehen spreizen Links',     max: 3, values: [3,3,3,3,3,3] },
+        ]},
+        { name: 'II. Liegende \u00dcbungen', exercises: [
+          { name: 'Ges\u00e4\u00df - Beinheben BL H\u00e4nde Stirn Rechts', max: 3, values: [3,3,2,2,2,2] },
+          { name: 'Ges\u00e4\u00df - Beinheben BL H\u00e4nde Stirn Links',  max: 3, values: [3,3,2,2,2,2] },
+          { name: 'Rotation - Bein aus BL Rechts',            max: 3, values: [3,3,2,2,2,1] },
+          { name: 'Rotation - Bein aus BL Links',             max: 3, values: [3,3,2,2,2,1] },
+          { name: 'Rotation - Arm/Kopf aus BL Rechts',        max: 3, values: [3,3,3,2,2,2] },
+          { name: 'Rotation - Arm/Kopf aus BL Links',         max: 3, values: [3,3,3,2,2,2] },
+          { name: 'LWS - ASLR Rechts',                        max: 4, values: [3,3,2,2,1,1] },
+          { name: 'LWS - ASLR Links',                         max: 4, values: [3,3,2,2,1,1] },
+          { name: 'H\u00fcfte - ARO Rechts',                  max: 3, values: [3,3,3,3,3,3] },
+          { name: 'H\u00fcfte - ARO Links',                   max: 3, values: [3,3,3,3,3,3] },
+          { name: 'H\u00fcfte - IRO Rechts',                  max: 3, values: [3,3,3,2,2,2] },
+          { name: 'H\u00fcfte - IRO Links',                   max: 3, values: [3,3,3,2,2,2] },
+          { name: 'Core - Happy Baby Rechts',                 max: 3, values: [3,3,3,3,3,3] },
+          { name: 'Core - Happy Baby Links',                  max: 3, values: [3,3,3,3,3,3] },
+          { name: 'Core - Turnerrolle abgebremst',            max: 3, values: [2,2,2,2,1,1] },
+          { name: 'Sprunggelenke - Streckung OSG Rechts',     max: 3, values: [3,3,3,3,3,3] },
+          { name: 'Sprunggelenke - Streckung OSG Links',      max: 3, values: [3,3,3,3,3,3] },
+        ]},
+        { name: 'III. Sitzende \u00dcbungen', exercises: [
+          { name: 'H\u00fcfte - Fu\u00dfsohlen an Wand Rechts',      max: 3, values: [3,3,2,2,2,1] },
+          { name: 'H\u00fcfte - Fu\u00dfsohlen an Wand Links',       max: 3, values: [3,3,2,2,2,1] },
+          { name: 'Schulter - VW-Sitz Schneidersitz',         max: 3, values: [3,3,3,3,3,3] },
+          { name: 'BWS - Oberk\u00f6rperrotation Sitz Rechts', max: 3, values: [3,3,3,2,2,2] },
+          { name: 'BWS - Oberk\u00f6rperrotation Sitz Links',  max: 3, values: [3,3,3,2,2,2] },
+          { name: 'Core - Einbeinig Aufstehen Rechts',        max: 3, values: [2,2,2,1,1,1], notes: [null,null,null,'nur halbe ROM, Knieschmerzen',null,null] },
+          { name: 'Core - Einbeinig Aufstehen Links',         max: 3, values: [2,2,2,1,1,1] },
+        ]},
+        { name: 'IV. Kraft', exercises: [
+          { name: 'Kraft - Bulgarian Split Squats Rechts',    max: 3, values: [3,3,2,2,1,1] },
+          { name: 'Kraft - Bulgarian Split Squats Links',     max: 3, values: [3,3,2,2,1,1] },
+          { name: 'Kraft - Pistol Squat Rechts',              max: 3, values: ['-','-','-',1,1,0] },
+          { name: 'Kraft - Pistol Squat Links',               max: 3, values: ['-','-','-',1,1,0] },
+          { name: 'Kraft - Wadenheben einbeinig Rechts',      max: 3, values: [3,3,3,3,3,3] },
+          { name: 'Kraft - Wadenheben einbeinig Links',       max: 3, values: [3,3,3,3,3,3] },
+          { name: 'Kraft - Bridging einbeinig Rechts',        max: 3, values: [3,2,2,2,1,1] },
+          { name: 'Kraft - Bridging einbeinig Links',         max: 3, values: [3,2,2,2,1,1] },
+          { name: 'Kraft - Hollow Hold',                      max: 4, values: [3,3,2,2,2,1] },
+          { name: 'Kraft - Liegest\u00fctz',                  max: 4, values: [3,3,3,2,2,2] },
+          { name: 'Kraft - Reverse Plank',                    max: 4, values: [3,3,3,2,2,2] },
+        ]},
       ]
     },
     archivedExercises: [
@@ -765,9 +1132,29 @@ function renderArchivedExercises(archived) {
   '</div>';
 }
 
+function renderExVal(v, max, prev, noteText) {
+  var noteHTML = noteText
+    ? '<span class="ex-note-icon">\u24d8</span><span class="ex-note-text">' + noteText + '</span>'
+    : '';
+  if (v === '-') {
+    return '<div class="excomp-val"><span class="val-num val-na">\u2014</span>' + noteHTML + '</div>';
+  }
+  var pct = v / max;
+  var ac = pct < 0.5 ? 'red' : pct < 0.75 ? 'yellow' : 'green';
+  var dotHTML = '<span class="ampel-dot ' + ac + '" style="margin-right:3px;flex-shrink:0;"></span>';
+  var valHTML = dotHTML + '<span class="val-num">' + v + '</span><span class="val-max">/' + max + '</span>';
+  if (prev === undefined || prev === '-') {
+    return '<div class="excomp-val">' + valHTML + noteHTML + '</div>';
+  }
+  var diff = v - prev;
+  var cls = diff > 0 ? 'up' : diff < 0 ? 'down' : 'neutral';
+  var sym = diff > 0 ? '\u2191' : diff < 0 ? '\u2193' : '\u2192';
+  return '<div class="excomp-val">' + valHTML + '<span class="ex-arrow ' + cls + '">' + sym + '</span>' + noteHTML + '</div>';
+}
+
 function renderExerciseHistory(eh) {
   if (!eh) return '';
-  var sessions = eh.sessions, exercises = eh.exercises;
+  var sessions = eh.sessions;
   var cols = sessions.length;
   var gridCols = '1fr repeat(' + cols + ', 76px)';
 
@@ -775,30 +1162,25 @@ function renderExerciseHistory(eh) {
     return '<span class="excomp-date-th">' + d + '</span>';
   }).join('');
 
-  var rows = exercises.map(function(ex) {
-    var setsHTML = ex.sets ? '<span class="excomp-sets">' + ex.sets + ' Wdh</span>' : '';
-    var cells = ex.values.map(function(v, i) {
-      var noteText = ex.notes && ex.notes[i];
-      var noteHTML = noteText
-        ? '<span class="ex-note-icon">\u24d8</span><span class="ex-note-text">' + noteText + '</span>'
-        : '';
-      var valHTML = '<span class="val-num">' + v + '</span><span class="val-max">/' + ex.max + '</span>';
-      if (i === 0) {
-        return '<div class="excomp-val">' + valHTML + noteHTML + '</div>';
-      }
-      var diff = v - ex.values[i - 1];
-      var cls = diff > 0 ? 'up' : diff < 0 ? 'down' : 'neutral';
-      var sym = diff > 0 ? '\u2191' : diff < 0 ? '\u2193' : '\u2192';
-      return '<div class="excomp-val">' + valHTML + '<span class="ex-arrow ' + cls + '">' + sym + '</span>' + noteHTML + '</div>';
+  var catHTML = eh.categories.map(function(cat, catIdx) {
+    var isOpen = catIdx === 0;
+    var rows = cat.exercises.map(function(ex) {
+      var cells = ex.values.map(function(v, i) {
+        var noteText = ex.notes && ex.notes[i] || null;
+        var prev = i === 0 ? undefined : ex.values[i - 1];
+        return renderExVal(v, ex.max, prev, noteText);
+      }).join('');
+      return '<div class="excomp-row" style="grid-template-columns:' + gridCols + '">' +
+        '<div class="excomp-name-cell"><span class="excomp-exercise">' + ex.name + '</span></div>' +
+        cells +
+      '</div>';
     }).join('');
-
-    return '<div class="excomp-row" style="grid-template-columns:' + gridCols + '">' +
-      '<div class="excomp-name-cell">' +
-        '<span class="excomp-exercise">' + ex.name + '</span>' +
-        '<span class="excomp-cat">' + ex.category + '</span>' +
-        setsHTML +
+    return '<div class="excomp-cat">' +
+      '<div class="excomp-cat-header">' +
+        '<span class="excomp-cat-name">' + cat.name + '</span>' +
+        '<span class="excomp-cat-chevron">' + (isOpen ? '\u25be' : '\u25b8') + '</span>' +
       '</div>' +
-      cells +
+      '<div class="excomp-cat-body' + (isOpen ? ' open' : '') + '">' + rows + '</div>' +
     '</div>';
   }).join('');
 
@@ -812,7 +1194,7 @@ function renderExerciseHistory(eh) {
         '<span class="excomp-name-th">\u00dcbung</span>' +
         headerCells +
       '</div>' +
-      rows +
+      catHTML +
     '</div>' +
   '</div>';
 }
@@ -988,6 +1370,14 @@ document.addEventListener('DOMContentLoaded', function() {
       var body = anaBtn.nextElementSibling;
       var open = body.classList.toggle('open');
       anaBtn.textContent = open ? '\u25be Anamnese ausblenden' : '\u25b8 Anamnese anzeigen';
+      return;
+    }
+    var catHdr = e.target.closest('.excomp-cat-header');
+    if (catHdr) {
+      var catBody = catHdr.nextElementSibling;
+      var chevron = catHdr.querySelector('.excomp-cat-chevron');
+      var catOpen = catBody.classList.toggle('open');
+      chevron.textContent = catOpen ? '\u25be' : '\u25b8';
       return;
     }
     var noteIcon = e.target.closest('.ex-note-icon');
