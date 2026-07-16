@@ -239,6 +239,7 @@
     text-align: center; font-size: 13px; font-weight: 500;
     font-variant-numeric: tabular-nums;
     display: flex; align-items: center; justify-content: center; gap: 2px;
+    flex-wrap: wrap;
   }
   .excomp-val .val-num { color: var(--text); }
   .excomp-val .val-max { color: var(--text-3); font-weight: 400; font-size: 11px; }
@@ -251,8 +252,17 @@
   .ex-arrow.up      { color: var(--progress); background: rgba(58,125,82,0.10); }
   .ex-arrow.down    { color: var(--signal);   background: rgba(192,57,43,0.10); }
   .ex-arrow.neutral { color: var(--text-3);   background: var(--bg); }
-  .ex-note-icon { font-size: 10px; color: var(--accent); cursor: help; opacity: 0.7; }
-  .ex-note-icon:hover { opacity: 1; }
+  .ex-note-icon {
+    font-size: 10px; color: var(--accent); cursor: pointer; opacity: 0.7;
+    user-select: none;
+  }
+  .ex-note-icon:hover, .ex-note-icon.open { opacity: 1; }
+  .ex-note-text {
+    display: none; width: 100%;
+    font-size: 10px; font-weight: 400; color: var(--text-2);
+    line-height: 1.4; padding-top: 4px; text-align: center;
+  }
+  .ex-note-text.open { display: block; }
 
   /* ── Archiv alter Übungen ─────────────────────────── */
   .archive-block { margin-top: 14px; }
@@ -733,7 +743,9 @@ function renderExerciseHistory(eh) {
     var setsHTML = ex.sets ? '<span class="excomp-sets">' + ex.sets + ' Wdh</span>' : '';
     var cells = ex.values.map(function(v, i) {
       var noteText = ex.notes && ex.notes[i];
-      var noteHTML = noteText ? '<span class="ex-note-icon" title="' + noteText + '">\u24d8</span>' : '';
+      var noteHTML = noteText
+        ? '<span class="ex-note-icon">\u24d8</span><span class="ex-note-text">' + noteText + '</span>'
+        : '';
       var valHTML = '<span class="val-num">' + v + '</span><span class="val-max">/' + ex.max + '</span>';
       if (i === 0) {
         return '<div class="excomp-val">' + valHTML + noteHTML + '</div>';
@@ -927,6 +939,12 @@ document.addEventListener('DOMContentLoaded', function() {
       var body = anaBtn.nextElementSibling;
       var open = body.classList.toggle('open');
       anaBtn.textContent = open ? '\u25be Anamnese ausblenden' : '\u25b8 Anamnese anzeigen';
+      return;
+    }
+    var noteIcon = e.target.closest('.ex-note-icon');
+    if (noteIcon) {
+      var isOpen = noteIcon.classList.toggle('open');
+      noteIcon.nextElementSibling.classList.toggle('open', isOpen);
       return;
     }
     var archBtn = e.target.closest('.archive-toggle');
