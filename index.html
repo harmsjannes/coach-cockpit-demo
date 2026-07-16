@@ -307,7 +307,8 @@
   .archive-name { font-size: 13px; font-weight: 500; }
   .archive-meta { font-size: 11px; color: var(--text-3); }
 
-  .footer { padding: 18px 32px 24px; font-size: 11px; color: var(--text-3); text-align: center; }
+  .back-btn { display: none; }
+  .footer { padding: 28px 32px 32px; font-size: 11px; color: var(--text-3); text-align: center; border-top: 1px solid var(--sep); margin-top: 16px; }
 
   /* ── Scrollbar ───────────────────────────────────── */
   ::-webkit-scrollbar { width: 6px; }
@@ -316,11 +317,16 @@
   /* ── Mobile ──────────────────────────────────────── */
   @media (max-width: 800px) {
     .layout { grid-template-columns: 1fr; }
+    .layout .detail { display: none; }
+    .layout.mobile-detail-active .detail { display: block; }
+    .layout.mobile-detail-active .roster { display: none; }
     .roster { border-right: none; border-bottom: 1px solid var(--sep); position: static; height: auto; overflow-y: visible; }
     .instrument-row { grid-template-columns: 1fr; }
     .topbar  { padding: 14px 20px; }
-    .detail  { padding: 24px 16px; }
-    .client-header { flex-wrap: wrap; gap: 12px; margin-bottom: 28px; }
+    .detail  { padding: 0 16px 24px; }
+    .detail-header-sticky { position: sticky; top: 60px; z-index: 5; background: var(--bg); padding: 10px 0 8px; margin-bottom: 20px; }
+    .back-btn { display: flex; align-items: center; gap: 5px; font-size: 13px; font-weight: 500; color: var(--accent); background: none; border: none; padding: 4px 0 10px; cursor: pointer; font-family: inherit; }
+    .client-header { flex-wrap: wrap; gap: 12px; margin-bottom: 0; }
     .client-header .btn { align-self: flex-start; }
     .header-action { align-items: flex-start; width: 100%; }
     .note-box { width: 100%; }
@@ -329,7 +335,7 @@
     .trend-wrap { padding: 18px 16px; }
     .excomp-wrap { padding: 18px 14px; overflow-x: auto; }
     .anamnese-grid { grid-template-columns: 1fr; }
-    .footer { padding: 16px 20px 22px; }
+    .footer { padding: 20px 20px 24px; }
     .coach-label, .coach-role { display: none; }
   }
 </style>
@@ -355,7 +361,7 @@
   </div>
 </div>
 
-<div class="layout">
+<div class="layout" id="main-layout">
   <div class="roster">
     <div class="roster-head">
       <h2>Meine Kunden</h2>
@@ -858,7 +864,9 @@ function renderDetail(c) {
 
   var col = trendColor(c.trendDir);
 
-  return '<div class="client-header">' +
+  return '<div class="detail-header-sticky">' +
+    '<button class="back-btn" type="button">&#8592; Zur\u00fcck zur \u00dcbersicht</button>' +
+    '<div class="client-header">' +
       '<div class="who">' +
         '<div class="avatar-lg">' +
           '<img src="https://i.pravatar.cc/150?img=' + c.avatarImg + '" alt="" onerror="this.style.display=\'none\'">' +
@@ -880,6 +888,7 @@ function renderDetail(c) {
         '<button class="btn note-toggle" type="button">Notiz hinzuf\u00fcgen</button>' +
         '<div class="note-box" aria-hidden="true"><textarea placeholder="Kurze Coach-Notiz..."></textarea></div>' +
       '</div>' +
+    '</div>' +
     '</div>' +
 
     '<div class="instrument-row">' +
@@ -944,7 +953,7 @@ function selectClient(id) {
   setTimeout(function() {
     detail.innerHTML = renderDetail(CLIENTS.find(function(c) { return c.id === id; }));
     detail.style.opacity = '1';
-    if (window.innerWidth <= 800) detail.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (window.innerWidth <= 800) document.getElementById('main-layout').classList.add('mobile-detail-active');
   }, 110);
 }
 
@@ -959,6 +968,11 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   document.getElementById('detail').addEventListener('click', function(e) {
+    var backBtn = e.target.closest('.back-btn');
+    if (backBtn) {
+      document.getElementById('main-layout').classList.remove('mobile-detail-active');
+      return;
+    }
     var noteBtn = e.target.closest('.note-toggle');
     if (noteBtn) {
       var box = noteBtn.parentElement.querySelector('.note-box');
