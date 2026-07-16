@@ -161,6 +161,23 @@
   .signal-title { font-size: 16px; font-weight: 600; margin: 0 0 6px; }
   .signal-sub { font-size: 13px; color: var(--text-2); margin: 0; line-height: 1.5; }
 
+  /* ── Aktueller Trainingsplan ─────────────────────── */
+  .plan-card {
+    background: var(--surface); border-radius: 20px; padding: 22px 24px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+    margin-bottom: 32px;
+  }
+  .plan-card-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 14px; }
+  .plan-meta { font-size: 12px; color: var(--text-2); margin: 0; }
+  .plan-row {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    padding: 9px 0; border-bottom: 1px solid var(--sep); gap: 16px;
+  }
+  .plan-row:last-child { border-bottom: none; }
+  .plan-name { font-size: 14px; font-weight: 500; color: var(--text); margin: 0 0 3px; }
+  .plan-note { font-size: 11px; color: var(--text-2); margin: 0; line-height: 1.4; }
+  .plan-reps { font-size: 12px; color: var(--text-2); white-space: nowrap; flex-shrink: 0; font-variant-numeric: tabular-nums; padding-top: 2px; }
+
   /* ── Anamnese (einklappbar) ───────────────────────── */
   .anamnese-block { margin-bottom: 36px; }
   .anamnese-toggle {
@@ -501,6 +518,16 @@ const CLIENTS = [
         ]},
       ]
     },
+    currentPlan: {
+      date: '04.06.2026',
+      exercises: [
+        { name: 'LWS - Katze-Kuh',               reps: '3\u00d710 Wdh',       note: 'Langsam, Atemrhythmus beachten' },
+        { name: 'LWS - Kindshaltung',             reps: '3\u00d730 Sek',       note: null },
+        { name: 'LWS - Beckenkippung im Liegen',  reps: '3\u00d712 Wdh',       note: null },
+        { name: 'Core - Dead Bug',                reps: '3\u00d78 Wdh/Seite',  note: 'Lendenwirbel aktiv in Boden dr\u00fccken' },
+        { name: 'Gleichgewicht - Tandemstand',    reps: '3\u00d730 Sek',       note: null },
+      ]
+    },
     archivedExercises: [
       { name: 'H\u00fcftkreisen',  category: 'H\u00fcfte',      since: '07.05.26' },
       { name: 'Br\u00fccke',      category: 'Kr\u00e4ftigung', since: '04.06.26' },
@@ -614,6 +641,16 @@ const CLIENTS = [
         ]},
       ]
     },
+    currentPlan: {
+      date: '02.06.2026',
+      exercises: [
+        { name: 'Schulter - IRO mit Theraband rechts', reps: '3\u00d715 Wdh',      note: 'Leichter Widerstand, kein Schmerz' },
+        { name: 'Schulter - Pendelgym rechts',         reps: '3\u00d720 Schwinge',  note: null },
+        { name: 'HWS - Seitwärtsneigung',              reps: '3\u00d720 Sek/Seite', note: null },
+        { name: 'Schulter - Schulterblatt-Retraktion', reps: '3\u00d712 Wdh',       note: '\u00dcberkopf-Variante noch aussetzen' },
+        { name: 'Core - Plank',                        reps: '3\u00d720 Sek',        note: null },
+      ]
+    },
     archivedExercises: [
       { name: 'Pendulum',             category: 'Schulter', since: '22.10.25' },
       { name: 'Schulter Innenrotation', category: 'Schulter', since: '17.12.25' },
@@ -722,6 +759,16 @@ const CLIENTS = [
           { name: 'Kraft - Liegest\u00fctz',                  max: 4, sets: '3\u00d712', values: [2,2,3,3,4,4] },
           { name: 'Kraft - Reverse Plank',                    max: 4, sets: '3\u00d720 Sek', values: [2,2,3,3,4,4] },
         ]},
+      ]
+    },
+    currentPlan: {
+      date: '09.06.2026',
+      exercises: [
+        { name: 'Kraft - Bulgarian Split Squats', reps: '3\u00d710 Wdh/Seite', note: 'Progression: n\u00e4chste Woche +2,5 kg' },
+        { name: 'Kraft - Liegest\u00fctz',        reps: '3\u00d712 Wdh',        note: null },
+        { name: 'Kraft - Romanian Deadlift',      reps: '3\u00d710 Wdh',        note: 'K\u00f6rpergewicht, Technik festigen' },
+        { name: 'Kraft - Hollow Hold',            reps: '3\u00d720 Sek',         note: null },
+        { name: 'Gleichgewicht - Einbeinstand',   reps: '3\u00d730 Sek/Seite',  note: null },
       ]
     },
     archivedExercises: [
@@ -833,6 +880,16 @@ const CLIENTS = [
         ]},
       ]
     },
+    currentPlan: {
+      date: '30.05.2026',
+      exercises: [
+        { name: 'BWS - Oberk\u00f6rperrotation im Sitz', reps: '3\u00d712 Wdh/Seite', note: null },
+        { name: 'HWS - Kinnzug',                        reps: '3\u00d715 Wdh',         note: 'Doppelkinn-Bewegung, Schultern unten lassen' },
+        { name: 'Schulter - Schulterblatt-Retraktion',  reps: '3\u00d712 Wdh',         note: null },
+        { name: 'Core - Toter K\u00e4fer',              reps: '3\u00d78 Wdh/Seite',   note: null },
+        { name: 'LWS - Katze-Kuh',                      reps: '3\u00d710 Wdh',         note: null },
+      ]
+    },
     archivedExercises: [
       { name: 'Nackendehnung Seite', category: 'HWS', since: '07.03.26' },
     ]
@@ -940,6 +997,16 @@ const CLIENTS = [
           { name: 'Kraft - Liegest\u00fctz',                  max: 4, sets: '3\u00d712', values: [3,3,3,3,3,3] },
           { name: 'Kraft - Reverse Plank',                    max: 4, sets: '3\u00d720 Sek', values: [3,3,3,3,3,4] },
         ]},
+      ]
+    },
+    currentPlan: {
+      date: '03.06.2026',
+      exercises: [
+        { name: 'BWS - Oberk\u00f6rperrotation Sitz', reps: '3\u00d715 Wdh/Seite', note: null },
+        { name: 'BWS - Foam-Roller Extension',        reps: '2\u00d730 Sek',         note: 'An jeder BWS-Etage kurz einrollen' },
+        { name: 'Rotation - Arm/Kopf aus BL',         reps: '3\u00d710 Wdh/Seite',  note: null },
+        { name: 'Gleichgewicht - Tandemstand',        reps: '3\u00d730 Sek/Seite',  note: null },
+        { name: 'Core - Hollow Hold',                 reps: '3\u00d720 Sek',         note: null },
       ]
     },
     archivedExercises: [
@@ -1052,6 +1119,15 @@ const CLIENTS = [
           { name: 'Kraft - Liegest\u00fctz',                  max: 4, sets: '3\u00d712', values: [3,3,3,2,2,2] },
           { name: 'Kraft - Reverse Plank',                    max: 4, sets: '3\u00d720 Sek', values: [3,3,3,2,2,2] },
         ]},
+      ]
+    },
+    currentPlan: {
+      date: '05.05.2026',
+      exercises: [
+        { name: 'Kraft - Bridging einbeinig',     reps: '3\u00d710 Wdh/Seite', note: 'Knieschonend — bei Schmerz sofort stoppen' },
+        { name: 'Kraft - Wadenheben einbeinig',   reps: '2\u00d712 Wdh/Seite', note: null },
+        { name: 'Gleichgewicht - Tandemstand',    reps: '2\u00d720 Sek/Seite',  note: 'An Wand abstützen wenn nötig' },
+        { name: 'LWS - Kindshaltung',             reps: '3\u00d730 Sek',        note: null },
       ]
     },
     archivedExercises: [
@@ -1215,6 +1291,24 @@ function calcLaufzeit(sinceStr) {
   return months + ' Monat' + (months !== 1 ? 'e' : '');
 }
 
+function renderCurrentPlan(plan, planNr) {
+  if (!plan) return '';
+  var rows = plan.exercises.map(function(ex) {
+    var noteHTML = ex.note ? '<p class="plan-note">' + ex.note + '</p>' : '';
+    return '<div class="plan-row">' +
+      '<div><p class="plan-name">' + ex.name + '</p>' + noteHTML + '</div>' +
+      '<span class="plan-reps">' + ex.reps + '</span>' +
+    '</div>';
+  }).join('');
+  return '<div class="plan-card">' +
+    '<div class="plan-card-head">' +
+      '<p class="section-label" style="margin:0;">Aktueller Trainingsplan</p>' +
+      '<span class="plan-meta">Plan #' + planNr + ' \u00b7 erstellt am ' + plan.date + '</span>' +
+    '</div>' +
+    rows +
+  '</div>';
+}
+
 function renderDetail(c) {
   var pct = (c.kks / 160 * 100).toFixed(1);
   var lastCheckin = (c.checkins[0] && c.checkins[0].date) || '\u2014';
@@ -1302,6 +1396,7 @@ function renderDetail(c) {
       signalHTML +
     '</div>' +
 
+    renderCurrentPlan(c.currentPlan, c.trainingsplaene) +
     renderAnamnese(c.anamnese) +
 
     '<p class="section-label">Check-in-Verlauf</p>' +
