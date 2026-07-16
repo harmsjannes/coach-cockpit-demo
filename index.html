@@ -54,7 +54,12 @@
   .layout { display: grid; grid-template-columns: 300px 1fr; min-height: calc(100vh - 69px); }
 
   /* ── Roster ──────────────────────────────────────── */
-  .roster { border-right: 1px solid var(--sep); padding: 28px 14px; background: var(--surface); }
+  .roster {
+    border-right: 1px solid var(--sep); padding: 28px 14px; background: var(--surface);
+    position: sticky; top: 69px;
+    height: calc(100vh - 69px); overflow-y: auto;
+    align-self: start;
+  }
   .roster-head { display: flex; justify-content: space-between; align-items: baseline; padding: 0 8px 20px; }
   .roster-head h2 {
     font-size: 11px; text-transform: uppercase; letter-spacing: 0.07em;
@@ -169,7 +174,6 @@
     box-shadow: 0 1px 3px rgba(0,0,0,0.06);
     display: grid; grid-template-columns: 1fr 1fr; gap: 14px 24px;
   }
-  .anamnese-field { }
   .anamnese-label {
     font-size: 10px; text-transform: uppercase; letter-spacing: 0.07em;
     color: var(--text-3); font-weight: 600; display: block; margin-bottom: 4px;
@@ -311,7 +315,7 @@
   /* ── Mobile ──────────────────────────────────────── */
   @media (max-width: 800px) {
     .layout { grid-template-columns: 1fr; }
-    .roster { border-right: none; border-bottom: 1px solid var(--sep); }
+    .roster { border-right: none; border-bottom: 1px solid var(--sep); position: static; height: auto; overflow-y: visible; }
     .instrument-row { grid-template-columns: 1fr; }
     .topbar  { padding: 14px 20px; }
     .detail  { padding: 24px 16px; }
@@ -348,7 +352,7 @@
       <p class="coach-label" style="margin:0 0 1px;">Katha</p>
       <p class="coach-role" style="margin:0;">Head Coach</p>
     </div>
-    <div class="coach-avatar"><img src="https://i.pravatar.cc/68?img=9" alt="Katha" onerror="this.replaceWith(document.createTextNode('KA'))"></div>
+    <div class="coach-avatar">KA</div>
   </div>
 </div>
 
@@ -422,8 +426,8 @@ const CLIENTS = [
   },
   {
     id: 'markus',
-    name: 'Markus H\u00e4usler',
-    initials: 'MH',
+    name: 'Thomas Berger',
+    initials: 'TB',
     avatarImg: 12,
     coach: 'Silvester',
     kks: 15,
