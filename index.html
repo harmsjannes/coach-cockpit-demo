@@ -48,11 +48,20 @@
   .brand-mark .glyph svg { width: 16px; height: 16px; }
   .brand-mark .name { font-size: 15px; font-weight: 600; letter-spacing: -0.02em; margin: 0; }
   .brand-mark .sub  { font-size: 12px; color: var(--text-2); margin: 0; }
+  .coach-identity {
+    display: flex; align-items: center; gap: 9px;
+  }
   .coach-avatar {
     width: 34px; height: 34px; border-radius: 50%;
     background: var(--accent-dim); color: var(--accent);
     display: flex; align-items: center; justify-content: center;
     font-size: 13px; font-weight: 600;
+  }
+  .coach-label {
+    font-size: 13px; font-weight: 500; color: var(--text);
+  }
+  .coach-role {
+    font-size: 11px; color: var(--text-3);
   }
 
   /* ── Layout ──────────────────────────────────────── */
@@ -161,7 +170,6 @@
     margin-bottom: 44px;
   }
 
-  /* Score card — no dark container, just number + bar */
   .score-card {
     background: var(--surface);
     border-radius: 20px;
@@ -187,7 +195,6 @@
   }
   .score-sub { font-size: 12px; color: var(--text-2); margin: 0; }
 
-  /* Signal card — white, no colored background */
   .signal-card {
     background: var(--surface);
     border-radius: 20px;
@@ -266,6 +273,80 @@
   .ampel-dot.yellow { background: #B88700; }
   .ampel-dot.green { background: var(--progress); }
 
+  /* ── Übungsverlauf im Vergleich ──────────────────── */
+  .excomp-wrap {
+    background: var(--surface);
+    border-radius: 20px;
+    padding: 24px 26px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+    margin-top: 16px;
+  }
+  .excomp-head {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin-bottom: 0;
+  }
+  .excomp-hint {
+    font-size: 12px; color: var(--text-3);
+  }
+  .excomp-table {
+    margin-top: 14px;
+    border-top: 1px solid var(--sep);
+  }
+  .excomp-header {
+    display: grid;
+    gap: 8px;
+    padding: 8px 0 6px;
+    border-bottom: 1px solid var(--sep);
+    align-items: center;
+  }
+  .excomp-name-th {
+    font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--text-3); font-weight: 600;
+  }
+  .excomp-date-th {
+    font-size: 11px; color: var(--text-3);
+    font-variant-numeric: tabular-nums;
+    text-align: center; font-weight: 500;
+  }
+  .excomp-row {
+    display: grid;
+    gap: 8px;
+    padding: 11px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.04);
+    align-items: center;
+  }
+  .excomp-row:last-child { border-bottom: none; }
+  .excomp-exercise { font-size: 13px; font-weight: 500; display: block; margin-bottom: 2px; }
+  .excomp-cat {
+    font-size: 11px; color: var(--text-3);
+    background: var(--bg); padding: 2px 6px;
+    border-radius: 6px; display: inline-block;
+  }
+  .excomp-val {
+    text-align: center;
+    font-size: 13px; font-weight: 500;
+    font-variant-numeric: tabular-nums;
+    display: flex; align-items: center; justify-content: center; gap: 3px;
+  }
+  .excomp-val .val-num { color: var(--text); }
+  .excomp-val .val-max { color: var(--text-3); font-weight: 400; font-size: 11px; }
+  .ex-arrow {
+    font-size: 13px; font-weight: 700; line-height: 1;
+    width: 18px; height: 18px;
+    display: inline-flex; align-items: center; justify-content: center;
+    border-radius: 4px;
+    flex-shrink: 0;
+  }
+  .ex-arrow.up     { color: var(--progress); background: rgba(58,125,82,0.10); }
+  .ex-arrow.down   { color: var(--signal);   background: rgba(192,57,43,0.10); }
+  .ex-arrow.neutral{ color: var(--text-3);   background: var(--bg); }
+  .excomp-first-val {
+    text-align: center;
+    font-size: 13px; font-weight: 500;
+    font-variant-numeric: tabular-nums;
+    color: var(--text-2);
+  }
+
   .footer {
     padding: 18px 32px 24px;
     font-size: 11px; color: var(--text-3); text-align: center;
@@ -289,7 +370,9 @@
     .tl-row  { grid-template-columns: 52px 1fr; gap: 10px; }
     .screening-row { grid-template-columns: 58px 64px 1fr; gap: 8px; }
     .trend-wrap { padding: 18px 16px; }
+    .excomp-wrap { padding: 18px 14px; overflow-x: auto; }
     .footer { padding: 16px 20px 22px; }
+    .coach-label, .coach-role { display: none; }
   }
 </style>
 </head>
@@ -307,7 +390,13 @@
       <p class="sub">K&#246;rper-Neustart Programm</p>
     </div>
   </div>
-  <div class="coach-avatar">SN</div>
+  <div class="coach-identity">
+    <div>
+      <p class="coach-label" style="margin:0 0 1px;">Katha</p>
+      <p class="coach-role" style="margin:0;">Head Coach</p>
+    </div>
+    <div class="coach-avatar">KA</div>
+  </div>
 </div>
 
 <div class="layout">
@@ -320,7 +409,7 @@
   </div>
   <div class="detail" id="detail"></div>
 </div>
-<footer class="footer">Coach-Cockpit Prototyp &middot; Demo-Daten &middot; 09.07.2026</footer>
+<footer class="footer">Coach-Cockpit Prototyp &middot; Demo-Daten &middot; 16.07.2026</footer>
 
 <script>
 const CLIENTS = [
@@ -328,6 +417,7 @@ const CLIENTS = [
     id: 'anna',
     name: 'Anna Kessler',
     initials: 'AK',
+    coach: 'Katha',
     kks: 34,
     trendLabel: 'sinkend',
     trendDir: 'down',
@@ -335,6 +425,7 @@ const CLIENTS = [
     flag: 'Schmerz',
     since: '15.01.2026',
     week: '24 von 24',
+    trainingsplaene: 4,
     focus: 'LWS-Mobilit\u00e4t',
     goal: 'schmerzfrei b\u00fccken',
     signal: {
@@ -356,11 +447,20 @@ const CLIENTS = [
       { date: '18.06.26', score: 38, note: 'HWS 15 \u00b7 BWS 13 \u00b7 LWS 10' },
       { date: '02.07.26', score: 34, note: 'HWS 14 \u00b7 BWS 12 \u00b7 LWS 8' },
     ],
+    exerciseHistory: {
+      sessions: ['15.01.', '12.03.', '07.05.', '02.07.'],
+      exercises: [
+        { name: 'Tandemstand', category: 'Gleichgewicht', max: 4, values: [3, 3, 2, 2] },
+        { name: 'LWS Flexion', category: 'LWS', max: 5, values: [4, 3, 2, 1] },
+        { name: 'Schulter Abduktion re.', category: 'Schulter', max: 4, values: [3, 3, 3, 3] },
+      ]
+    }
   },
   {
     id: 'markus',
     name: 'Markus H\u00e4usler',
     initials: 'MH',
+    coach: 'Silvester',
     kks: 15,
     trendLabel: 'steigend',
     trendDir: 'up',
@@ -368,6 +468,7 @@ const CLIENTS = [
     flag: 'Schmerz',
     since: '02.07.2025',
     week: '17 von 24',
+    trainingsplaene: 3,
     focus: 'Schulter & Nacken',
     goal: '\u00dcberkopfdr\u00fccken schmerzfrei',
     signal: {
@@ -389,11 +490,20 @@ const CLIENTS = [
       { date: '11.02.26', score: 14, note: 'HWS 5 \u00b7 BWS 4 \u00b7 LWS 5' },
       { date: '30.06.26', score: 15, note: 'HWS 5 \u00b7 BWS 5 \u00b7 LWS 5' },
     ],
+    exerciseHistory: {
+      sessions: ['02.07.25', '22.10.25', '11.02.26', '30.06.26'],
+      exercises: [
+        { name: 'Schulter Abduktion re.', category: 'Schulter', max: 4, values: [0, 1, 2, 2] },
+        { name: 'HWS Rotation li.', category: 'HWS', max: 4, values: [1, 1, 2, 3] },
+        { name: 'Tandemstand', category: 'Gleichgewicht', max: 4, values: [1, 1, 2, 2] },
+      ]
+    }
   },
   {
     id: 'peter',
     name: 'Peter Stauber',
     initials: 'PS',
+    coach: 'Katha',
     kks: 88,
     trendLabel: 'steigend',
     trendDir: 'up',
@@ -401,6 +511,7 @@ const CLIENTS = [
     flag: null,
     since: '10.03.2026',
     week: '9 von 24',
+    trainingsplaene: 2,
     focus: 'Kraftaufbau',
     goal: 'Training 3x/Woche',
     signal: null,
@@ -419,11 +530,20 @@ const CLIENTS = [
       { date: '09.06.26', score: 80, note: 'HWS 26 \u00b7 BWS 26 \u00b7 LWS 28' },
       { date: '01.07.26', score: 88, note: 'HWS 29 \u00b7 BWS 29 \u00b7 LWS 30' },
     ],
+    exerciseHistory: {
+      sessions: ['10.03.', '21.04.', '09.06.', '01.07.'],
+      exercises: [
+        { name: 'Kniebeuge', category: 'Kraft', max: 5, values: [2, 3, 4, 5] },
+        { name: 'Tandemstand', category: 'Gleichgewicht', max: 4, values: [2, 3, 4, 4] },
+        { name: 'HWS Rotation li.', category: 'HWS', max: 4, values: [3, 3, 4, 4] },
+      ]
+    }
   },
   {
     id: 'julia',
     name: 'Julia Wenzel',
     initials: 'JW',
+    coach: 'Katha',
     kks: 102,
     trendLabel: 'steigend',
     trendDir: 'up',
@@ -431,6 +551,7 @@ const CLIENTS = [
     flag: null,
     since: '15.11.2025',
     week: '21 von 24',
+    trainingsplaene: 3,
     focus: 'Haltung & Energie',
     goal: 'Alltagsroutine halten',
     signal: null,
@@ -449,11 +570,20 @@ const CLIENTS = [
       { date: '30.05.26', score: 94, note: 'HWS 31 \u00b7 BWS 31 \u00b7 LWS 32' },
       { date: '30.06.26', score: 102, note: 'HWS 34 \u00b7 BWS 33 \u00b7 LWS 35' },
     ],
+    exerciseHistory: {
+      sessions: ['15.11.25', '07.03.26', '30.05.26', '30.06.26'],
+      exercises: [
+        { name: 'BWS Extension', category: 'BWS', max: 5, values: [2, 3, 4, 5] },
+        { name: 'Tandemstand', category: 'Gleichgewicht', max: 4, values: [2, 3, 4, 4] },
+        { name: 'HWS Rotation li.', category: 'HWS', max: 4, values: [2, 3, 4, 4] },
+      ]
+    }
   },
   {
     id: 'tobias',
     name: 'Tobias Merz',
     initials: 'TM',
+    coach: 'Silvester',
     kks: 57,
     trendLabel: 'stabil',
     trendDir: 'stable',
@@ -461,6 +591,7 @@ const CLIENTS = [
     flag: null,
     since: '01.04.2026',
     week: '14 von 24',
+    trainingsplaene: 2,
     focus: 'BWS & Beweglichkeit',
     goal: 'Dehnroutine etablieren',
     signal: null,
@@ -479,11 +610,20 @@ const CLIENTS = [
       { date: '24.06.26', score: 56, note: 'HWS 18 \u00b7 BWS 19 \u00b7 LWS 19' },
       { date: '04.07.26', score: 57, note: 'HWS 19 \u00b7 BWS 19 \u00b7 LWS 19' },
     ],
+    exerciseHistory: {
+      sessions: ['01.04.', '13.05.', '24.06.', '04.07.'],
+      exercises: [
+        { name: 'BWS Extension', category: 'BWS', max: 5, values: [3, 3, 3, 3] },
+        { name: 'Tandemstand', category: 'Gleichgewicht', max: 4, values: [3, 3, 3, 3] },
+        { name: 'HWS Rotation re.', category: 'HWS', max: 4, values: [3, 3, 4, 4] },
+      ]
+    }
   },
   {
     id: 'sandra',
     name: 'Sandra Brandt',
     initials: 'SB',
+    coach: 'Katha',
     kks: 12,
     trendLabel: 'sinkend',
     trendDir: 'down',
@@ -491,6 +631,7 @@ const CLIENTS = [
     flag: 'Hilfebedarf',
     since: '05.05.2026',
     week: '9 von 24',
+    trainingsplaene: 1,
     focus: 'Motivation & Knie',
     goal: 'dranbleiben ohne \u00dcberforderung',
     signal: {
@@ -512,6 +653,14 @@ const CLIENTS = [
       { date: '30.06.26', score: 17, note: 'HWS 6 \u00b7 BWS 6 \u00b7 LWS 5' },
       { date: '03.07.26', score: 12, note: 'HWS 4 \u00b7 BWS 4 \u00b7 LWS 4' },
     ],
+    exerciseHistory: {
+      sessions: ['05.05.', '02.06.', '30.06.', '03.07.'],
+      exercises: [
+        { name: 'Tandemstand', category: 'Gleichgewicht', max: 4, values: [3, 2, 2, 1] },
+        { name: 'Kniebeuge', category: 'Kraft', max: 5, values: [3, 2, 2, 1] },
+        { name: 'LWS Flexion', category: 'LWS', max: 5, values: [4, 3, 2, 2] },
+      ]
+    }
   },
 ];
 
@@ -546,9 +695,61 @@ function renderScreeningNote(note) {
   });
 }
 
+function renderExerciseHistory(eh) {
+  if (!eh) return '';
+  const { sessions, exercises } = eh;
+  const cols = sessions.length;
+  const gridCols = `1fr repeat(${cols}, 76px)`;
+
+  const headerCells = sessions.map(d =>
+    `<span class="excomp-date-th">${d}</span>`
+  ).join('');
+
+  const rows = exercises.map(ex => {
+    const cells = ex.values.map((v, i) => {
+      if (i === 0) {
+        return `<div class="excomp-val"><span class="val-num">${v}</span><span class="val-max">/${ex.max}</span></div>`;
+      }
+      const diff = v - ex.values[i - 1];
+      let arrowCls, arrowSym;
+      if (diff > 0)      { arrowCls = 'up';      arrowSym = '↑'; }
+      else if (diff < 0) { arrowCls = 'down';    arrowSym = '↓'; }
+      else               { arrowCls = 'neutral';  arrowSym = '→'; }
+      return `<div class="excomp-val">
+        <span class="val-num">${v}</span><span class="val-max">/${ex.max}</span>
+        <span class="ex-arrow ${arrowCls}">${arrowSym}</span>
+      </div>`;
+    }).join('');
+
+    return `<div class="excomp-row" style="grid-template-columns:${gridCols}">
+      <div class="excomp-name-cell">
+        <span class="excomp-exercise">${ex.name}</span>
+        <span class="excomp-cat">${ex.category}</span>
+      </div>
+      ${cells}
+    </div>`;
+  }).join('');
+
+  return `
+  <div class="excomp-wrap">
+    <div class="excomp-head">
+      <p class="section-label" style="margin:0;">\u00dcbungsverlauf im Vergleich</p>
+      <span class="excomp-hint">${cols} Screening-Termine</span>
+    </div>
+    <div class="excomp-table">
+      <div class="excomp-header" style="grid-template-columns:${gridCols}">
+        <span class="excomp-name-th">\u00dcbung</span>
+        ${headerCells}
+      </div>
+      ${rows}
+    </div>
+  </div>`;
+}
+
 function renderDetail(c) {
   const pct = (c.kks / 160 * 100).toFixed(1);
   const lastCheckin = c.checkins[0]?.date || '\u2014';
+  const startScreening = c.screenings[0]?.date || '\u2014';
 
   const signalHTML = c.signal
     ? `<div class="signal-card">
@@ -604,11 +805,13 @@ function renderDetail(c) {
         <div class="avatar-lg">${c.initials}</div>
         <div>
           <h1>${c.name}</h1>
-          <p class="meta">Coaching seit ${c.since} &middot; Woche ${c.week} &middot; Coach: Silvester</p>
+          <p class="meta">Coaching seit ${c.since} &middot; Woche ${c.week} &middot; Coach: ${c.coach}</p>
           <p class="case-meta">
             <span>Fokus: ${c.focus}</span>
             <span>Ziel: ${c.goal}</span>
             <span>Letzter Check-in: ${lastCheckin}</span>
+            <span>Trainingsp\u00e4ne: ${c.trainingsplaene}</span>
+            <span>Start-Screening: ${startScreening}</span>
           </p>
         </div>
       </div>
@@ -649,6 +852,8 @@ function renderDetail(c) {
         ${screeningsHTML}
       </div>
     </div>
+
+    ${renderExerciseHistory(c.exerciseHistory)}
   `;
 }
 
@@ -659,14 +864,14 @@ function renderRoster(activeId) {
       <span class="dot ${c.dotClass}"></span>
       <div class="info">
         <p class="cname">${c.name}</p>
-        <p class="cmeta">KKS ${c.kks} &middot; ${c.trendLabel}</p>
+        <p class="cmeta">KKS ${c.kks}/160 &middot; ${c.trendLabel}</p>
       </div>
       ${flagHTML}
     </div>`;
   }).join('');
 }
 
-let activeId = 'markus';
+let activeId = 'anna';
 
 function selectClient(id) {
   activeId = id;
