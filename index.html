@@ -243,19 +243,22 @@
   }
   .excomp-head { display: flex; justify-content: space-between; align-items: baseline; }
   .excomp-hint { font-size: 12px; color: var(--text-3); }
-  .excomp-table { margin-top: 14px; border-top: 1px solid var(--sep); min-width: 520px; }
+  .excomp-table { margin-top: 14px; border-top: 1px solid var(--sep); overflow-x: auto; }
   .excomp-header {
-    display: grid; gap: 8px; padding: 8px 0 6px;
+    display: grid; gap: 8px; padding: 8px 0 6px; min-width: max-content;
     border-bottom: 1px solid var(--sep); align-items: center;
   }
   .excomp-name-th {
     font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em;
     color: var(--text-3); font-weight: 600;
+    position: sticky; left: 0; z-index: 2; background: var(--surface);
+    white-space: nowrap; padding-right: 10px;
   }
   .excomp-date-th { font-size: 11px; color: var(--text-3); font-variant-numeric: tabular-nums; text-align: center; font-weight: 500; }
-  .excomp-row { display: grid; gap: 8px; padding: 11px 0; border-bottom: 1px solid rgba(0,0,0,0.04); align-items: center; }
+  .excomp-row { display: grid; gap: 8px; padding: 11px 0; border-bottom: 1px solid rgba(0,0,0,0.04); align-items: center; min-width: max-content; }
   .excomp-row:last-child { border-bottom: none; }
-  .excomp-exercise { font-size: 13px; font-weight: 500; display: block; margin-bottom: 2px; }
+  .excomp-name-cell { position: sticky; left: 0; z-index: 1; background: var(--surface); overflow: hidden; padding-right: 10px; }
+  .excomp-exercise { font-size: 13px; font-weight: 500; display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 155px; }
   .excomp-cat {
     font-size: 11px; color: var(--text-3); background: var(--bg);
     padding: 2px 6px; border-radius: 6px; display: inline-block;
@@ -291,6 +294,7 @@
   .ex-note-text.open { display: block; }
 
   /* ── Übungskategorie-Collapse ────────────────────── */
+  .excomp-cat { min-width: max-content; }
   .excomp-cat-header {
     display: flex; justify-content: space-between; align-items: center;
     padding: 9px 0 6px; cursor: pointer; border-top: 1px solid var(--sep);
@@ -347,7 +351,7 @@
     .tl-row  { grid-template-columns: 52px 1fr; gap: 10px; }
     .screening-row { grid-template-columns: 58px 58px 1fr 36px; gap: 6px; }
     .trend-wrap { padding: 18px 16px; }
-    .excomp-wrap { padding: 18px 14px; overflow-x: auto; }
+    .excomp-wrap { padding: 18px 14px; }
     .anamnese-grid { grid-template-columns: 1fr; }
     .footer { padding: 20px 20px 24px; }
     .coach-label, .coach-role { display: none; }
@@ -1156,7 +1160,7 @@ function renderExerciseHistory(eh) {
   if (!eh) return '';
   var sessions = eh.sessions;
   var cols = sessions.length;
-  var gridCols = '1fr repeat(' + cols + ', 76px)';
+  var gridCols = '160px repeat(' + cols + ', 76px)';
 
   var headerCells = sessions.map(function(d) {
     return '<span class="excomp-date-th">' + d + '</span>';
@@ -1171,7 +1175,7 @@ function renderExerciseHistory(eh) {
         return renderExVal(v, ex.max, prev, noteText);
       }).join('');
       return '<div class="excomp-row" style="grid-template-columns:' + gridCols + '">' +
-        '<div class="excomp-name-cell"><span class="excomp-exercise">' + ex.name + '</span></div>' +
+        '<div class="excomp-name-cell"><span class="excomp-exercise" title="' + ex.name + '">' + ex.name + '</span></div>' +
         cells +
       '</div>';
     }).join('');
