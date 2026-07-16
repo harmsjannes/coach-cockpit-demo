@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Coach-Cockpit — Prototyp</title>
+<link rel="icon" href="favicon_sn.png">
 <style>
   :root {
     --bg:          #F2F2F7;
@@ -32,10 +33,10 @@
   }
   .brand-mark { display: flex; align-items: center; gap: 12px; }
   .brand-mark .glyph {
-    width: 32px; height: 32px; border-radius: 10px; background: var(--text);
-    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    height: 32px; width: auto;
+    display: flex; align-items: center; flex-shrink: 0;
   }
-  .brand-mark .glyph svg { width: 16px; height: 16px; }
+  .brand-logo { height: 32px; width: auto; display: block; }
   .brand-mark .name { font-size: 15px; font-weight: 600; letter-spacing: -0.02em; margin: 0; }
   .brand-mark .sub  { font-size: 12px; color: var(--text-2); margin: 0; }
   .coach-identity { display: flex; align-items: center; gap: 9px; }
@@ -338,9 +339,7 @@
 <div class="topbar">
   <div class="brand-mark">
     <div class="glyph">
-      <svg viewBox="0 0 24 24" fill="none">
-        <path d="M4 20L12 4L20 20" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
+      <img src="logo_sn.png" class="brand-logo" alt="Silvester Neidhardt">
     </div>
     <div>
       <p class="name">Coach&#8209;Cockpit</p>
