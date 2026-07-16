@@ -233,7 +233,7 @@
     border-radius: 99px; white-space: nowrap; text-align: center;
   }
   .screening-type.coach { color: var(--accent); background: var(--accent-dim); }
-  .screening-type.self  { color: var(--text-3); background: var(--bg); }
+  .screening-type.self  { color: #7A6500; background: #FFF8DC; box-shadow: inset 0 0 0 1px rgba(180,150,0,0.25); }
 
   /* ── Übungsverlauf im Vergleich ──────────────────── */
   .excomp-wrap {
@@ -487,17 +487,17 @@ const CLIENTS = [
           { name: 'Core - Einbeinig Aufstehen Links',         max: 3, values: [2,2,2,2,2,1] },
         ]},
         { name: 'IV. Kraft', exercises: [
-          { name: 'Kraft - Bulgarian Split Squats Rechts',    max: 3, values: [3,3,3,3,2,2] },
-          { name: 'Kraft - Bulgarian Split Squats Links',     max: 3, values: [3,3,3,3,2,2] },
-          { name: 'Kraft - Pistol Squat Rechts',              max: 3, values: ['-',1,1,1,1,1] },
-          { name: 'Kraft - Pistol Squat Links',               max: 3, values: ['-',1,1,1,1,1] },
-          { name: 'Kraft - Wadenheben einbeinig Rechts',      max: 3, values: [3,3,3,3,3,3] },
-          { name: 'Kraft - Wadenheben einbeinig Links',       max: 3, values: [3,3,3,3,3,3] },
-          { name: 'Kraft - Bridging einbeinig Rechts',        max: 3, values: [3,3,3,2,2,2] },
-          { name: 'Kraft - Bridging einbeinig Links',         max: 3, values: [3,3,3,2,2,2] },
-          { name: 'Kraft - Hollow Hold',                      max: 4, values: [3,3,3,3,2,2] },
-          { name: 'Kraft - Liegest\u00fctz',                  max: 4, values: [3,3,3,3,2,2] },
-          { name: 'Kraft - Reverse Plank',                    max: 4, values: [4,4,4,3,3,3] },
+          { name: 'Kraft - Bulgarian Split Squats Rechts',    max: 3, sets: '3\u00d710', values: [3,3,3,3,2,2] },
+          { name: 'Kraft - Bulgarian Split Squats Links',     max: 3, sets: '3\u00d710', values: [3,3,3,3,2,2] },
+          { name: 'Kraft - Pistol Squat Rechts',              max: 3, sets: '3\u00d76', values: ['-',1,1,1,1,1] },
+          { name: 'Kraft - Pistol Squat Links',               max: 3, sets: '3\u00d76', values: ['-',1,1,1,1,1] },
+          { name: 'Kraft - Wadenheben einbeinig Rechts',      max: 3, sets: '3\u00d715', values: [3,3,3,3,3,3] },
+          { name: 'Kraft - Wadenheben einbeinig Links',       max: 3, sets: '3\u00d715', values: [3,3,3,3,3,3] },
+          { name: 'Kraft - Bridging einbeinig Rechts',        max: 3, sets: '3\u00d712', values: [3,3,3,2,2,2] },
+          { name: 'Kraft - Bridging einbeinig Links',         max: 3, sets: '3\u00d712', values: [3,3,3,2,2,2] },
+          { name: 'Kraft - Hollow Hold',                      max: 4, sets: '3\u00d720 Sek', values: [3,3,3,3,2,2] },
+          { name: 'Kraft - Liegest\u00fctz',                  max: 4, sets: '3\u00d712', values: [3,3,3,3,2,2] },
+          { name: 'Kraft - Reverse Plank',                    max: 4, sets: '3\u00d720 Sek', values: [4,4,4,3,3,3] },
         ]},
       ]
     },
@@ -600,17 +600,17 @@ const CLIENTS = [
           { name: 'Core - Einbeinig Aufstehen Links',         max: 3, values: ['-','-',1,1,1,2] },
         ]},
         { name: 'IV. Kraft', exercises: [
-          { name: 'Kraft - Bulgarian Split Squats Rechts',    max: 3, values: ['-','-',1,1,2,2] },
-          { name: 'Kraft - Bulgarian Split Squats Links',     max: 3, values: ['-','-',1,1,2,2] },
-          { name: 'Kraft - Pistol Squat Rechts',              max: 3, values: ['-','-','-','-',1,1] },
-          { name: 'Kraft - Pistol Squat Links',               max: 3, values: ['-','-','-','-',1,1] },
-          { name: 'Kraft - Wadenheben einbeinig Rechts',      max: 3, values: [1,1,2,2,2,3] },
-          { name: 'Kraft - Wadenheben einbeinig Links',       max: 3, values: [1,1,2,2,2,3] },
-          { name: 'Kraft - Bridging einbeinig Rechts',        max: 3, values: [1,1,1,2,2,2] },
-          { name: 'Kraft - Bridging einbeinig Links',         max: 3, values: [1,1,1,2,2,2] },
-          { name: 'Kraft - Hollow Hold',                      max: 4, values: ['-',1,1,2,2,3] },
-          { name: 'Kraft - Liegest\u00fctz',                  max: 4, values: [1,1,1,2,2,3] },
-          { name: 'Kraft - Reverse Plank',                    max: 4, values: [1,1,2,2,3,3] },
+          { name: 'Kraft - Bulgarian Split Squats Rechts',    max: 3, sets: '3\u00d710', values: ['-','-',1,1,2,2] },
+          { name: 'Kraft - Bulgarian Split Squats Links',     max: 3, sets: '3\u00d710', values: ['-','-',1,1,2,2] },
+          { name: 'Kraft - Pistol Squat Rechts',              max: 3, sets: '3\u00d76', values: ['-','-','-','-',1,1] },
+          { name: 'Kraft - Pistol Squat Links',               max: 3, sets: '3\u00d76', values: ['-','-','-','-',1,1] },
+          { name: 'Kraft - Wadenheben einbeinig Rechts',      max: 3, sets: '3\u00d715', values: [1,1,2,2,2,3] },
+          { name: 'Kraft - Wadenheben einbeinig Links',       max: 3, sets: '3\u00d715', values: [1,1,2,2,2,3] },
+          { name: 'Kraft - Bridging einbeinig Rechts',        max: 3, sets: '3\u00d712', values: [1,1,1,2,2,2] },
+          { name: 'Kraft - Bridging einbeinig Links',         max: 3, sets: '3\u00d712', values: [1,1,1,2,2,2] },
+          { name: 'Kraft - Hollow Hold',                      max: 4, sets: '3\u00d720 Sek', values: ['-',1,1,2,2,3] },
+          { name: 'Kraft - Liegest\u00fctz',                  max: 4, sets: '3\u00d712', values: [1,1,1,2,2,3] },
+          { name: 'Kraft - Reverse Plank',                    max: 4, sets: '3\u00d720 Sek', values: [1,1,2,2,3,3] },
         ]},
       ]
     },
@@ -710,17 +710,17 @@ const CLIENTS = [
           { name: 'Core - Einbeinig Aufstehen Links',         max: 3, values: [1,1,2,2,3,3] },
         ]},
         { name: 'IV. Kraft', exercises: [
-          { name: 'Kraft - Bulgarian Split Squats Rechts',    max: 3, values: [1,2,2,3,3,3] },
-          { name: 'Kraft - Bulgarian Split Squats Links',     max: 3, values: [1,2,2,3,3,3] },
-          { name: 'Kraft - Pistol Squat Rechts',              max: 3, values: ['-',1,1,2,2,3] },
-          { name: 'Kraft - Pistol Squat Links',               max: 3, values: ['-',1,1,2,2,3] },
-          { name: 'Kraft - Wadenheben einbeinig Rechts',      max: 3, values: [2,2,3,3,3,3] },
-          { name: 'Kraft - Wadenheben einbeinig Links',       max: 3, values: [2,2,3,3,3,3] },
-          { name: 'Kraft - Bridging einbeinig Rechts',        max: 3, values: [2,2,2,3,3,3] },
-          { name: 'Kraft - Bridging einbeinig Links',         max: 3, values: [2,2,2,3,3,3] },
-          { name: 'Kraft - Hollow Hold',                      max: 4, values: [1,2,2,3,3,4] },
-          { name: 'Kraft - Liegest\u00fctz',                  max: 4, values: [2,2,3,3,4,4] },
-          { name: 'Kraft - Reverse Plank',                    max: 4, values: [2,2,3,3,4,4] },
+          { name: 'Kraft - Bulgarian Split Squats Rechts',    max: 3, sets: '3\u00d710', values: [1,2,2,3,3,3] },
+          { name: 'Kraft - Bulgarian Split Squats Links',     max: 3, sets: '3\u00d710', values: [1,2,2,3,3,3] },
+          { name: 'Kraft - Pistol Squat Rechts',              max: 3, sets: '3\u00d76', values: ['-',1,1,2,2,3] },
+          { name: 'Kraft - Pistol Squat Links',               max: 3, sets: '3\u00d76', values: ['-',1,1,2,2,3] },
+          { name: 'Kraft - Wadenheben einbeinig Rechts',      max: 3, sets: '3\u00d715', values: [2,2,3,3,3,3] },
+          { name: 'Kraft - Wadenheben einbeinig Links',       max: 3, sets: '3\u00d715', values: [2,2,3,3,3,3] },
+          { name: 'Kraft - Bridging einbeinig Rechts',        max: 3, sets: '3\u00d712', values: [2,2,2,3,3,3] },
+          { name: 'Kraft - Bridging einbeinig Links',         max: 3, sets: '3\u00d712', values: [2,2,2,3,3,3] },
+          { name: 'Kraft - Hollow Hold',                      max: 4, sets: '3\u00d720 Sek', values: [1,2,2,3,3,4] },
+          { name: 'Kraft - Liegest\u00fctz',                  max: 4, sets: '3\u00d712', values: [2,2,3,3,4,4] },
+          { name: 'Kraft - Reverse Plank',                    max: 4, sets: '3\u00d720 Sek', values: [2,2,3,3,4,4] },
         ]},
       ]
     },
@@ -819,17 +819,17 @@ const CLIENTS = [
           { name: 'Core - Einbeinig Aufstehen Links',         max: 3, values: [2,2,2,3,3,3] },
         ]},
         { name: 'IV. Kraft', exercises: [
-          { name: 'Kraft - Bulgarian Split Squats Rechts',    max: 3, values: [2,2,3,3,3,3] },
-          { name: 'Kraft - Bulgarian Split Squats Links',     max: 3, values: [2,2,3,3,3,3] },
-          { name: 'Kraft - Pistol Squat Rechts',              max: 3, values: [1,1,2,2,3,3] },
-          { name: 'Kraft - Pistol Squat Links',               max: 3, values: [1,1,2,2,3,3] },
-          { name: 'Kraft - Wadenheben einbeinig Rechts',      max: 3, values: [2,3,3,3,3,3] },
-          { name: 'Kraft - Wadenheben einbeinig Links',       max: 3, values: [2,3,3,3,3,3] },
-          { name: 'Kraft - Bridging einbeinig Rechts',        max: 3, values: [2,2,3,3,3,3] },
-          { name: 'Kraft - Bridging einbeinig Links',         max: 3, values: [2,2,3,3,3,3] },
-          { name: 'Kraft - Hollow Hold',                      max: 4, values: [2,2,3,3,4,4] },
-          { name: 'Kraft - Liegest\u00fctz',                  max: 4, values: [2,2,3,3,4,4] },
-          { name: 'Kraft - Reverse Plank',                    max: 4, values: [2,3,3,4,4,4] },
+          { name: 'Kraft - Bulgarian Split Squats Rechts',    max: 3, sets: '3\u00d710', values: [2,2,3,3,3,3] },
+          { name: 'Kraft - Bulgarian Split Squats Links',     max: 3, sets: '3\u00d710', values: [2,2,3,3,3,3] },
+          { name: 'Kraft - Pistol Squat Rechts',              max: 3, sets: '3\u00d76', values: [1,1,2,2,3,3] },
+          { name: 'Kraft - Pistol Squat Links',               max: 3, sets: '3\u00d76', values: [1,1,2,2,3,3] },
+          { name: 'Kraft - Wadenheben einbeinig Rechts',      max: 3, sets: '3\u00d715', values: [2,3,3,3,3,3] },
+          { name: 'Kraft - Wadenheben einbeinig Links',       max: 3, sets: '3\u00d715', values: [2,3,3,3,3,3] },
+          { name: 'Kraft - Bridging einbeinig Rechts',        max: 3, sets: '3\u00d712', values: [2,2,3,3,3,3] },
+          { name: 'Kraft - Bridging einbeinig Links',         max: 3, sets: '3\u00d712', values: [2,2,3,3,3,3] },
+          { name: 'Kraft - Hollow Hold',                      max: 4, sets: '3\u00d720 Sek', values: [2,2,3,3,4,4] },
+          { name: 'Kraft - Liegest\u00fctz',                  max: 4, sets: '3\u00d712', values: [2,2,3,3,4,4] },
+          { name: 'Kraft - Reverse Plank',                    max: 4, sets: '3\u00d720 Sek', values: [2,3,3,4,4,4] },
         ]},
       ]
     },
@@ -904,7 +904,7 @@ const CLIENTS = [
           { name: 'Ges\u00e4\u00df - Beinheben BL H\u00e4nde Stirn Links',  max: 3, values: [2,2,3,3,3,3] },
           { name: 'Rotation - Bein aus BL Rechts',            max: 3, values: [2,3,3,3,3,3] },
           { name: 'Rotation - Bein aus BL Links',             max: 3, values: [2,3,3,3,3,3] },
-          { name: 'Rotation - Arm/Kopf aus BL Rechts',        max: 3, values: [2,2,2,3,2,3] },
+          { name: 'Rotation - Arm/Kopf aus BL Rechts',        max: 3, values: [2,2,2,3,2,3], notes: [null,null,null,null,'kurzer R\u00fcckfall durch langen Arbeitstag',null] },
           { name: 'Rotation - Arm/Kopf aus BL Links',         max: 3, values: [2,2,2,3,2,3] },
           { name: 'LWS - ASLR Rechts',                        max: 4, values: [3,3,3,3,3,3] },
           { name: 'LWS - ASLR Links',                         max: 4, values: [3,3,3,3,3,3] },
@@ -922,23 +922,23 @@ const CLIENTS = [
           { name: 'H\u00fcfte - Fu\u00dfsohlen an Wand Rechts',      max: 3, values: [2,2,3,3,3,3] },
           { name: 'H\u00fcfte - Fu\u00dfsohlen an Wand Links',       max: 3, values: [2,2,3,3,3,3] },
           { name: 'Schulter - VW-Sitz Schneidersitz',         max: 3, values: [3,3,3,3,3,3] },
-          { name: 'BWS - Oberk\u00f6rperrotation Sitz Rechts', max: 3, values: [2,2,2,3,3,3] },
+          { name: 'BWS - Oberk\u00f6rperrotation Sitz Rechts', max: 3, values: [2,2,2,3,3,3], notes: [null,null,null,'Bewegungsradius sp\u00fcrbar verbessert',null,null] },
           { name: 'BWS - Oberk\u00f6rperrotation Sitz Links',  max: 3, values: [2,2,2,3,3,3] },
           { name: 'Core - Einbeinig Aufstehen Rechts',        max: 3, values: [2,2,3,3,3,3] },
           { name: 'Core - Einbeinig Aufstehen Links',         max: 3, values: [2,2,3,3,3,3] },
         ]},
         { name: 'IV. Kraft', exercises: [
-          { name: 'Kraft - Bulgarian Split Squats Rechts',    max: 3, values: [2,3,3,3,3,3] },
-          { name: 'Kraft - Bulgarian Split Squats Links',     max: 3, values: [2,3,3,3,3,3] },
-          { name: 'Kraft - Pistol Squat Rechts',              max: 3, values: [2,2,2,3,3,3] },
-          { name: 'Kraft - Pistol Squat Links',               max: 3, values: [2,2,2,3,3,3] },
-          { name: 'Kraft - Wadenheben einbeinig Rechts',      max: 3, values: [3,3,3,3,3,3] },
-          { name: 'Kraft - Wadenheben einbeinig Links',       max: 3, values: [3,3,3,3,3,3] },
-          { name: 'Kraft - Bridging einbeinig Rechts',        max: 3, values: [3,3,3,3,3,3] },
-          { name: 'Kraft - Bridging einbeinig Links',         max: 3, values: [3,3,3,3,3,3] },
-          { name: 'Kraft - Hollow Hold',                      max: 4, values: [2,3,3,3,3,3] },
-          { name: 'Kraft - Liegest\u00fctz',                  max: 4, values: [3,3,3,3,3,3] },
-          { name: 'Kraft - Reverse Plank',                    max: 4, values: [3,3,3,3,3,4] },
+          { name: 'Kraft - Bulgarian Split Squats Rechts',    max: 3, sets: '3\u00d710', values: [2,3,3,3,3,3] },
+          { name: 'Kraft - Bulgarian Split Squats Links',     max: 3, sets: '3\u00d710', values: [2,3,3,3,3,3] },
+          { name: 'Kraft - Pistol Squat Rechts',              max: 3, sets: '3\u00d76', values: [2,2,2,3,3,3] },
+          { name: 'Kraft - Pistol Squat Links',               max: 3, sets: '3\u00d76', values: [2,2,2,3,3,3] },
+          { name: 'Kraft - Wadenheben einbeinig Rechts',      max: 3, sets: '3\u00d715', values: [3,3,3,3,3,3] },
+          { name: 'Kraft - Wadenheben einbeinig Links',       max: 3, sets: '3\u00d715', values: [3,3,3,3,3,3] },
+          { name: 'Kraft - Bridging einbeinig Rechts',        max: 3, sets: '3\u00d712', values: [3,3,3,3,3,3] },
+          { name: 'Kraft - Bridging einbeinig Links',         max: 3, sets: '3\u00d712', values: [3,3,3,3,3,3] },
+          { name: 'Kraft - Hollow Hold',                      max: 4, sets: '3\u00d720 Sek', values: [2,3,3,3,3,3] },
+          { name: 'Kraft - Liegest\u00fctz',                  max: 4, sets: '3\u00d712', values: [3,3,3,3,3,3] },
+          { name: 'Kraft - Reverse Plank',                    max: 4, sets: '3\u00d720 Sek', values: [3,3,3,3,3,4] },
         ]},
       ]
     },
@@ -1040,17 +1040,17 @@ const CLIENTS = [
           { name: 'Core - Einbeinig Aufstehen Links',         max: 3, values: [2,2,2,1,1,1] },
         ]},
         { name: 'IV. Kraft', exercises: [
-          { name: 'Kraft - Bulgarian Split Squats Rechts',    max: 3, values: [3,3,2,2,1,1] },
-          { name: 'Kraft - Bulgarian Split Squats Links',     max: 3, values: [3,3,2,2,1,1] },
-          { name: 'Kraft - Pistol Squat Rechts',              max: 3, values: ['-','-','-',1,1,0] },
-          { name: 'Kraft - Pistol Squat Links',               max: 3, values: ['-','-','-',1,1,0] },
-          { name: 'Kraft - Wadenheben einbeinig Rechts',      max: 3, values: [3,3,3,3,3,3] },
-          { name: 'Kraft - Wadenheben einbeinig Links',       max: 3, values: [3,3,3,3,3,3] },
-          { name: 'Kraft - Bridging einbeinig Rechts',        max: 3, values: [3,2,2,2,1,1] },
-          { name: 'Kraft - Bridging einbeinig Links',         max: 3, values: [3,2,2,2,1,1] },
-          { name: 'Kraft - Hollow Hold',                      max: 4, values: [3,3,2,2,2,1] },
-          { name: 'Kraft - Liegest\u00fctz',                  max: 4, values: [3,3,3,2,2,2] },
-          { name: 'Kraft - Reverse Plank',                    max: 4, values: [3,3,3,2,2,2] },
+          { name: 'Kraft - Bulgarian Split Squats Rechts',    max: 3, sets: '3\u00d710', values: [3,3,2,2,1,1] },
+          { name: 'Kraft - Bulgarian Split Squats Links',     max: 3, sets: '3\u00d710', values: [3,3,2,2,1,1] },
+          { name: 'Kraft - Pistol Squat Rechts',              max: 3, sets: '3\u00d76', values: ['-','-','-',1,1,0] },
+          { name: 'Kraft - Pistol Squat Links',               max: 3, sets: '3\u00d76', values: ['-','-','-',1,1,0] },
+          { name: 'Kraft - Wadenheben einbeinig Rechts',      max: 3, sets: '3\u00d715', values: [3,3,3,3,3,3] },
+          { name: 'Kraft - Wadenheben einbeinig Links',       max: 3, sets: '3\u00d715', values: [3,3,3,3,3,3] },
+          { name: 'Kraft - Bridging einbeinig Rechts',        max: 3, sets: '3\u00d712', values: [3,2,2,2,1,1] },
+          { name: 'Kraft - Bridging einbeinig Links',         max: 3, sets: '3\u00d712', values: [3,2,2,2,1,1] },
+          { name: 'Kraft - Hollow Hold',                      max: 4, sets: '3\u00d720 Sek', values: [3,3,2,2,2,1] },
+          { name: 'Kraft - Liegest\u00fctz',                  max: 4, sets: '3\u00d712', values: [3,3,3,2,2,2] },
+          { name: 'Kraft - Reverse Plank',                    max: 4, sets: '3\u00d720 Sek', values: [3,3,3,2,2,2] },
         ]},
       ]
     },
@@ -1174,8 +1174,9 @@ function renderExerciseHistory(eh) {
         var prev = i === 0 ? undefined : ex.values[i - 1];
         return renderExVal(v, ex.max, prev, noteText);
       }).join('');
+      var setsHTML = ex.sets ? '<span class="excomp-sets">' + ex.sets + '</span>' : '';
       return '<div class="excomp-row" style="grid-template-columns:' + gridCols + '">' +
-        '<div class="excomp-name-cell"><span class="excomp-exercise" title="' + ex.name + '">' + ex.name + '</span></div>' +
+        '<div class="excomp-name-cell"><span class="excomp-exercise" title="' + ex.name + '">' + ex.name + '</span>' + setsHTML + '</div>' +
         cells +
       '</div>';
     }).join('');
@@ -1203,11 +1204,23 @@ function renderExerciseHistory(eh) {
   '</div>';
 }
 
+function calcLaufzeit(sinceStr) {
+  var parts = sinceStr.split('.');
+  var start = new Date(parseInt(parts[2]), parseInt(parts[1]) - 1, parseInt(parts[0]));
+  var ref = new Date(2026, 6, 16); // 16.07.2026
+  var days = Math.round((ref - start) / 86400000);
+  if (days < 7)  return '< 1 Woche';
+  if (days < 30) return Math.round(days / 7) + ' Wochen';
+  var months = Math.round(days / 30.4);
+  return months + ' Monat' + (months !== 1 ? 'e' : '');
+}
+
 function renderDetail(c) {
   var pct = (c.kks / 160 * 100).toFixed(1);
   var lastCheckin = (c.checkins[0] && c.checkins[0].date) || '\u2014';
   var startScreening = (c.screenings[0] && c.screenings[0].date) || '\u2014';
   var totalWeeks = c.week.split(' von ')[1];
+  var laufzeit = calcLaufzeit(c.since);
 
   var signalHTML = c.signal
     ? '<div class="signal-card">' +
@@ -1265,6 +1278,7 @@ function renderDetail(c) {
             '<span>Fokus: ' + c.focus + '</span>' +
             '<span>Ziel: ' + c.goal + '</span>' +
             '<span>Programm: ' + totalWeeks + '&thinsp;Wochen</span>' +
+            '<span>Laufzeit: ' + laufzeit + '</span>' +
             '<span>Letzter Check-in: ' + lastCheckin + '</span>' +
             '<span>Trainingspl\u00e4ne: ' + c.trainingsplaene + '</span>' +
             '<span>Start-Screening: ' + startScreening + '</span>' +
