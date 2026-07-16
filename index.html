@@ -23,6 +23,7 @@
     margin: 0; background: var(--bg); color: var(--text);
     font-family: -apple-system, "SF Pro Text", "SF Pro Display", Inter, sans-serif;
     -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
   }
 
   /* ── Topbar ─────────────────────────────────────── */
@@ -102,7 +103,7 @@
   }
 
   /* ── Detail ──────────────────────────────────────── */
-  .detail { padding: 44px 52px; max-width: 960px; transition: opacity 0.1s ease; }
+  .detail { padding: 44px 52px; max-width: 960px; min-width: 0; transition: opacity 0.1s ease; }
   .client-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 40px; }
   .client-header .who { display: flex; align-items: center; gap: 16px; }
   .avatar-lg {
@@ -964,7 +965,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   document.getElementById('roster-list').addEventListener('click', function(e) {
     var row = e.target.closest('[data-id]');
-    if (row && row.dataset.id !== activeId) selectClient(row.dataset.id);
+    if (row) selectClient(row.dataset.id);
   });
 
   document.getElementById('detail').addEventListener('click', function(e) {
