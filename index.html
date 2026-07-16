@@ -17,204 +17,144 @@
     --signal:      #C0392B;
     --progress:    #3A7D52;
   }
-
   * { box-sizing: border-box; }
-
   body {
-    margin: 0;
-    background: var(--bg);
-    color: var(--text);
+    margin: 0; background: var(--bg); color: var(--text);
     font-family: -apple-system, "SF Pro Text", "SF Pro Display", Inter, sans-serif;
     -webkit-font-smoothing: antialiased;
   }
 
   /* ── Topbar ─────────────────────────────────────── */
   .topbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 18px 32px;
-    background: var(--surface);
-    box-shadow: 0 1px 0 var(--sep);
-    position: sticky; top: 0; z-index: 10;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 32px; background: var(--surface);
+    box-shadow: 0 1px 0 var(--sep); position: sticky; top: 0; z-index: 10;
   }
   .brand-mark { display: flex; align-items: center; gap: 12px; }
   .brand-mark .glyph {
-    width: 32px; height: 32px; border-radius: 10px;
-    background: var(--text);
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0;
+    width: 32px; height: 32px; border-radius: 10px; background: var(--text);
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
   }
   .brand-mark .glyph svg { width: 16px; height: 16px; }
   .brand-mark .name { font-size: 15px; font-weight: 600; letter-spacing: -0.02em; margin: 0; }
   .brand-mark .sub  { font-size: 12px; color: var(--text-2); margin: 0; }
-  .coach-identity {
-    display: flex; align-items: center; gap: 9px;
-  }
+  .coach-identity { display: flex; align-items: center; gap: 9px; }
   .coach-avatar {
     width: 34px; height: 34px; border-radius: 50%;
     background: var(--accent-dim); color: var(--accent);
     display: flex; align-items: center; justify-content: center;
     font-size: 13px; font-weight: 600;
   }
-  .coach-label {
-    font-size: 13px; font-weight: 500; color: var(--text);
-  }
-  .coach-role {
-    font-size: 11px; color: var(--text-3);
-  }
+  .coach-label { font-size: 13px; font-weight: 500; color: var(--text); }
+  .coach-role  { font-size: 11px; color: var(--text-3); }
 
   /* ── Layout ──────────────────────────────────────── */
-  .layout {
-    display: grid;
-    grid-template-columns: 300px 1fr;
-    min-height: calc(100vh - 69px);
-  }
+  .layout { display: grid; grid-template-columns: 300px 1fr; min-height: calc(100vh - 69px); }
 
   /* ── Roster ──────────────────────────────────────── */
-  .roster {
-    border-right: 1px solid var(--sep);
-    padding: 28px 14px;
-    background: var(--surface);
-  }
-  .roster-head {
-    display: flex; justify-content: space-between; align-items: baseline;
-    padding: 0 8px 20px;
-  }
+  .roster { border-right: 1px solid var(--sep); padding: 28px 14px; background: var(--surface); }
+  .roster-head { display: flex; justify-content: space-between; align-items: baseline; padding: 0 8px 20px; }
   .roster-head h2 {
     font-size: 11px; text-transform: uppercase; letter-spacing: 0.07em;
     color: var(--text-2); font-weight: 600; margin: 0;
   }
   .roster-head .count { font-size: 12px; color: var(--text-3); }
-
   .client-row {
-    display: flex; align-items: center; gap: 12px;
-    padding: 12px 10px; border-radius: 12px;
-    cursor: pointer; margin-bottom: 2px;
-    transition: background 0.12s ease;
+    display: flex; align-items: center; gap: 12px; padding: 12px 10px;
+    border-radius: 12px; cursor: pointer; margin-bottom: 2px; transition: background 0.12s ease;
   }
   .client-row:hover  { background: var(--bg); }
   .client-row.active { background: var(--accent-dim); }
-
-  .dot {
-    width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
-  }
+  .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
   .dot.signal   { background: var(--signal); }
   .dot.progress { background: var(--progress); }
   .dot.neutral  { background: var(--text-3); }
-
-  .client-row .info   { flex: 1; min-width: 0; }
-  .client-row .cname  { font-size: 14px; font-weight: 500; margin: 0 0 2px; }
-  .client-row .cmeta  { font-size: 12px; color: var(--text-2); margin: 0; }
+  .client-row .info  { flex: 1; min-width: 0; }
+  .client-row .cname { font-size: 14px; font-weight: 500; margin: 0 0 2px; }
+  .client-row .cmeta { font-size: 12px; color: var(--text-2); margin: 0; }
   .client-row .flag {
-    font-size: 10px; font-weight: 600;
-    padding: 2px 7px; border-radius: 99px;
-    background: rgba(192,57,43,0.08);
-    color: var(--signal); flex-shrink: 0;
+    font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 99px;
+    background: rgba(192,57,43,0.08); color: var(--signal); flex-shrink: 0;
   }
 
   /* ── Detail ──────────────────────────────────────── */
-  .detail {
-    padding: 44px 52px; max-width: 960px;
-    transition: opacity 0.1s ease;
-  }
-
-  .client-header {
-    display: flex; align-items: center; justify-content: space-between;
-    margin-bottom: 40px;
-  }
+  .detail { padding: 44px 52px; max-width: 960px; transition: opacity 0.1s ease; }
+  .client-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 40px; }
   .client-header .who { display: flex; align-items: center; gap: 16px; }
   .avatar-lg {
-    width: 52px; height: 52px; border-radius: 50%;
-    background: var(--text); color: #fff;
+    width: 52px; height: 52px; border-radius: 50%; background: var(--text); color: #fff;
     display: flex; align-items: center; justify-content: center;
     font-weight: 600; font-size: 17px; flex-shrink: 0;
   }
-  .client-header h1 {
-    font-size: 22px; font-weight: 600; margin: 0 0 4px;
-    letter-spacing: -0.02em;
-  }
+  .client-header h1 { font-size: 22px; font-weight: 600; margin: 0 0 4px; letter-spacing: -0.02em; }
   .client-header .meta { font-size: 13px; color: var(--text-2); margin: 0; }
   .client-header .case-meta {
     display: flex; flex-wrap: wrap; gap: 6px 14px;
     font-size: 12px; color: var(--text-2); margin: 6px 0 0;
   }
   .client-header .case-meta span { white-space: nowrap; }
-
   .btn {
-    font-family: inherit; font-size: 13px; font-weight: 500;
-    padding: 9px 16px; border-radius: 10px;
-    border: 1px solid var(--sep);
-    background: var(--surface); color: var(--text); cursor: pointer;
+    font-family: inherit; font-size: 13px; font-weight: 500; padding: 9px 16px;
+    border-radius: 10px; border: 1px solid var(--sep); background: var(--surface);
+    color: var(--text); cursor: pointer;
   }
   .btn:hover { background: var(--bg); }
-  .header-action {
-    display: flex; flex-direction: column; align-items: flex-end; gap: 8px;
-  }
-  .note-box {
-    display: none; width: 260px;
-  }
+  .header-action { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
+  .note-box { display: none; width: 260px; }
   .note-box.open { display: block; }
   .note-box textarea {
-    width: 100%; min-height: 74px; resize: vertical;
-    font: inherit; font-size: 13px; line-height: 1.4;
-    color: var(--text); background: var(--surface);
-    border: 1px solid var(--sep); border-radius: 10px;
-    padding: 9px 10px; outline: none;
+    width: 100%; min-height: 74px; resize: vertical; font: inherit;
+    font-size: 13px; line-height: 1.4; color: var(--text); background: var(--surface);
+    border: 1px solid var(--sep); border-radius: 10px; padding: 9px 10px; outline: none;
   }
   .note-box textarea:focus { border-color: rgba(36,84,166,0.35); }
 
-  /* ── Score + Signal row ──────────────────────────── */
-  .instrument-row {
-    display: grid; grid-template-columns: 196px 1fr; gap: 16px;
-    margin-bottom: 44px;
-  }
-
+  /* ── Score + Signal ───────────────────────────────── */
+  .instrument-row { display: grid; grid-template-columns: 196px 1fr; gap: 16px; margin-bottom: 32px; }
   .score-card {
-    background: var(--surface);
-    border-radius: 20px;
-    padding: 24px 22px;
+    background: var(--surface); border-radius: 20px; padding: 24px 22px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
   }
   .score-label {
     font-size: 11px; text-transform: uppercase; letter-spacing: 0.07em;
     color: var(--text-2); font-weight: 600; margin: 0 0 10px;
   }
-  .score-value {
-    font-size: 54px; font-weight: 600; color: var(--text);
-    letter-spacing: -0.03em; line-height: 1; margin: 0 0 16px;
-  }
+  .score-value { font-size: 54px; font-weight: 600; color: var(--text); letter-spacing: -0.03em; line-height: 1; margin: 0 0 16px; }
   .score-value span { font-size: 20px; color: var(--text-2); font-weight: 400; }
-  .score-bar-track {
-    height: 4px; background: var(--bg);
-    border-radius: 99px; overflow: hidden; margin-bottom: 10px;
-  }
-  .score-bar-fill {
-    height: 4px; background: var(--accent);
-    border-radius: 99px;
-  }
+  .score-bar-track { height: 4px; background: var(--bg); border-radius: 99px; overflow: hidden; margin-bottom: 10px; }
+  .score-bar-fill { height: 4px; background: var(--accent); border-radius: 99px; }
   .score-sub { font-size: 12px; color: var(--text-2); margin: 0; }
-
   .signal-card {
-    background: var(--surface);
-    border-radius: 20px;
-    padding: 24px;
+    background: var(--surface); border-radius: 20px; padding: 24px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
     display: flex; flex-direction: column; justify-content: center;
   }
-  .signal-head {
-    display: flex; align-items: center; gap: 7px; margin-bottom: 9px;
+  .signal-head { display: flex; align-items: center; gap: 7px; margin-bottom: 9px; }
+  .signal-tag { font-size: 11px; text-transform: uppercase; letter-spacing: 0.07em; color: var(--text-2); font-weight: 600; }
+  .signal-title { font-size: 16px; font-weight: 600; margin: 0 0 6px; }
+  .signal-sub { font-size: 13px; color: var(--text-2); margin: 0; line-height: 1.5; }
+
+  /* ── Anamnese (einklappbar) ───────────────────────── */
+  .anamnese-block { margin-bottom: 36px; }
+  .anamnese-toggle {
+    background: none; border: none; padding: 0; font: inherit;
+    font-size: 12px; color: var(--accent); cursor: pointer;
+    display: inline-flex; align-items: center; gap: 4px;
   }
-  .signal-tag {
-    font-size: 11px; text-transform: uppercase; letter-spacing: 0.07em;
-    color: var(--text-2); font-weight: 600;
+  .anamnese-toggle:hover { color: var(--text); }
+  .anamnese-body { display: none; margin-top: 10px; }
+  .anamnese-body.open { display: block; }
+  .anamnese-grid {
+    background: var(--surface); border-radius: 14px; padding: 18px 20px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    display: grid; grid-template-columns: 1fr 1fr; gap: 14px 24px;
   }
-  .signal-title {
-    font-size: 16px; font-weight: 600; margin: 0 0 6px;
+  .anamnese-field { }
+  .anamnese-label {
+    font-size: 10px; text-transform: uppercase; letter-spacing: 0.07em;
+    color: var(--text-3); font-weight: 600; display: block; margin-bottom: 4px;
   }
-  .signal-sub {
-    font-size: 13px; color: var(--text-2); margin: 0; line-height: 1.5;
-  }
+  .anamnese-value { font-size: 13px; color: var(--text); line-height: 1.5; }
 
   /* ── Section label ───────────────────────────────── */
   .section-label {
@@ -233,100 +173,72 @@
   .tl-text  { font-size: 14px; line-height: 1.5; margin-bottom: 8px; }
   .tl-fields { display: flex; flex-wrap: wrap; gap: 6px; }
   .tl-chip {
-    font-size: 11px; line-height: 1.2;
-    padding: 4px 7px; border-radius: 99px;
-    background: var(--surface); color: var(--text-2);
-    box-shadow: inset 0 0 0 1px var(--sep);
+    font-size: 11px; line-height: 1.2; padding: 4px 7px; border-radius: 99px;
+    background: var(--surface); color: var(--text-2); box-shadow: inset 0 0 0 1px var(--sep);
   }
-  .tl-chip.signal { color: var(--signal); background: rgba(192,57,43,0.08); box-shadow: none; }
-  .tl-chip.progress { color: var(--progress); background: rgba(58,125,82,0.08); box-shadow: none; }
+  .tl-chip.signal   { color: var(--signal);   background: rgba(192,57,43,0.08); box-shadow: none; }
+  .tl-chip.progress { color: var(--progress); background: rgba(58,125,82,0.08);  box-shadow: none; }
 
   /* ── Trend chart ─────────────────────────────────── */
   .trend-wrap {
-    background: var(--surface);
-    border-radius: 20px;
-    padding: 24px 26px;
+    background: var(--surface); border-radius: 20px; padding: 24px 26px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
   }
-  .trend-head {
-    display: flex; justify-content: space-between; align-items: baseline;
-    margin-bottom: 16px;
-  }
+  .trend-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 16px; }
   .trend-head .arrow { font-size: 13px; font-weight: 500; }
-  .screening-list {
-    margin-top: 18px; padding-top: 14px;
-    border-top: 1px solid var(--sep);
-  }
+  .screening-list { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--sep); }
   .screening-list .section-label { margin-bottom: 8px; }
   .screening-row {
-    display: grid; grid-template-columns: 72px 72px 1fr; gap: 12px;
-    padding: 7px 0; align-items: baseline;
+    display: grid; grid-template-columns: 72px 68px 1fr 44px; gap: 10px;
+    padding: 7px 0; align-items: center;
     font-size: 12px; border-bottom: 1px solid rgba(0,0,0,0.04);
   }
   .screening-row:last-child { border-bottom: none; }
-  .screening-date { color: var(--text-2); font-variant-numeric: tabular-nums; }
+  .screening-date  { color: var(--text-2); font-variant-numeric: tabular-nums; }
   .screening-score { font-weight: 500; font-variant-numeric: tabular-nums; }
-  .screening-note { display: flex; flex-wrap: wrap; gap: 8px; color: var(--text-2); }
-  .screening-cat { display: inline-flex; align-items: center; gap: 4px; white-space: nowrap; }
+  .screening-note  { display: flex; flex-wrap: wrap; gap: 8px; color: var(--text-2); }
+  .screening-cat   { display: inline-flex; align-items: center; gap: 4px; white-space: nowrap; }
   .ampel-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
-  .ampel-dot.red { background: var(--signal); }
+  .ampel-dot.red    { background: var(--signal); }
   .ampel-dot.yellow { background: #B88700; }
-  .ampel-dot.green { background: var(--progress); }
+  .ampel-dot.green  { background: var(--progress); }
+  .screening-type {
+    font-size: 10px; font-weight: 600; padding: 2px 6px;
+    border-radius: 99px; white-space: nowrap; text-align: center;
+  }
+  .screening-type.coach { color: var(--accent); background: var(--accent-dim); }
+  .screening-type.self  { color: var(--text-3); background: var(--bg); }
 
   /* ── Übungsverlauf im Vergleich ──────────────────── */
   .excomp-wrap {
-    background: var(--surface);
-    border-radius: 20px;
-    padding: 24px 26px;
+    background: var(--surface); border-radius: 20px; padding: 24px 26px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
     margin-top: 16px;
   }
-  .excomp-head {
-    display: flex; justify-content: space-between; align-items: baseline;
-    margin-bottom: 0;
-  }
-  .excomp-hint {
-    font-size: 12px; color: var(--text-3);
-  }
-  .excomp-table {
-    margin-top: 14px;
-    border-top: 1px solid var(--sep);
-  }
+  .excomp-head { display: flex; justify-content: space-between; align-items: baseline; }
+  .excomp-hint { font-size: 12px; color: var(--text-3); }
+  .excomp-table { margin-top: 14px; border-top: 1px solid var(--sep); min-width: 520px; }
   .excomp-header {
-    display: grid;
-    gap: 8px;
-    padding: 8px 0 6px;
-    border-bottom: 1px solid var(--sep);
-    align-items: center;
+    display: grid; gap: 8px; padding: 8px 0 6px;
+    border-bottom: 1px solid var(--sep); align-items: center;
   }
   .excomp-name-th {
     font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em;
     color: var(--text-3); font-weight: 600;
   }
-  .excomp-date-th {
-    font-size: 11px; color: var(--text-3);
-    font-variant-numeric: tabular-nums;
-    text-align: center; font-weight: 500;
-  }
-  .excomp-row {
-    display: grid;
-    gap: 8px;
-    padding: 11px 0;
-    border-bottom: 1px solid rgba(0,0,0,0.04);
-    align-items: center;
-  }
+  .excomp-date-th { font-size: 11px; color: var(--text-3); font-variant-numeric: tabular-nums; text-align: center; font-weight: 500; }
+  .excomp-row { display: grid; gap: 8px; padding: 11px 0; border-bottom: 1px solid rgba(0,0,0,0.04); align-items: center; }
   .excomp-row:last-child { border-bottom: none; }
   .excomp-exercise { font-size: 13px; font-weight: 500; display: block; margin-bottom: 2px; }
   .excomp-cat {
-    font-size: 11px; color: var(--text-3);
-    background: var(--bg); padding: 2px 6px;
-    border-radius: 6px; display: inline-block;
+    font-size: 11px; color: var(--text-3); background: var(--bg);
+    padding: 2px 6px; border-radius: 6px; display: inline-block;
   }
+  .excomp-sets { font-size: 11px; color: var(--text-3); display: block; margin-top: 3px; }
   .excomp-val {
-    text-align: center;
-    font-size: 13px; font-weight: 500;
+    text-align: center; font-size: 13px; font-weight: 500;
     font-variant-numeric: tabular-nums;
-    display: flex; align-items: center; justify-content: center; gap: 3px;
+    display: flex; align-items: center; justify-content: center; gap: 2px;
   }
   .excomp-val .val-num { color: var(--text); }
   .excomp-val .val-max { color: var(--text-3); font-weight: 400; font-size: 11px; }
@@ -334,23 +246,33 @@
     font-size: 13px; font-weight: 700; line-height: 1;
     width: 18px; height: 18px;
     display: inline-flex; align-items: center; justify-content: center;
-    border-radius: 4px;
-    flex-shrink: 0;
+    border-radius: 4px; flex-shrink: 0;
   }
-  .ex-arrow.up     { color: var(--progress); background: rgba(58,125,82,0.10); }
-  .ex-arrow.down   { color: var(--signal);   background: rgba(192,57,43,0.10); }
-  .ex-arrow.neutral{ color: var(--text-3);   background: var(--bg); }
-  .excomp-first-val {
-    text-align: center;
-    font-size: 13px; font-weight: 500;
-    font-variant-numeric: tabular-nums;
-    color: var(--text-2);
-  }
+  .ex-arrow.up      { color: var(--progress); background: rgba(58,125,82,0.10); }
+  .ex-arrow.down    { color: var(--signal);   background: rgba(192,57,43,0.10); }
+  .ex-arrow.neutral { color: var(--text-3);   background: var(--bg); }
+  .ex-note-icon { font-size: 10px; color: var(--accent); cursor: help; opacity: 0.7; }
+  .ex-note-icon:hover { opacity: 1; }
 
-  .footer {
-    padding: 18px 32px 24px;
-    font-size: 11px; color: var(--text-3); text-align: center;
+  /* ── Archiv alter Übungen ─────────────────────────── */
+  .archive-block { margin-top: 14px; }
+  .archive-toggle {
+    background: none; border: none; padding: 0; font: inherit;
+    font-size: 12px; color: var(--text-2); cursor: pointer;
+    display: inline-flex; align-items: center; gap: 4px;
   }
+  .archive-toggle:hover { color: var(--text); }
+  .archive-body { display: none; margin-top: 10px; }
+  .archive-body.open { display: block; }
+  .archive-item {
+    display: flex; align-items: baseline; gap: 10px;
+    padding: 8px 0; border-bottom: 1px solid var(--sep); opacity: 0.55;
+  }
+  .archive-item:last-child { border-bottom: none; }
+  .archive-name { font-size: 13px; font-weight: 500; }
+  .archive-meta { font-size: 11px; color: var(--text-3); }
+
+  .footer { padding: 18px 32px 24px; font-size: 11px; color: var(--text-3); text-align: center; }
 
   /* ── Scrollbar ───────────────────────────────────── */
   ::-webkit-scrollbar { width: 6px; }
@@ -368,9 +290,10 @@
     .header-action { align-items: flex-start; width: 100%; }
     .note-box { width: 100%; }
     .tl-row  { grid-template-columns: 52px 1fr; gap: 10px; }
-    .screening-row { grid-template-columns: 58px 64px 1fr; gap: 8px; }
+    .screening-row { grid-template-columns: 58px 58px 1fr 36px; gap: 6px; }
     .trend-wrap { padding: 18px 16px; }
     .excomp-wrap { padding: 18px 14px; overflow-x: auto; }
+    .anamnese-grid { grid-template-columns: 1fr; }
     .footer { padding: 16px 20px 22px; }
     .coach-label, .coach-role { display: none; }
   }
@@ -428,33 +351,43 @@ const CLIENTS = [
     trainingsplaene: 4,
     focus: 'LWS-Mobilit\u00e4t',
     goal: 'schmerzfrei b\u00fccken',
+    anamnese: {
+      date: '15.01.2026',
+      trigger: 'Chronische LWS-Schmerzen seit 2 Jahren, verschlimmert durch 9h Schreibtischarbeit',
+      pain: 'LWS 7/10, besonders morgens und beim B\u00fccken',
+      goal: 'Schmerzfrei b\u00fccken, dauerhaft ohne Schmerzmittel durch den Alltag'
+    },
     signal: {
       title: 'Anhaltende LWS-Beschwerden',
       sub: 'Gemeldet im Check-in vom 02.07.2026 \u00b7 noch nicht bearbeitet'
     },
     checkins: [
-      { date: '02.07.', text: 'LWS-Schmerzen beim B\u00fccken, kaum Schlaf diese Woche.', score: 2, satisfaction: 2, exercises: '2/4 erledigt', pain: 'LWS beim B\u00fccken', progress: 'Dehnung hilft kurz', goal: 'Schlaf stabilisieren', help: 'Coach-R\u00fcckmeldung' },
-      { date: '25.06.', text: 'Leichte Besserung sp\u00fcrbar, Dehn-\u00dcbungen helfen etwas.', score: 3, satisfaction: 3, exercises: '3/4 erledigt', pain: 'leicht', progress: 'mehr Beweglichkeit', goal: 'Routine halten', help: null },
-      { date: '18.06.', text: 'Starke R\u00fcckenschmerzen, Training pausiert.', score: 1, satisfaction: 2, exercises: 'pausiert', pain: 'stark', progress: null, goal: 'Belastung reduzieren', help: 'Anpassung n\u00f6tig' },
+      { date: '02.07.', text: 'LWS-Schmerzen beim B\u00fccken, kaum Schlaf diese Woche.', score: 2, satisfaction: 2, exercises: '2/4 erledigt', pain: 'LWS beim B\u00fccken', progress: 'Dehnung hilft kurz', struggle: 'Treppensteigen schmerzhaft', goal: 'Schlaf stabilisieren', help: 'Coach-R\u00fcckmeldung' },
+      { date: '25.06.', text: 'Leichte Besserung sp\u00fcrbar, Dehn-\u00dcbungen helfen etwas.', score: 3, satisfaction: 3, exercises: '3/4 erledigt', pain: 'leicht', progress: 'mehr Beweglichkeit', struggle: '\u00dcbungen abends vergessen', goal: 'Routine halten', help: null },
+      { date: '18.06.', text: 'Starke R\u00fcckenschmerzen, Training pausiert.', score: 1, satisfaction: 2, exercises: 'pausiert', pain: 'stark', progress: null, struggle: null, goal: 'Belastung reduzieren', help: 'Anpassung n\u00f6tig' },
     ],
     trendPts: '0,62 130,64 260,67 390,70 520,72 650,74 780,73',
     trendText: '\u2198 sinkend \u2014 R\u00fcckgang \u00fcber letzte 3 Screenings',
     screenings: [
-      { date: '15.01.26', score: 82, note: 'HWS 26 \u00b7 BWS 25 \u00b7 LWS 31' },
-      { date: '12.03.26', score: 74, note: 'HWS 24 \u00b7 BWS 23 \u00b7 LWS 27' },
-      { date: '07.05.26', score: 61, note: 'HWS 21 \u00b7 BWS 20 \u00b7 LWS 20' },
-      { date: '04.06.26', score: 49, note: 'HWS 18 \u00b7 BWS 16 \u00b7 LWS 15' },
-      { date: '18.06.26', score: 38, note: 'HWS 15 \u00b7 BWS 13 \u00b7 LWS 10' },
-      { date: '02.07.26', score: 34, note: 'HWS 14 \u00b7 BWS 12 \u00b7 LWS 8' },
+      { date: '15.01.26', score: 82, note: 'HWS 26 \u00b7 BWS 25 \u00b7 LWS 31', type: 'coach' },
+      { date: '12.03.26', score: 74, note: 'HWS 24 \u00b7 BWS 23 \u00b7 LWS 27', type: 'self'  },
+      { date: '07.05.26', score: 61, note: 'HWS 21 \u00b7 BWS 20 \u00b7 LWS 20', type: 'coach' },
+      { date: '04.06.26', score: 49, note: 'HWS 18 \u00b7 BWS 16 \u00b7 LWS 15', type: 'self'  },
+      { date: '18.06.26', score: 38, note: 'HWS 15 \u00b7 BWS 13 \u00b7 LWS 10', type: 'self'  },
+      { date: '02.07.26', score: 34, note: 'HWS 14 \u00b7 BWS 12 \u00b7 LWS 8',  type: 'coach' },
     ],
     exerciseHistory: {
-      sessions: ['15.01.', '12.03.', '07.05.', '02.07.'],
+      sessions: ['15.01.26','12.03.26','07.05.26','04.06.26','18.06.26','02.07.26'],
       exercises: [
-        { name: 'Tandemstand', category: 'Gleichgewicht', max: 4, values: [3, 3, 2, 2] },
-        { name: 'LWS Flexion', category: 'LWS', max: 5, values: [4, 3, 2, 1] },
-        { name: 'Schulter Abduktion re.', category: 'Schulter', max: 4, values: [3, 3, 3, 3] },
+        { name: 'Tandemstand',           category: 'Gleichgewicht', max: 4, values: [3,3,2,2,2,2], notes: [null,null,null,null,null,null] },
+        { name: 'LWS Flexion',           category: 'LWS',          max: 5, values: [4,3,2,2,1,1], notes: [null,null,null,'schmerzhaft beim B\u00fccken',null,null] },
+        { name: 'Schulter Abduktion re.',category: 'Schulter',     max: 4, values: [3,3,3,3,3,3], notes: [null,null,null,null,null,null] },
       ]
-    }
+    },
+    archivedExercises: [
+      { name: 'H\u00fcftkreisen',  category: 'H\u00fcfte',      since: '07.05.26' },
+      { name: 'Br\u00fccke',      category: 'Kr\u00e4ftigung', since: '04.06.26' },
+    ]
   },
   {
     id: 'markus',
@@ -471,33 +404,43 @@ const CLIENTS = [
     trainingsplaene: 3,
     focus: 'Schulter & Nacken',
     goal: '\u00dcberkopfdr\u00fccken schmerzfrei',
+    anamnese: {
+      date: '02.07.2025',
+      trigger: 'Schulter-OP rechts vor 18 Monaten, Rehab unvollst\u00e4ndig abgebrochen',
+      pain: 'Schulter rechts 6/10, besonders bei \u00dcberkopf-Bewegungen',
+      goal: 'Schulter-Stabilit\u00e4t zur\u00fcckgewinnen, \u00dcberkopfdr\u00fccken ohne Schmerzen'
+    },
     signal: {
       title: 'Schmerz beim \u00dcberkopfdr\u00fccken',
       sub: 'Gemeldet im Check-in vom 30.06.2026 \u00b7 noch nicht bearbeitet'
     },
     checkins: [
-      { date: '30.06.', text: 'Schulter beim \u00dcberkopfdr\u00fccken schmerzhaft, Belastung reduziert.', score: 2, satisfaction: 3, exercises: '3/5 erledigt', pain: 'Schulter \u00fcber Kopf', progress: 'Belastung erkannt', goal: 'Press-Variante testen', help: 'Technik-Check' },
-      { date: '23.06.', text: 'L\u00e4uft stabil, drei Trainingseinheiten wie geplant geschafft.', score: 4, satisfaction: 4, exercises: '3/3 erledigt', pain: null, progress: 'Training konstant', goal: 'Gewicht langsam steigern', help: null },
-      { date: '16.06.', text: 'Mehr Beweglichkeit im Nacken bemerkt, \u00dcbungen sitzen gut.', score: 4, satisfaction: 4, exercises: '4/4 erledigt', pain: 'leicht im Nacken', progress: 'Nacken beweglicher', goal: 'Mobilit\u00e4t halten', help: null },
+      { date: '30.06.', text: 'Schulter beim \u00dcberkopfdr\u00fccken schmerzhaft, Belastung reduziert.', score: 2, satisfaction: 3, exercises: '3/5 erledigt', pain: 'Schulter \u00fcber Kopf', progress: 'Belastung erkannt', struggle: '\u00dcberkopfbewegungen im Alltag vermeiden', goal: 'Press-Variante testen', help: 'Technik-Check' },
+      { date: '23.06.', text: 'L\u00e4uft stabil, drei Trainingseinheiten wie geplant geschafft.', score: 4, satisfaction: 4, exercises: '3/3 erledigt', pain: null, progress: 'Training konstant', struggle: null, goal: 'Gewicht langsam steigern', help: null },
+      { date: '16.06.', text: 'Mehr Beweglichkeit im Nacken bemerkt, \u00dcbungen sitzen gut.', score: 4, satisfaction: 4, exercises: '4/4 erledigt', pain: 'leicht im Nacken', progress: 'Nacken beweglicher', struggle: null, goal: 'Mobilit\u00e4t halten', help: null },
     ],
     trendPts: '0,78 130,68 260,55 390,42 520,30 650,20 780,12',
     trendText: '\u2197 steigend \u00fcber 6 Screenings',
     screenings: [
-      { date: '02.07.25', score: 4, note: 'HWS 1 \u00b7 BWS 1 \u00b7 LWS 2' },
-      { date: '27.08.25', score: 7, note: 'HWS 2 \u00b7 BWS 2 \u00b7 LWS 3' },
-      { date: '22.10.25', score: 10, note: 'HWS 3 \u00b7 BWS 3 \u00b7 LWS 4' },
-      { date: '17.12.25', score: 12, note: 'HWS 4 \u00b7 BWS 3 \u00b7 LWS 5' },
-      { date: '11.02.26', score: 14, note: 'HWS 5 \u00b7 BWS 4 \u00b7 LWS 5' },
-      { date: '30.06.26', score: 15, note: 'HWS 5 \u00b7 BWS 5 \u00b7 LWS 5' },
+      { date: '02.07.25', score: 4,  note: 'HWS 1 \u00b7 BWS 1 \u00b7 LWS 2', type: 'coach' },
+      { date: '27.08.25', score: 7,  note: 'HWS 2 \u00b7 BWS 2 \u00b7 LWS 3', type: 'self'  },
+      { date: '22.10.25', score: 10, note: 'HWS 3 \u00b7 BWS 3 \u00b7 LWS 4', type: 'coach' },
+      { date: '17.12.25', score: 12, note: 'HWS 4 \u00b7 BWS 3 \u00b7 LWS 5', type: 'self'  },
+      { date: '11.02.26', score: 14, note: 'HWS 5 \u00b7 BWS 4 \u00b7 LWS 5', type: 'coach' },
+      { date: '30.06.26', score: 15, note: 'HWS 5 \u00b7 BWS 5 \u00b7 LWS 5', type: 'coach' },
     ],
     exerciseHistory: {
-      sessions: ['02.07.25', '22.10.25', '11.02.26', '30.06.26'],
+      sessions: ['02.07.25','27.08.25','22.10.25','17.12.25','11.02.26','30.06.26'],
       exercises: [
-        { name: 'Schulter Abduktion re.', category: 'Schulter', max: 4, values: [0, 1, 2, 2] },
-        { name: 'HWS Rotation li.', category: 'HWS', max: 4, values: [1, 1, 2, 3] },
-        { name: 'Tandemstand', category: 'Gleichgewicht', max: 4, values: [1, 1, 2, 2] },
+        { name: 'Schulter Abduktion re.', category: 'Schulter',     max: 4, values: [0,0,1,1,2,2], notes: [null,'5\u00b0 Abduktion max.',null,null,null,null] },
+        { name: 'HWS Rotation li.',       category: 'HWS',          max: 4, values: [1,1,1,2,2,3], notes: [null,null,null,null,null,null] },
+        { name: 'Tandemstand',            category: 'Gleichgewicht', max: 4, values: [1,1,1,1,2,2], notes: [null,null,null,null,null,null] },
       ]
-    }
+    },
+    archivedExercises: [
+      { name: 'Pendulum',             category: 'Schulter', since: '22.10.25' },
+      { name: 'Schulter Innenrotation', category: 'Schulter', since: '17.12.25' },
+    ]
   },
   {
     id: 'peter',
@@ -514,30 +457,39 @@ const CLIENTS = [
     trainingsplaene: 2,
     focus: 'Kraftaufbau',
     goal: 'Training 3x/Woche',
+    anamnese: {
+      date: '10.03.2026',
+      trigger: 'Jahrelanger Bewegungsmangel, Gewichtszunahme +12 kg, kein Sport seit 5 Jahren',
+      pain: 'Kein akuter Schmerz, leichte Kniebeschwerden bei Belastung',
+      goal: 'Kraftaufbau, 3\u00d7 Training/Woche, langfristig 10 kg abnehmen'
+    },
     signal: null,
     checkins: [
-      { date: '01.07.', text: 'Kraftwerte deutlich gestiegen, f\u00fchlt sich fit und motiviert.', score: 5, satisfaction: 5, exercises: '4/4 erledigt', pain: null, progress: 'Kraftwerte hoch', goal: 'Tempo halten', help: null },
-      { date: '24.06.', text: 'Neues \u00dcbungsprogramm gut angekommen, Schlaf verbessert.', score: 5, satisfaction: 5, exercises: '4/4 erledigt', pain: null, progress: 'besserer Schlaf', goal: 'Routinen festigen', help: null },
-      { date: '17.06.', text: 'Leichte Muskelerm\u00fcdung, aber grunds\u00e4tzlich auf Kurs.', score: 4, satisfaction: 4, exercises: '3/4 erledigt', pain: null, progress: 'Belastung gut', goal: 'Regeneration planen', help: null },
+      { date: '01.07.', text: 'Kraftwerte deutlich gestiegen, f\u00fchlt sich fit und motiviert.', score: 5, satisfaction: 5, exercises: '4/4 erledigt', pain: null, progress: 'Kraftwerte hoch', struggle: null, goal: 'Tempo halten', help: null },
+      { date: '24.06.', text: 'Neues \u00dcbungsprogramm gut angekommen, Schlaf verbessert.', score: 5, satisfaction: 5, exercises: '4/4 erledigt', pain: null, progress: 'besserer Schlaf', struggle: 'Regenerationstage einplanen', goal: 'Routinen festigen', help: null },
+      { date: '17.06.', text: 'Leichte Muskelerm\u00fcdung, aber grunds\u00e4tzlich auf Kurs.', score: 4, satisfaction: 4, exercises: '3/4 erledigt', pain: null, progress: 'Belastung gut', struggle: 'Intensit\u00e4t richtig einsch\u00e4tzen', goal: 'Regeneration planen', help: null },
     ],
     trendPts: '0,85 130,72 260,58 390,44 520,32 650,22 780,14',
     trendText: '\u2197 steigend \u00fcber 6 Screenings',
     screenings: [
-      { date: '10.03.26', score: 42, note: 'HWS 13 \u00b7 BWS 14 \u00b7 LWS 15' },
-      { date: '31.03.26', score: 50, note: 'HWS 16 \u00b7 BWS 16 \u00b7 LWS 18' },
-      { date: '21.04.26', score: 60, note: 'HWS 19 \u00b7 BWS 20 \u00b7 LWS 21' },
-      { date: '12.05.26', score: 70, note: 'HWS 22 \u00b7 BWS 23 \u00b7 LWS 25' },
-      { date: '09.06.26', score: 80, note: 'HWS 26 \u00b7 BWS 26 \u00b7 LWS 28' },
-      { date: '01.07.26', score: 88, note: 'HWS 29 \u00b7 BWS 29 \u00b7 LWS 30' },
+      { date: '10.03.26', score: 42, note: 'HWS 13 \u00b7 BWS 14 \u00b7 LWS 15', type: 'coach' },
+      { date: '31.03.26', score: 50, note: 'HWS 16 \u00b7 BWS 16 \u00b7 LWS 18', type: 'self'  },
+      { date: '21.04.26', score: 60, note: 'HWS 19 \u00b7 BWS 20 \u00b7 LWS 21', type: 'coach' },
+      { date: '12.05.26', score: 70, note: 'HWS 22 \u00b7 BWS 23 \u00b7 LWS 25', type: 'self'  },
+      { date: '09.06.26', score: 80, note: 'HWS 26 \u00b7 BWS 26 \u00b7 LWS 28', type: 'coach' },
+      { date: '01.07.26', score: 88, note: 'HWS 29 \u00b7 BWS 29 \u00b7 LWS 30', type: 'self'  },
     ],
     exerciseHistory: {
-      sessions: ['10.03.', '21.04.', '09.06.', '01.07.'],
+      sessions: ['10.03.26','31.03.26','21.04.26','12.05.26','09.06.26','01.07.26'],
       exercises: [
-        { name: 'Kniebeuge', category: 'Kraft', max: 5, values: [2, 3, 4, 5] },
-        { name: 'Tandemstand', category: 'Gleichgewicht', max: 4, values: [2, 3, 4, 4] },
-        { name: 'HWS Rotation li.', category: 'HWS', max: 4, values: [3, 3, 4, 4] },
+        { name: 'Kniebeuge',       category: 'Kraft',         max: 5, sets: '3\u00d710', values: [2,2,3,3,4,5], notes: [null,null,null,'2,5 kg Gewichtszuwachs',null,null] },
+        { name: 'Tandemstand',     category: 'Gleichgewicht', max: 4,              values: [2,2,3,3,4,4], notes: [null,null,null,null,null,null] },
+        { name: 'HWS Rotation li.',category: 'HWS',           max: 4,              values: [3,3,3,3,4,4], notes: [null,null,null,null,null,null] },
       ]
-    }
+    },
+    archivedExercises: [
+      { name: 'Kniebeuge mit Pause', category: 'Kraft', since: '21.04.26' },
+    ]
   },
   {
     id: 'julia',
@@ -554,30 +506,39 @@ const CLIENTS = [
     trainingsplaene: 3,
     focus: 'Haltung & Energie',
     goal: 'Alltagsroutine halten',
+    anamnese: {
+      date: '15.11.2025',
+      trigger: 'B\u00fcroarbeit 9h/Tag, Rundr\u00fccken, Nackenverspannungen seit mehreren Jahren',
+      pain: 'HWS-Spannung 4/10, gelegentlicher Kopfschmerz freitags',
+      goal: 'Aufrechte Haltung im Alltag, Energie und Konzentration steigern'
+    },
     signal: null,
     checkins: [
-      { date: '30.06.', text: 'Haltung deutlich verbessert, Kolleginnen haben es bemerkt.', score: 5, satisfaction: 5, exercises: '5/5 erledigt', pain: null, progress: 'Haltung sichtbar besser', goal: 'B\u00fcro-Setup halten', help: null },
-      { date: '23.06.', text: 'Yoga-\u00dcbungen integriert, deutlich mehr Energie im Alltag.', score: 5, satisfaction: 5, exercises: '4/4 erledigt', pain: null, progress: 'mehr Energie', goal: 'Morgenroutine', help: null },
-      { date: '16.06.', text: 'Gelegentliche HWS-Spannung, sonst alles gut.', score: 4, satisfaction: 4, exercises: '4/5 erledigt', pain: 'leichte HWS-Spannung', progress: 'stabil', goal: 'Pausen einbauen', help: null },
+      { date: '30.06.', text: 'Haltung deutlich verbessert, Kolleginnen haben es bemerkt.', score: 5, satisfaction: 5, exercises: '5/5 erledigt', pain: null, progress: 'Haltung sichtbar besser', struggle: null, goal: 'B\u00fcro-Setup halten', help: null },
+      { date: '23.06.', text: 'Yoga-\u00dcbungen integriert, deutlich mehr Energie im Alltag.', score: 5, satisfaction: 5, exercises: '4/4 erledigt', pain: null, progress: 'mehr Energie', struggle: 'Abendliche Bildschirmzeit reduzieren', goal: 'Morgenroutine', help: null },
+      { date: '16.06.', text: 'Gelegentliche HWS-Spannung, sonst alles gut.', score: 4, satisfaction: 4, exercises: '4/5 erledigt', pain: 'leichte HWS-Spannung', progress: 'stabil', struggle: 'Pausen im B\u00fcro vergessen', goal: 'Pausen einbauen', help: null },
     ],
     trendPts: '0,82 130,68 260,54 390,40 520,28 650,18 780,10',
     trendText: '\u2197 steigend \u00fcber 6 Screenings',
     screenings: [
-      { date: '15.11.25', score: 44, note: 'HWS 13 \u00b7 BWS 14 \u00b7 LWS 17' },
-      { date: '10.01.26', score: 58, note: 'HWS 18 \u00b7 BWS 19 \u00b7 LWS 21' },
-      { date: '07.03.26', score: 70, note: 'HWS 22 \u00b7 BWS 23 \u00b7 LWS 25' },
-      { date: '02.05.26', score: 83, note: 'HWS 27 \u00b7 BWS 27 \u00b7 LWS 29' },
-      { date: '30.05.26', score: 94, note: 'HWS 31 \u00b7 BWS 31 \u00b7 LWS 32' },
-      { date: '30.06.26', score: 102, note: 'HWS 34 \u00b7 BWS 33 \u00b7 LWS 35' },
+      { date: '15.11.25', score: 44,  note: 'HWS 13 \u00b7 BWS 14 \u00b7 LWS 17', type: 'coach' },
+      { date: '10.01.26', score: 58,  note: 'HWS 18 \u00b7 BWS 19 \u00b7 LWS 21', type: 'self'  },
+      { date: '07.03.26', score: 70,  note: 'HWS 22 \u00b7 BWS 23 \u00b7 LWS 25', type: 'coach' },
+      { date: '02.05.26', score: 83,  note: 'HWS 27 \u00b7 BWS 27 \u00b7 LWS 29', type: 'self'  },
+      { date: '30.05.26', score: 94,  note: 'HWS 31 \u00b7 BWS 31 \u00b7 LWS 32', type: 'self'  },
+      { date: '30.06.26', score: 102, note: 'HWS 34 \u00b7 BWS 33 \u00b7 LWS 35', type: 'coach' },
     ],
     exerciseHistory: {
-      sessions: ['15.11.25', '07.03.26', '30.05.26', '30.06.26'],
+      sessions: ['15.11.25','10.01.26','07.03.26','02.05.26','30.05.26','30.06.26'],
       exercises: [
-        { name: 'BWS Extension', category: 'BWS', max: 5, values: [2, 3, 4, 5] },
-        { name: 'Tandemstand', category: 'Gleichgewicht', max: 4, values: [2, 3, 4, 4] },
-        { name: 'HWS Rotation li.', category: 'HWS', max: 4, values: [2, 3, 4, 4] },
+        { name: 'BWS Extension',      category: 'BWS',           max: 5, values: [2,2,3,4,4,5], notes: ['45\u00b0 Bewegungsradius',null,null,null,null,null] },
+        { name: 'Tandemstand',        category: 'Gleichgewicht', max: 4, values: [2,2,3,3,4,4], notes: [null,null,null,null,null,null] },
+        { name: 'HWS Rotation li.',   category: 'HWS',           max: 4, values: [2,2,3,3,4,4], notes: [null,null,null,null,null,null] },
       ]
-    }
+    },
+    archivedExercises: [
+      { name: 'Nackendehnung Seite', category: 'HWS', since: '07.03.26' },
+    ]
   },
   {
     id: 'tobias',
@@ -594,30 +555,39 @@ const CLIENTS = [
     trainingsplaene: 2,
     focus: 'BWS & Beweglichkeit',
     goal: 'Dehnroutine etablieren',
+    anamnese: {
+      date: '01.04.2026',
+      trigger: 'BWS-Verspannungen durch Homeoffice-Setup, 10h t\u00e4glich sitzend',
+      pain: 'BWS 3/10 abends, kein akuter Schmerz',
+      goal: 'Dehnroutine etablieren, R\u00fcckenverspannungen dauerhaft reduzieren'
+    },
     signal: null,
     checkins: [
-      { date: '04.07.', text: 'Programm gut etabliert, erste sp\u00fcrbare Fortschritte.', score: 4, satisfaction: 4, exercises: '4/5 erledigt', pain: null, progress: 'Routine etabliert', goal: 'Konstanz halten', help: null },
-      { date: '27.06.', text: 'Dehn-Routinen sitzen jetzt, K\u00f6rpergef\u00fchl verbessert.', score: 4, satisfaction: 4, exercises: '5/5 erledigt', pain: null, progress: 'K\u00f6rpergef\u00fchl besser', goal: 'Mobilit\u00e4t ausbauen', help: null },
-      { date: '20.06.', text: 'Leichte BWS-Verspannungen nach langen Arbeitstagen.', score: 3, satisfaction: 3, exercises: '3/5 erledigt', pain: 'leichte BWS-Spannung', progress: null, goal: 'Arbeitsplatz-Pausen', help: null },
+      { date: '04.07.', text: 'Programm gut etabliert, erste sp\u00fcrbare Fortschritte.', score: 4, satisfaction: 4, exercises: '4/5 erledigt', pain: null, progress: 'Routine etabliert', struggle: null, goal: 'Konstanz halten', help: null },
+      { date: '27.06.', text: 'Dehn-Routinen sitzen jetzt, K\u00f6rpergef\u00fchl verbessert.', score: 4, satisfaction: 4, exercises: '5/5 erledigt', pain: null, progress: 'K\u00f6rpergef\u00fchl besser', struggle: null, goal: 'Mobilit\u00e4t ausbauen', help: null },
+      { date: '20.06.', text: 'Leichte BWS-Verspannungen nach langen Arbeitstagen.', score: 3, satisfaction: 3, exercises: '3/5 erledigt', pain: 'leichte BWS-Spannung', progress: null, struggle: 'B\u00fcroalltag, keine Zeit f\u00fcr Mittagspause-\u00dcbungen', goal: 'Arbeitsplatz-Pausen', help: null },
     ],
     trendPts: '0,65 130,63 260,61 390,59 520,58 650,57 780,55',
     trendText: '\u2192 stabil \u00fcber 6 Screenings',
     screenings: [
-      { date: '01.04.26', score: 54, note: 'HWS 17 \u00b7 BWS 18 \u00b7 LWS 19' },
-      { date: '22.04.26', score: 56, note: 'HWS 18 \u00b7 BWS 18 \u00b7 LWS 20' },
-      { date: '13.05.26', score: 55, note: 'HWS 18 \u00b7 BWS 18 \u00b7 LWS 19' },
-      { date: '03.06.26', score: 58, note: 'HWS 19 \u00b7 BWS 19 \u00b7 LWS 20' },
-      { date: '24.06.26', score: 56, note: 'HWS 18 \u00b7 BWS 19 \u00b7 LWS 19' },
-      { date: '04.07.26', score: 57, note: 'HWS 19 \u00b7 BWS 19 \u00b7 LWS 19' },
+      { date: '01.04.26', score: 54, note: 'HWS 17 \u00b7 BWS 18 \u00b7 LWS 19', type: 'coach' },
+      { date: '22.04.26', score: 56, note: 'HWS 18 \u00b7 BWS 18 \u00b7 LWS 20', type: 'self'  },
+      { date: '13.05.26', score: 55, note: 'HWS 18 \u00b7 BWS 18 \u00b7 LWS 19', type: 'coach' },
+      { date: '03.06.26', score: 58, note: 'HWS 19 \u00b7 BWS 19 \u00b7 LWS 20', type: 'self'  },
+      { date: '24.06.26', score: 56, note: 'HWS 18 \u00b7 BWS 19 \u00b7 LWS 19', type: 'self'  },
+      { date: '04.07.26', score: 57, note: 'HWS 19 \u00b7 BWS 19 \u00b7 LWS 19', type: 'coach' },
     ],
     exerciseHistory: {
-      sessions: ['01.04.', '13.05.', '24.06.', '04.07.'],
+      sessions: ['01.04.26','22.04.26','13.05.26','03.06.26','24.06.26','04.07.26'],
       exercises: [
-        { name: 'BWS Extension', category: 'BWS', max: 5, values: [3, 3, 3, 3] },
-        { name: 'Tandemstand', category: 'Gleichgewicht', max: 4, values: [3, 3, 3, 3] },
-        { name: 'HWS Rotation re.', category: 'HWS', max: 4, values: [3, 3, 4, 4] },
+        { name: 'BWS Extension',    category: 'BWS',           max: 5, values: [3,3,3,3,3,3], notes: [null,null,null,null,null,null] },
+        { name: 'Tandemstand',      category: 'Gleichgewicht', max: 4, values: [3,3,3,3,3,3], notes: [null,null,null,null,null,null] },
+        { name: 'HWS Rotation re.', category: 'HWS',           max: 4, values: [3,3,3,3,4,4], notes: [null,null,null,null,null,null] },
       ]
-    }
+    },
+    archivedExercises: [
+      { name: 'Katzenbuckel', category: 'BWS', since: '13.05.26' },
+    ]
   },
   {
     id: 'sandra',
@@ -634,35 +604,46 @@ const CLIENTS = [
     trainingsplaene: 1,
     focus: 'Motivation & Knie',
     goal: 'dranbleiben ohne \u00dcberforderung',
+    anamnese: {
+      date: '05.05.2026',
+      trigger: 'Knieschmerzen nach Schreibtischjob (8h sitzend), Motivationsprobleme seit Monaten',
+      pain: 'Knie links 5/10 nach l\u00e4ngerem Sitzen, Schw\u00e4che im Oberschenkel',
+      goal: 'Schmerzfreies Treppensteigen, wieder Sport treiben ohne Knieschmerzen'
+    },
     signal: {
       title: 'Motivationseinbruch \u2014 Hilfebedarf gemeldet',
       sub: 'Gemeldet im Check-in vom 03.07.2026 \u00b7 dringend bearbeiten'
     },
     checkins: [
-      { date: '03.07.', text: 'F\u00fchlt sich \u00fcberfordert, braucht mehr Unterst\u00fctzung.', score: 1, satisfaction: 2, exercises: '1/4 erledigt', pain: null, progress: null, goal: 'Plan vereinfachen', help: 'mehr Unterst\u00fctzung' },
-      { date: '26.06.', text: 'Knieschmerzen nach langer Sitzarbeit, Training unregelm\u00e4\u00dfig.', score: 2, satisfaction: 2, exercises: '2/4 erledigt', pain: 'Knie nach Sitzen', progress: null, goal: 'kurze Einheiten', help: 'Motivation' },
-      { date: '19.06.', text: 'Einstieg okay, aber Zeitmanagement ist schwierig.', score: 3, satisfaction: 3, exercises: '2/4 erledigt', pain: null, progress: 'Einstieg geschafft', goal: 'feste Termine', help: null },
+      { date: '03.07.', text: 'F\u00fchlt sich \u00fcberfordert, braucht mehr Unterst\u00fctzung.', score: 1, satisfaction: 2, exercises: '1/4 erledigt', pain: null, progress: null, struggle: 'Morgens aufraffen, \u00dcbungen starten', goal: 'Plan vereinfachen', help: 'mehr Unterst\u00fctzung' },
+      { date: '26.06.', text: 'Knieschmerzen nach langer Sitzarbeit, Training unregelm\u00e4\u00dfig.', score: 2, satisfaction: 2, exercises: '2/4 erledigt', pain: 'Knie nach Sitzen', progress: null, struggle: 'Schmerzen lassen Training sinnlos erscheinen', goal: 'kurze Einheiten', help: 'Motivation' },
+      { date: '19.06.', text: 'Einstieg okay, aber Zeitmanagement ist schwierig.', score: 3, satisfaction: 3, exercises: '2/4 erledigt', pain: null, progress: 'Einstieg geschafft', struggle: null, goal: 'feste Termine', help: null },
     ],
     trendPts: '0,56 130,60 260,65 390,72 520,78 650,82 780,84',
     trendText: '\u2198 sinkend \u2014 Abw\u00e4rtstrend letzte 4 Screenings',
     screenings: [
-      { date: '05.05.26', score: 54, note: 'HWS 17 \u00b7 BWS 18 \u00b7 LWS 19' },
-      { date: '19.05.26', score: 45, note: 'HWS 15 \u00b7 BWS 15 \u00b7 LWS 15' },
-      { date: '02.06.26', score: 34, note: 'HWS 12 \u00b7 BWS 11 \u00b7 LWS 11' },
-      { date: '16.06.26', score: 24, note: 'HWS 9 \u00b7 BWS 8 \u00b7 LWS 7' },
-      { date: '30.06.26', score: 17, note: 'HWS 6 \u00b7 BWS 6 \u00b7 LWS 5' },
-      { date: '03.07.26', score: 12, note: 'HWS 4 \u00b7 BWS 4 \u00b7 LWS 4' },
+      { date: '05.05.26', score: 54, note: 'HWS 17 \u00b7 BWS 18 \u00b7 LWS 19', type: 'coach' },
+      { date: '19.05.26', score: 45, note: 'HWS 15 \u00b7 BWS 15 \u00b7 LWS 15', type: 'self'  },
+      { date: '02.06.26', score: 34, note: 'HWS 12 \u00b7 BWS 11 \u00b7 LWS 11', type: 'coach' },
+      { date: '16.06.26', score: 24, note: 'HWS 9 \u00b7 BWS 8 \u00b7 LWS 7',   type: 'self'  },
+      { date: '30.06.26', score: 17, note: 'HWS 6 \u00b7 BWS 6 \u00b7 LWS 5',   type: 'self'  },
+      { date: '03.07.26', score: 12, note: 'HWS 4 \u00b7 BWS 4 \u00b7 LWS 4',   type: 'coach' },
     ],
     exerciseHistory: {
-      sessions: ['05.05.', '02.06.', '30.06.', '03.07.'],
+      sessions: ['05.05.26','19.05.26','02.06.26','16.06.26','30.06.26','03.07.26'],
       exercises: [
-        { name: 'Tandemstand', category: 'Gleichgewicht', max: 4, values: [3, 2, 2, 1] },
-        { name: 'Kniebeuge', category: 'Kraft', max: 5, values: [3, 2, 2, 1] },
-        { name: 'LWS Flexion', category: 'LWS', max: 5, values: [4, 3, 2, 2] },
+        { name: 'Tandemstand', category: 'Gleichgewicht', max: 4,              values: [3,3,2,2,2,1], notes: [null,null,null,null,null,null] },
+        { name: 'Kniebeuge',   category: 'Kraft',         max: 5, sets: '3\u00d78', values: [3,3,2,2,2,1], notes: [null,null,null,'nur halbe ROM, Knieschmerzen',null,null] },
+        { name: 'LWS Flexion', category: 'LWS',           max: 5,              values: [4,4,3,3,2,2], notes: [null,null,null,null,null,null] },
       ]
-    }
+    },
+    archivedExercises: [
+      { name: 'Ausfallschritte', category: 'Kraft', since: '02.06.26' },
+    ]
   },
 ];
+
+/* ── Helper functions ──────────────────────────────── */
 
 function scoreLabel(kks) {
   if (kks <= 40)  return 'Aufholbedarf';
@@ -677,9 +658,9 @@ function trendColor(dir) {
   return 'var(--text-2)';
 }
 
-function fieldChip(label, value, cls = '') {
+function fieldChip(label, value, cls) {
   if (!value) return '';
-  return `<span class="tl-chip ${cls}">${label}: ${value}</span>`;
+  return '<span class="tl-chip ' + (cls || '') + '">' + label + ': ' + value + '</span>';
 }
 
 function ampelClass(value) {
@@ -689,224 +670,274 @@ function ampelClass(value) {
 }
 
 function renderScreeningNote(note) {
-  return note.replace(/(HWS|BWS|LWS) (\d+)/g, (_, label, value) => {
-    const num = Number(value);
-    return `<span class="screening-cat"><span class="ampel-dot ${ampelClass(num)}"></span>${label} ${num}</span>`;
+  return note.replace(/(HWS|BWS|LWS) (\d+)/g, function(_, label, value) {
+    var num = Number(value);
+    return '<span class="screening-cat"><span class="ampel-dot ' + ampelClass(num) + '"></span>' + label + ' ' + num + '</span>';
   });
+}
+
+function renderAnamnese(a) {
+  if (!a) return '';
+  return '<div class="anamnese-block">' +
+    '<button class="anamnese-toggle" type="button">\u25b8 Anamnese anzeigen</button>' +
+    '<div class="anamnese-body">' +
+      '<div class="anamnese-grid">' +
+        '<div class="anamnese-field">' +
+          '<span class="anamnese-label">Eingang</span>' +
+          '<span class="anamnese-value">' + a.date + '</span>' +
+        '</div>' +
+        '<div class="anamnese-field">' +
+          '<span class="anamnese-label">Schmerzen bei Anamnese</span>' +
+          '<span class="anamnese-value">' + (a.pain || '\u2013') + '</span>' +
+        '</div>' +
+        '<div class="anamnese-field" style="grid-column:span 2">' +
+          '<span class="anamnese-label">Ausl\u00f6ser / Hintergrund</span>' +
+          '<span class="anamnese-value">' + a.trigger + '</span>' +
+        '</div>' +
+        '<div class="anamnese-field" style="grid-column:span 2">' +
+          '<span class="anamnese-label">Ziel / Erwartung</span>' +
+          '<span class="anamnese-value">' + a.goal + '</span>' +
+        '</div>' +
+      '</div>' +
+    '</div>' +
+  '</div>';
+}
+
+function renderArchivedExercises(archived) {
+  if (!archived || archived.length === 0) return '';
+  var items = archived.map(function(ex) {
+    return '<div class="archive-item">' +
+      '<span class="archive-name">' + ex.name + '</span>' +
+      '<span class="archive-meta">' + ex.category + ' \u00b7 nicht aktiv seit ' + ex.since + '</span>' +
+    '</div>';
+  }).join('');
+  return '<div class="archive-block">' +
+    '<button class="archive-toggle" type="button" data-count="' + archived.length + '">' +
+      '\u25b8 Archivierte \u00dcbungen (' + archived.length + ')' +
+    '</button>' +
+    '<div class="archive-body">' + items + '</div>' +
+  '</div>';
 }
 
 function renderExerciseHistory(eh) {
   if (!eh) return '';
-  const { sessions, exercises } = eh;
-  const cols = sessions.length;
-  const gridCols = `1fr repeat(${cols}, 76px)`;
+  var sessions = eh.sessions, exercises = eh.exercises;
+  var cols = sessions.length;
+  var gridCols = '1fr repeat(' + cols + ', 76px)';
 
-  const headerCells = sessions.map(d =>
-    `<span class="excomp-date-th">${d}</span>`
-  ).join('');
-
-  const rows = exercises.map(ex => {
-    const cells = ex.values.map((v, i) => {
-      if (i === 0) {
-        return `<div class="excomp-val"><span class="val-num">${v}</span><span class="val-max">/${ex.max}</span></div>`;
-      }
-      const diff = v - ex.values[i - 1];
-      let arrowCls, arrowSym;
-      if (diff > 0)      { arrowCls = 'up';      arrowSym = '↑'; }
-      else if (diff < 0) { arrowCls = 'down';    arrowSym = '↓'; }
-      else               { arrowCls = 'neutral';  arrowSym = '→'; }
-      return `<div class="excomp-val">
-        <span class="val-num">${v}</span><span class="val-max">/${ex.max}</span>
-        <span class="ex-arrow ${arrowCls}">${arrowSym}</span>
-      </div>`;
-    }).join('');
-
-    return `<div class="excomp-row" style="grid-template-columns:${gridCols}">
-      <div class="excomp-name-cell">
-        <span class="excomp-exercise">${ex.name}</span>
-        <span class="excomp-cat">${ex.category}</span>
-      </div>
-      ${cells}
-    </div>`;
+  var headerCells = sessions.map(function(d) {
+    return '<span class="excomp-date-th">' + d + '</span>';
   }).join('');
 
-  return `
-  <div class="excomp-wrap">
-    <div class="excomp-head">
-      <p class="section-label" style="margin:0;">\u00dcbungsverlauf im Vergleich</p>
-      <span class="excomp-hint">${cols} Screening-Termine</span>
-    </div>
-    <div class="excomp-table">
-      <div class="excomp-header" style="grid-template-columns:${gridCols}">
-        <span class="excomp-name-th">\u00dcbung</span>
-        ${headerCells}
-      </div>
-      ${rows}
-    </div>
-  </div>`;
+  var rows = exercises.map(function(ex) {
+    var setsHTML = ex.sets ? '<span class="excomp-sets">' + ex.sets + ' Wdh</span>' : '';
+    var cells = ex.values.map(function(v, i) {
+      var noteText = ex.notes && ex.notes[i];
+      var noteHTML = noteText ? '<span class="ex-note-icon" title="' + noteText + '">\u24d8</span>' : '';
+      var valHTML = '<span class="val-num">' + v + '</span><span class="val-max">/' + ex.max + '</span>';
+      if (i === 0) {
+        return '<div class="excomp-val">' + valHTML + noteHTML + '</div>';
+      }
+      var diff = v - ex.values[i - 1];
+      var cls = diff > 0 ? 'up' : diff < 0 ? 'down' : 'neutral';
+      var sym = diff > 0 ? '\u2191' : diff < 0 ? '\u2193' : '\u2192';
+      return '<div class="excomp-val">' + valHTML + '<span class="ex-arrow ' + cls + '">' + sym + '</span>' + noteHTML + '</div>';
+    }).join('');
+
+    return '<div class="excomp-row" style="grid-template-columns:' + gridCols + '">' +
+      '<div class="excomp-name-cell">' +
+        '<span class="excomp-exercise">' + ex.name + '</span>' +
+        '<span class="excomp-cat">' + ex.category + '</span>' +
+        setsHTML +
+      '</div>' +
+      cells +
+    '</div>';
+  }).join('');
+
+  return '<div class="excomp-wrap">' +
+    '<div class="excomp-head">' +
+      '<p class="section-label" style="margin:0;">\u00dcbungsverlauf im Vergleich</p>' +
+      '<span class="excomp-hint">' + cols + ' Screenings</span>' +
+    '</div>' +
+    '<div class="excomp-table">' +
+      '<div class="excomp-header" style="grid-template-columns:' + gridCols + '">' +
+        '<span class="excomp-name-th">\u00dcbung</span>' +
+        headerCells +
+      '</div>' +
+      rows +
+    '</div>' +
+  '</div>';
 }
 
 function renderDetail(c) {
-  const pct = (c.kks / 160 * 100).toFixed(1);
-  const lastCheckin = c.checkins[0]?.date || '\u2014';
-  const startScreening = c.screenings[0]?.date || '\u2014';
+  var pct = (c.kks / 160 * 100).toFixed(1);
+  var lastCheckin = (c.checkins[0] && c.checkins[0].date) || '\u2014';
+  var startScreening = (c.screenings[0] && c.screenings[0].date) || '\u2014';
+  var totalWeeks = c.week.split(' von ')[1];
 
-  const signalHTML = c.signal
-    ? `<div class="signal-card">
-        <div class="signal-head">
-          <span class="dot signal"></span>
-          <span class="signal-tag">Aktives Signal</span>
-        </div>
-        <p class="signal-title">${c.signal.title}</p>
-        <p class="signal-sub">${c.signal.sub}</p>
-       </div>`
-    : `<div class="signal-card">
-        <div class="signal-head">
-          <span class="dot progress"></span>
-          <span class="signal-tag">Signal-Status</span>
-        </div>
-        <p class="signal-title">Kein aktives Signal</p>
-        <p class="signal-sub">Letzter Check-in unauf\u00e4llig \u00b7 weiter beobachten</p>
-       </div>`;
+  var signalHTML = c.signal
+    ? '<div class="signal-card">' +
+        '<div class="signal-head"><span class="dot signal"></span><span class="signal-tag">Aktives Signal</span></div>' +
+        '<p class="signal-title">' + c.signal.title + '</p>' +
+        '<p class="signal-sub">' + c.signal.sub + '</p>' +
+      '</div>'
+    : '<div class="signal-card">' +
+        '<div class="signal-head"><span class="dot progress"></span><span class="signal-tag">Signal-Status</span></div>' +
+        '<p class="signal-title">Kein aktives Signal</p>' +
+        '<p class="signal-sub">Letzter Check-in unauf\u00e4llig \u00b7 weiter beobachten</p>' +
+      '</div>';
 
-  const checkinsHTML = c.checkins.map(ci => {
-    const scoreClass = ci.score <= 2 ? 'signal' : '';
-    const chips = [
-      fieldChip('Befinden', `${ci.score}/5`, scoreClass),
-      fieldChip('Zufriedenheit', `${ci.satisfaction}/5`),
-      fieldChip('\u00dcbungen', ci.exercises),
-      fieldChip('Schmerzsignal', ci.pain, 'signal'),
-      fieldChip('Fortschritt', ci.progress, 'progress'),
-      fieldChip('Ziel', ci.goal),
-      fieldChip('Hilfebedarf', ci.help, 'signal'),
+  var checkinsHTML = c.checkins.map(function(ci) {
+    var scoreClass = ci.score <= 2 ? 'signal' : '';
+    var chips = [
+      fieldChip('Befinden',         ci.score + '/5', scoreClass),
+      fieldChip('Zufriedenheit',    ci.satisfaction + '/5'),
+      fieldChip('\u00dcbungen',     ci.exercises),
+      fieldChip('Schmerzsignal',    ci.pain,     'signal'),
+      fieldChip('Fortschritt',      ci.progress, 'progress'),
+      fieldChip('Ziel',             ci.goal),
+      fieldChip('Womit schwer tun', ci.struggle),
+      fieldChip('Hilfebedarf',      ci.help,     'signal'),
     ].join('');
-    return `<div class="tl-row">
-      <span class="tl-date">${ci.date}</span>
-      <div>
-        <div class="tl-text">${ci.text}</div>
-        <div class="tl-fields">${chips}</div>
-      </div>
-    </div>`;
+    return '<div class="tl-row">' +
+      '<span class="tl-date">' + ci.date + '</span>' +
+      '<div><div class="tl-text">' + ci.text + '</div><div class="tl-fields">' + chips + '</div></div>' +
+    '</div>';
   }).join('');
 
-  const screeningsHTML = c.screenings.map(s => `
-    <div class="screening-row">
-      <span class="screening-date">${s.date}</span>
-      <span class="screening-score">${s.score}/160</span>
-      <span class="screening-note">${renderScreeningNote(s.note)}</span>
-    </div>
-  `).join('');
+  var screeningsHTML = c.screenings.map(function(s) {
+    var typeLbl = s.type === 'coach' ? 'Coach' : 'Selbst';
+    return '<div class="screening-row">' +
+      '<span class="screening-date">'  + s.date  + '</span>' +
+      '<span class="screening-score">' + s.score + '/160</span>' +
+      '<span class="screening-note">'  + renderScreeningNote(s.note) + '</span>' +
+      '<span class="screening-type '   + s.type + '">' + typeLbl + '</span>' +
+    '</div>';
+  }).join('');
 
-  const col = trendColor(c.trendDir);
+  var col = trendColor(c.trendDir);
 
-  return `
-    <div class="client-header">
-      <div class="who">
-        <div class="avatar-lg">${c.initials}</div>
-        <div>
-          <h1>${c.name}</h1>
-          <p class="meta">Coaching seit ${c.since} &middot; Woche ${c.week} &middot; Coach: ${c.coach}</p>
-          <p class="case-meta">
-            <span>Fokus: ${c.focus}</span>
-            <span>Ziel: ${c.goal}</span>
-            <span>Letzter Check-in: ${lastCheckin}</span>
-            <span>Trainingsp\u00e4ne: ${c.trainingsplaene}</span>
-            <span>Start-Screening: ${startScreening}</span>
-          </p>
-        </div>
-      </div>
-      <div class="header-action">
-        <button class="btn note-toggle" type="button">Notiz hinzuf\u00fcgen</button>
-        <div class="note-box" aria-hidden="true">
-          <textarea placeholder="Kurze Coach-Notiz..."></textarea>
-        </div>
-      </div>
-    </div>
+  return '<div class="client-header">' +
+      '<div class="who">' +
+        '<div class="avatar-lg">' + c.initials + '</div>' +
+        '<div>' +
+          '<h1>' + c.name + '</h1>' +
+          '<p class="meta">Coaching seit ' + c.since + ' &middot; Woche ' + c.week + ' &middot; Coach: ' + c.coach + '</p>' +
+          '<p class="case-meta">' +
+            '<span>Fokus: ' + c.focus + '</span>' +
+            '<span>Ziel: ' + c.goal + '</span>' +
+            '<span>Programm: ' + totalWeeks + '&thinsp;Wochen</span>' +
+            '<span>Letzter Check-in: ' + lastCheckin + '</span>' +
+            '<span>Trainingspl\u00e4ne: ' + c.trainingsplaene + '</span>' +
+            '<span>Start-Screening: ' + startScreening + '</span>' +
+          '</p>' +
+        '</div>' +
+      '</div>' +
+      '<div class="header-action">' +
+        '<button class="btn note-toggle" type="button">Notiz hinzuf\u00fcgen</button>' +
+        '<div class="note-box" aria-hidden="true"><textarea placeholder="Kurze Coach-Notiz..."></textarea></div>' +
+      '</div>' +
+    '</div>' +
 
-    <div class="instrument-row">
-      <div class="score-card">
-        <p class="score-label">KKS-Score</p>
-        <p class="score-value">${c.kks}<span> /160</span></p>
-        <div class="score-bar-track">
-          <div class="score-bar-fill" style="width:${pct}%"></div>
-        </div>
-        <p class="score-sub">${scoreLabel(c.kks)}</p>
-      </div>
-      ${signalHTML}
-    </div>
+    '<div class="instrument-row">' +
+      '<div class="score-card">' +
+        '<p class="score-label">KKS-Score</p>' +
+        '<p class="score-value">' + c.kks + '<span> /160</span></p>' +
+        '<div class="score-bar-track"><div class="score-bar-fill" style="width:' + pct + '%"></div></div>' +
+        '<p class="score-sub">' + scoreLabel(c.kks) + '</p>' +
+      '</div>' +
+      signalHTML +
+    '</div>' +
 
-    <p class="section-label">Check-in-Verlauf</p>
-    <div class="timeline">${checkinsHTML}</div>
+    renderAnamnese(c.anamnese) +
 
-    <div class="trend-wrap">
-      <div class="trend-head">
-        <p class="section-label" style="margin:0;">KKS-Verlauf</p>
-        <span class="arrow" style="color:${col}">${c.trendText}</span>
-      </div>
-      <svg width="100%" height="80" viewBox="0 0 820 90" preserveAspectRatio="none">
-        <polyline points="${c.trendPts}" fill="none" stroke="${col}"
-                  stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-      <div class="screening-list">
-        <p class="section-label">Bisherige Screenings</p>
-        ${screeningsHTML}
-      </div>
-    </div>
+    '<p class="section-label">Check-in-Verlauf</p>' +
+    '<div class="timeline">' + checkinsHTML + '</div>' +
 
-    ${renderExerciseHistory(c.exerciseHistory)}
-  `;
+    '<div class="trend-wrap">' +
+      '<div class="trend-head">' +
+        '<p class="section-label" style="margin:0;">KKS-Verlauf</p>' +
+        '<span class="arrow" style="color:' + col + '">' + c.trendText + '</span>' +
+      '</div>' +
+      '<svg width="100%" height="80" viewBox="0 0 820 90" preserveAspectRatio="none">' +
+        '<polyline points="' + c.trendPts + '" fill="none" stroke="' + col + '" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>' +
+      '</svg>' +
+      '<div class="screening-list">' +
+        '<p class="section-label">Bisherige Screenings</p>' +
+        screeningsHTML +
+      '</div>' +
+    '</div>' +
+
+    renderExerciseHistory(c.exerciseHistory) +
+    renderArchivedExercises(c.archivedExercises);
 }
 
 function renderRoster(activeId) {
-  return CLIENTS.map(c => {
-    const flagHTML = c.flag ? `<span class="flag">${c.flag}</span>` : '';
-    return `<div class="client-row${c.id === activeId ? ' active' : ''}" data-id="${c.id}">
-      <span class="dot ${c.dotClass}"></span>
-      <div class="info">
-        <p class="cname">${c.name}</p>
-        <p class="cmeta">KKS ${c.kks}/160 &middot; ${c.trendLabel}</p>
-      </div>
-      ${flagHTML}
-    </div>`;
+  return CLIENTS.map(function(c) {
+    var flagHTML = c.flag ? '<span class="flag">' + c.flag + '</span>' : '';
+    return '<div class="client-row' + (c.id === activeId ? ' active' : '') + '" data-id="' + c.id + '">' +
+      '<span class="dot ' + c.dotClass + '"></span>' +
+      '<div class="info">' +
+        '<p class="cname">' + c.name + '</p>' +
+        '<p class="cmeta">KKS ' + c.kks + '/160 &middot; ' + c.trendLabel + '</p>' +
+      '</div>' +
+      flagHTML +
+    '</div>';
   }).join('');
 }
 
-let activeId = 'anna';
+var activeId = 'anna';
 
 function selectClient(id) {
   activeId = id;
-  document.querySelectorAll('.client-row').forEach(row => {
+  document.querySelectorAll('.client-row').forEach(function(row) {
     row.classList.toggle('active', row.dataset.id === id);
   });
-  const detail = document.getElementById('detail');
+  var detail = document.getElementById('detail');
   detail.style.opacity = '0';
-  setTimeout(() => {
-    detail.innerHTML = renderDetail(CLIENTS.find(c => c.id === id));
+  setTimeout(function() {
+    detail.innerHTML = renderDetail(CLIENTS.find(function(c) { return c.id === id; }));
     detail.style.opacity = '1';
-    if (window.innerWidth <= 800) {
-      detail.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+    if (window.innerWidth <= 800) detail.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }, 110);
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', function() {
   document.getElementById('roster-count').textContent = CLIENTS.length;
   document.getElementById('roster-list').innerHTML = renderRoster(activeId);
-  document.getElementById('detail').innerHTML = renderDetail(CLIENTS.find(c => c.id === activeId));
+  document.getElementById('detail').innerHTML = renderDetail(CLIENTS.find(function(c) { return c.id === activeId; }));
 
-  document.getElementById('roster-list').addEventListener('click', e => {
-    const row = e.target.closest('[data-id]');
+  document.getElementById('roster-list').addEventListener('click', function(e) {
+    var row = e.target.closest('[data-id]');
     if (row && row.dataset.id !== activeId) selectClient(row.dataset.id);
   });
 
-  document.getElementById('detail').addEventListener('click', e => {
-    const button = e.target.closest('.note-toggle');
-    if (!button) return;
-    const box = button.parentElement.querySelector('.note-box');
-    const isOpen = box.classList.toggle('open');
-    box.setAttribute('aria-hidden', String(!isOpen));
-    button.textContent = isOpen ? 'Notiz ausblenden' : 'Notiz hinzuf\u00fcgen';
-    if (isOpen) box.querySelector('textarea').focus();
+  document.getElementById('detail').addEventListener('click', function(e) {
+    var noteBtn = e.target.closest('.note-toggle');
+    if (noteBtn) {
+      var box = noteBtn.parentElement.querySelector('.note-box');
+      var isOpen = box.classList.toggle('open');
+      box.setAttribute('aria-hidden', String(!isOpen));
+      noteBtn.textContent = isOpen ? 'Notiz ausblenden' : 'Notiz hinzuf\u00fcgen';
+      if (isOpen) box.querySelector('textarea').focus();
+      return;
+    }
+    var anaBtn = e.target.closest('.anamnese-toggle');
+    if (anaBtn) {
+      var body = anaBtn.nextElementSibling;
+      var open = body.classList.toggle('open');
+      anaBtn.textContent = open ? '\u25be Anamnese ausblenden' : '\u25b8 Anamnese anzeigen';
+      return;
+    }
+    var archBtn = e.target.closest('.archive-toggle');
+    if (archBtn) {
+      var abody = archBtn.nextElementSibling;
+      var aopen = abody.classList.toggle('open');
+      var count = archBtn.dataset.count;
+      archBtn.textContent = aopen
+        ? '\u25be Archivierte \u00dcbungen ausblenden'
+        : '\u25b8 Archivierte \u00dcbungen (' + count + ')';
+    }
   });
 });
 </script>
